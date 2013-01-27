@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Switching quickly from 1 screen to 2</title>
+
+    <meta name="description" content="My front page on the internet">
+    <meta name="author" content="Bacardi55">
+    <meta name="viewport" content="width=device-width">
+
+    
+    
+    <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="../../../../css/main.css">
+    <link rel="stylesheet" href="../../../../css/highlight.css">
+
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../../../..">Bacardi55 front page</a>
+                <div class="nav-collapse collapse">
+                                            <ul class="nav">
+                                                                                                                        <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                                            </ul>
+                    
+                                            <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Switching quickly from 1 screen to 2 <small>with xrandr</small></h1>
+                  </div>
+                              
+              <p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
+&nbsp;
+<span style="color: #007800;">NB</span>=<span style="color: #000000; font-weight: bold;">`</span>xrandr<span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">grep</span> <span style="color: #ff0000;">&quot; connected&quot;</span><span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">wc</span> -l<span style="color: #000000; font-weight: bold;">`</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;<span style="color: #007800;">$NB</span>&quot;</span> <span style="color: #660033;">-eq</span> <span style="color: #000000;">2</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+  xrandr <span style="color: #660033;">--output</span> VGA-<span style="color: #000000;">0</span> <span style="color: #660033;">--auto</span> <span style="color: #660033;">--left-of</span> LVDS
+  <span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> = <span style="color: #ff0000;">&quot;off&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+    xrandr <span style="color: #660033;">--output</span> LVDS <span style="color: #660033;">--off</span>
+  <span style="color: #000000; font-weight: bold;">fi</span>
+<span style="color: #000000; font-weight: bold;">else</span>
+  xrandr <span style="color: #660033;">--auto</span>
+<span style="color: #000000; font-weight: bold;">fi</span></pre>
+
+<p>I named my script <code>dualscreen</code>.
+Now, I you just have to run <code>dualscreen</code> in a term (or in a launcher like dmenu or your kde/gnome launcher). Then the script will the detect if 1 or 2 screen are plugged and do what it need to do.</p>
+
+<p>If you want to plug a second screen and switch off the screen of the laptop, you can run <code>dualscreen off</code> and there you go !</p>
+
+<p>Of course you need to adapt the output name depending on your hardware. Just run <code>randr</code> in a terminal.
+For example, here is what I have running <code>xrandr</code>:</p>
+
+<pre class="bash" style="font-family:monospace;">Screen <span style="color: #000000;">0</span>: minimum <span style="color: #000000;">320</span> x <span style="color: #000000;">200</span>, current <span style="color: #000000;">1366</span> x <span style="color: #000000;">768</span>, maximum <span style="color: #000000;">16384</span> x <span style="color: #000000;">16384</span>
+LVDS connected 1366x768+<span style="color: #000000;">0</span>+<span style="color: #000000;">0</span> <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span> 0mm x 0mm
+1366x768       <span style="color: #000000;">60.2</span><span style="color: #000000; font-weight: bold;">*</span>+
+1280x720       <span style="color: #000000;">59.9</span>
+1152x768       <span style="color: #000000;">59.8</span>
+1024x768       <span style="color: #000000;">59.9</span>
+800x600        <span style="color: #000000;">59.9</span>
+848x480        <span style="color: #000000;">59.7</span>
+720x480        <span style="color: #000000;">59.7</span>
+640x480        <span style="color: #000000;">59.4</span>
+DisplayPort-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+HDMI-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+VGA-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span></pre>
+
+<p>This means that I have 4 outputs. The LVDS is my laptop output. Then, plug your screen and run the xrandr command again.
+You'll see another output connected. This is the one you should use in the script.</p>
+
+<p>Bonus:</p>
+
+<p>If you are lucky enough that your computer send an acpi signal or something to detect that a screen is plugged, you can do it automatically.</p>
+
+<p>Unfortunatly it's not the case with my current laptop so I don't know more ^^. Maybe someone can send me an email with the procedure :).</p>            </div>
+          </div>
+        
+            <footer>
+        <p>
+            In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
+        <p>
+        <p>
+            &copy;
+                            <a href="http://blog.bacardi55.org">
+                  Bacardi55
+                </a>
+                        2013
+            <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+            </small>
+        </p>
+    </footer>
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+    <script src="../../../../js/vendor/bootstrap.min.js"></script>
+    <script src="../../../../js/main.js"></script>
+      </body>
+</html>
