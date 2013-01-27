@@ -1,0 +1,46 @@
+{% extends 'vendor/carew/theme-bootstrap/layouts/index.html.twig'%}
+
+{% block content_main %}
+    {% if posts %}
+        <h2>Blog post</h2>
+        <ul>
+            {% for post in posts %}
+                <li><a href="{{ relativeRoot }}/{{ post.path }}">{{ post.metadatas.date|date('M d') }}: {{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if tags %}
+        <h2>Tags</h2>
+        <ul>
+            {% for tag in tags|keys %}
+                <li><a href="{{ relativeRoot }}/tags/{{ tag }}.html">{{ tag|title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content_title %}
+<div class="page-header">
+    <h1>
+        {{ document.title|default(site.title|default('aaa')) }}
+    </h1>
+</div>
+{% endblock %}
+
+{% block nav_right %}
+    <ul class="nav pull-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                Bacardi55
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
+                <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
+                <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
+                <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
+            </ul>
+        </li>
+    </ul>
+{% endblock %}

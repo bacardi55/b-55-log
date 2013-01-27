@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Bacardi55 front page</title>
+    <subtitle>My front page on the internet</subtitle>
+    <link href="/index.atom" rel="self" />
+    <link href="/" />
+    <id>Bacardi55 front page</id>
+    <updated>2013-01-27T02:36:29+01:00</updated>        <entry>
+        <title>New blog</title>
+        <link rel="alternate" type="text/html" href="/2013/01/20/new-blog.html"/>
+        <id>2013/01/20/new-blog.html</id>
+        <updated>2013-01-20T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email></email>
+        </author>
+    </entry>
+    </feed>
