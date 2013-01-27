@@ -3,7 +3,7 @@ title: About me
 subtitle: bacardi55
 tags: about_me
 navigation: main
-layout: index
+layout: page
 ---
 
 About me

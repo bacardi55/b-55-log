@@ -3,7 +3,7 @@ title: About this blog
 subtitle: b{55,log}
 tags: about_me
 navigation: main
-layout: index
+layout: page
 ---
 
 About this blog
