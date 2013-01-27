@@ -5,7 +5,27 @@
     <link href="/index.atom" rel="self" />
     <link href="/" />
     <id>Bacardi55 front page</id>
-    <updated>2013-01-27T02:36:29+01:00</updated>        <entry>
+    <updated>2013-01-27T03:38:20+01:00</updated>        <entry>
+        <title>Save a vim file despite open it as a simple user</title>
+        <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
+        <id>2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html</id>
+        <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email></email>
+        </author>
+    </entry>
+        <entry>
+        <title>Make a RSS feed from a Solr research in drupal</title>
+        <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
+        <id>2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html</id>
+        <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email></email>
+        </author>
+    </entry>
+        <entry>
         <title>New blog</title>
         <link rel="alternate" type="text/html" href="/2013/01/20/new-blog.html"/>
         <id>2013/01/20/new-blog.html</id>
