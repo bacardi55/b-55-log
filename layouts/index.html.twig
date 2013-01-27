@@ -1,5 +1,52 @@
 {% extends 'vendor/carew/theme-bootstrap/layouts/index.html.twig'%}
 
+{% block header %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="{{ relativeRoot }}">{{ site.title|default('') }}</a>
+                <div class="nav-collapse collapse">
+                    {% block nav_left %}
+                        <ul class="nav">
+                        {% if navigation.main is defined %}
+                            {% for document in navigation.main %}
+                                {% if document.path == currentPath %}
+                                    <li class="active"><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
+                                {% else %}
+                                    <li><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        </ul>
+                    {% endblock %}
+
+                    {% block nav_right %}
+                        <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block content_main %}
     {% if posts %}
         <h2>Blog post</h2>
@@ -28,22 +75,6 @@
 </div>
 {% endblock %}
 
-{% block nav_right %}
-    <ul class="nav pull-right">
-        <li class="dropdown">
-            <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
-                Bacardi55
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
-                <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
-                <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
-                <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
-            </ul>
-        </li>
-    </ul>
-{% endblock %}
 
 {% block content_footer %}
     <footer>
