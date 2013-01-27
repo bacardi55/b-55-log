@@ -14,7 +14,7 @@
         "carew/carew": "~1.0",
         "carew/theme-bootstrap": "~1.0",
         "carew/plugin-toc": "~1.0",
-        "carew/plugin-highlight": "~1.0",
+        "carew/plugin-highlight": "dev-master",
         "easybook/geshi": "dev-master"
     }
 }

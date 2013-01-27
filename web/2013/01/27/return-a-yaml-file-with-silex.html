@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Return a Yaml file with silex</title>
+
+    <meta name="description" content="My front page on the internet">
+    <meta name="author" content="Bacardi55">
+    <meta name="viewport" content="width=device-width">
+
+    
+    
+    <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="../../../../css/main.css">
+    <link rel="stylesheet" href="../../../../css/highlight.css">
+
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../../../..">Bacardi55 front page</a>
+                  <div class="nav-collapse collapse">
+                                          <ul class="nav">
+                                                                                                            <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                                    </ul>
+                                                          </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Return a Yaml file with silex</h1>
+                  </div>
+                              
+                <article>
+    <div class="date pull-right">
+      Jan 27th, 2013
+    </div>
+
+    <div class="body">
+      <p>Today, I wanted to return a Yaml file to my browser but I wanted to be forced to download it.</p>
+
+<p>It's not a file so I can not use the $app-&gt;stream helper. Instead I return a simple http response.</p>
+
+<p>As I didn't find right away my answer, I thought about putting it in a blog post.</p>
+
+<p>In your controller, add :</p>
+
+<p><code>use Symfony\Component\HttpFoundation\Response;</code></p>
+
+<p>Then, where you want to return your yaml file:</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> Response<span style="color: #009900;">&#40;</span>
+    <span style="color: #000088;">$yaml</span><span style="color: #339933;">,</span>
+    <span style="color: #cc66cc;">200</span><span style="color: #339933;">,</span>
+    <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'Content-Type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'text/x-yaml'</span><span style="color: #339933;">,</span>
+        <span style="color: #0000ff;">'Content-Disposition'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'attachment; filename=&quot;filename.yaml&quot;'</span>
+    <span style="color: #009900;">&#41;</span>
+<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>And there you go :)</p>
+    </div>
+
+
+          <hr>
+      <h4>Tags:</h4>
+      <ul class="tag_box inline">
+                  <li><a href="../../../../tags/silex.html">Silex</a></li>
+                  <li><a href="../../../../tags/yaml.html">Yaml</a></li>
+                  <li><a href="../../../../tags/php.html">Php</a></li>
+              </ul>
+      </article>
+            </div>
+          </div>
+        
+                  <footer>
+            <p>
+              &copy;
+                              <a href="http://blog.bacardi55.org">
+                  Bacardi55
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+              </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+    <script src="../../../../js/vendor/bootstrap.min.js"></script>
+    <script src="../../../../js/main.js"></script>
+      </body>
+</html>
