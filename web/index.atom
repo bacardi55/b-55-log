@@ -5,7 +5,7 @@
     <link href="/index.atom" rel="self" />
     <link href="/" />
     <id>Bacardi55 front page</id>
-    <updated>2013-01-28T01:43:26+01:00</updated>        <entry>
+    <updated>2013-01-29T00:05:15+01:00</updated>        <entry>
         <title>Adding a default «vhost» to nginx</title>
         <link rel="alternate" type="text/html" href="/2013/01/28/adding-a-default-vhost-to-nginx.html"/>
         <id>2013/01/28/adding-a-default-vhost-to-nginx.html</id>
