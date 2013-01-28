@@ -3,7 +3,7 @@ site:
     description:  My front page on the internet
     author_name:  Bacardi55
     author_email: admin@bacardi55.org
-    author_url:   http://blog.bacardi55.org
+    author_url:   http://bacardi55.org
 
 engine:
     themes: %dir%/vendor/carew/theme-bootstrap
