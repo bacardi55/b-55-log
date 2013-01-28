@@ -5,7 +5,17 @@
     <link href="/index.atom" rel="self" />
     <link href="/" />
     <id>Bacardi55 front page</id>
-    <updated>2013-01-28T00:36:58+01:00</updated>        <entry>
+    <updated>2013-01-28T01:43:26+01:00</updated>        <entry>
+        <title>Adding a default «vhost» to nginx</title>
+        <link rel="alternate" type="text/html" href="/2013/01/28/adding-a-default-vhost-to-nginx.html"/>
+        <id>2013/01/28/adding-a-default-vhost-to-nginx.html</id>
+        <updated>2013-01-28T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email></email>
+        </author>
+    </entry>
+        <entry>
         <title>Switching quickly from 1 screen to 2</title>
         <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
         <id>2013/01/28/switching-quickly-from-1-screen-to-2.html</id>
@@ -16,9 +26,9 @@
         </author>
     </entry>
         <entry>
-        <title>Make a RSS feed from a Solr research in drupal</title>
-        <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
-        <id>2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html</id>
+        <title>Return a Yaml file with silex</title>
+        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
+        <id>2013/01/27/return-a-yaml-file-with-silex.html</id>
         <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
@@ -36,9 +46,9 @@
         </author>
     </entry>
         <entry>
-        <title>Return a Yaml file with silex</title>
-        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
-        <id>2013/01/27/return-a-yaml-file-with-silex.html</id>
+        <title>Make a RSS feed from a Solr research in drupal</title>
+        <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
+        <id>2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html</id>
         <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>

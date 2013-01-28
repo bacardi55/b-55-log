@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Adding a default «vhost» to nginx</title>
+
+    <meta name="description" content="My front page on the internet">
+    <meta name="author" content="Bacardi55">
+    <meta name="viewport" content="width=device-width">
+
+    
+    
+    <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="../../../../css/main.css">
+    <link rel="stylesheet" href="../../../../css/highlight.css">
+
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../../../..">Bacardi55 front page</a>
+                <div class="nav-collapse collapse">
+                                            <ul class="nav">
+                                                                                                                        <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                                            </ul>
+                    
+                                            <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Adding a default «vhost» to nginx</h1>
+                  </div>
+                              
+              <p>Today I wanted to install this blog on my new <a href="http://nginx.org" title="nginx">nginx</a> server. As this site is simply static html file, I thought why not using it as well to try to learn how to use it.</p>
+
+<p>So I created my server :</p>
+
+<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span>;
+  server_name bacardi55.org;
+  root <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>www<span style="color: #000000; font-weight: bold;">/</span>b-<span style="color: #000000;">55</span>-log<span style="color: #000000; font-weight: bold;">/</span>web;
+&nbsp;
+  access_log  <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>blog_access.log;
+  error_log   <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>blog_error.log;
+<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+
+<p>Then, I wanted to add two other domain to redirect to this one:</p>
+
+<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span>;
+  server_name domaine2.tld domaine3.tld;
+  access_log <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>other_domaine.access.log;
+&nbsp;
+  rewrite        ^ http:<span style="color: #000000; font-weight: bold;">//</span>bacardi55.org permanent;
+<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+
+<p>But It didn't work as I didn't have a default server.
+The redirection wasn't apply as nginx considered my blog server the default. So the to 2 other vhost keep working and wasn't redirected. I didn't like that because I don't want this blog to be indexed 3 times by search engines.</p>
+
+<p>So to correct this, I had to create a default server that redirect everything that didn't match any of my other server_name.
+This is what I put in my conf file:</p>
+
+<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span> default;
+  server_name _;
+  access_log <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>default.access.log;
+&nbsp;
+  server_name_in_redirect off;
+&nbsp;
+  root  <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>www<span style="color: #000000; font-weight: bold;">/</span>;
+<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+
+<p>Be carefull though, I followed the documentation and put</p>
+
+<pre class="bash" style="font-family:monospace;">listen <span style="color: #000000;">80</span> default;</pre>
+
+<p>And there you go :)</p>
+
+<p>But it didn't work. I actually had to put the <code>IP:80</code> instead of just <code>80</code> as in the official doc.</p>
+
+<p>I may have miss something in my nginx that make it doesn't work but if than can help someone other than me :).</p>            </div>
+          </div>
+        
+            <footer>
+        <p>
+            In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
+        <p>
+        <p>
+            &copy;
+                            <a href="http://blog.bacardi55.org">
+                  Bacardi55
+                </a>
+                        2013
+            <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+            </small>
+        </p>
+    </footer>
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+    <script src="../../../../js/vendor/bootstrap.min.js"></script>
+    <script src="../../../../js/main.js"></script>
+      </body>
+</html>
