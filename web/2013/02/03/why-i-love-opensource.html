@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Adding a default «vhost» to nginx</title>
+    <title>Why I love opensource</title>
 
     <meta name="description" content="My front page on the internet">
     <meta name="author" content="Bacardi55">
@@ -72,57 +72,34 @@
                   <div class="row">
             <div class="span10 offset1 content">
                                                 <div class="page-header">
-                    <h1>Adding a default «vhost» to nginx</h1>
+                    <h1>Why I love opensource <small>To create new project</small></h1>
                   </div>
                               
-              <p>Today I wanted to install this blog on my new <a href="http://nginx.org" title="nginx">nginx</a> server. As this site is simply static html file, I thought why not using it as well to try to learn how to use it.</p>
+              <p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
 
-<p>So I created my server :</p>
+<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
 
-<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
-  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span>;
-  server_name bacardi55.org;
-  root <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>www<span style="color: #000000; font-weight: bold;">/</span>b-<span style="color: #000000;">55</span>-log<span style="color: #000000; font-weight: bold;">/</span>web;
-&nbsp;
-  access_log  <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>blog_access.log;
-  error_log   <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>blog_error.log;
-<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
 
-<p>Then, I wanted to add two other domain to redirect to this one:</p>
+<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
+This post isn't about presenting silex, it's just to thanks the opensource community.</p>
 
-<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
-  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span>;
-  server_name domaine2.tld domaine3.tld;
-  access_log <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>other_domaine.access.log;
-&nbsp;
-  rewrite        ^ http:<span style="color: #000000; font-weight: bold;">//</span>bacardi55.org permanent;
-<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
 
-<p>But It didn't work as I didn't have a default server.
-The redirection wasn't apply as nginx considered my blog server the default. So the to 2 other vhost keep working and wasn't redirected. I didn't like that because I don't want this blog to be indexed 3 times by search engines.</p>
+<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
+I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
 
-<p>So to correct this, I had to create a default server that redirect everything that didn't match any of my other server_name.
-This is what I put in my conf file:</p>
+<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
 
-<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
-  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span> default;
-  server_name _;
-  access_log <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>default.access.log;
-&nbsp;
-  server_name_in_redirect off;
-&nbsp;
-  root  <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>www<span style="color: #000000; font-weight: bold;">/</span>;
-<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
+Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
 
-<p>Be carefull though, I followed the documentation and put</p>
+<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
 
-<pre class="bash" style="font-family:monospace;">listen <span style="color: #000000;">80</span> default;</pre>
+<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
+This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
 
-<p>And there you go :)</p>
-
-<p>But it didn't work. I actually had to put the <code>IP:80</code> instead of just <code>80</code> as in the official doc.</p>
-
-<p>I may have miss something in my nginx that make it doesn't work but if than can help someone other than me :).</p>            </div>
+<p><strong>Open source, live long and prosper!</strong></p>            </div>
           </div>
         
             <footer>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Presenting Github Php dashBoard</title>
+
+    <meta name="description" content="My front page on the internet">
+    <meta name="author" content="Bacardi55">
+    <meta name="viewport" content="width=device-width">
+
+    
+    
+    <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="../../../../css/main.css">
+
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../../../..">Bacardi55 front page</a>
+                <div class="nav-collapse collapse">
+                                            <ul class="nav">
+                                                                                                                        <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                        <li><a href="http://projects.bacardi55.org">My projects</a></li>
+                                                </ul>
+                    
+                                            <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
+                                    <li><a href="http://project/bacardi55.org" alt="my projects">My projects</a><li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Presenting Github Php dashBoard <small>Aka GPH</small></h1>
+                  </div>
+                              
+              <p>My new project page is now available <a href="http://projects.bacardi55.org" title="bacardi55's projects">here</a>.</p>
+
+<h2 id="your-what-">Your what?<a href="#your-what-" class="anchor">#</a></h2>
+
+<p>My new project homepage! This project is very simple as there is only on screen. GPB create a page that will display information about any github project you want (as long as it is a public project).</p>
+
+<p>GPB create a dashboard presenting several informations about github repositories like the description, the number of commits, the last commits, ect&hellip; (see <a href="http://projects.bacardi55.org" title="bacardi55's project page">my project homepage</a>) to see what it is displayed.</p>
+
+<h2 id="why-did-you-do-that-">Why did you do that?<a href="#why-did-you-do-that-" class="anchor">#</a></h2>
+
+<p>I changed my blog for a reason: to change my &laquo; php developer web card &raquo; (my presence on the web). The first step was <a href="http://bacardi55.org">this blog</a>. I want it to be the frontpage.</p>
+
+<p>Now that I've done this, as long as I keep writing blog post, I fullfil my first goal.</p>
+
+<p>The second step was a page to present nicely my opensource projects. I have my <a href="http://github.com/bacardi55">github page</a> but I don't like the way it is presented. So I decided to create a quick page for that. I wanted to code something simple that would load a config an display the informations (as simple as yaml file). When I start thinking about what I would write inside the description for each project, I thought about what I wrote on github. I thought about copying / pasting it but i didn't like the idea of maintening the same text in 2 different places.</p>
+
+<p><em>That's how GPB is borned!</em></p>
+
+<h2 id="what-is-gpb-">What is GPB?<a href="#what-is-gpb-" class="anchor">#</a></h2>
+
+<p>I created GPB, aka Github Php dashBoard (previously Github Php Board, that's why GPB :)), to simply get all the informations about my github projects and display it in a classy way. Doing this, I just need to keep my github project cleans and everything will be fine :).</p>
+
+<h2 id="how-does-it-works-">How does it works?<a href="#how-does-it-works-" class="anchor">#</a></h2>
+
+<p>There is a simple <code>config.yml</code> file that let you choose the github projects to display (you can choose projects from different users). It use only the non authenticated github api so you won't be able to create repo or stuff like that from GPB. That was not the primary goal and I don't know if it will be one day.</p>
+
+<p>The default config file (the one that create my project page) is :</p>
+
+<pre class="yaml" style="font-family:monospace;"><span style="color: #007F45;">githubPhpBoard</span>:<span style="color: green;">
+    title</span><span style="font-weight: bold; color: brown;">: </span>Bacardi55 project page<span style="color: #007F45;">
+    subtitle</span>:<span style="color: #007F45;">
+    users</span>:<span style="color: #007F45;">
+        - bacardi55</span><span style="font-weight: bold; color: brown;">:
+</span>            - b-<span style="">55</span>-log
+            - i55WebManager
+            - jobEscaper55
+            - dotfiles
+            - gpb<span style="color: #007F45;">
+        - lyrixx</span><span style="font-weight: bold; color: brown;">:
+</span>            - Silex-Kitchen-Edition</pre>
+
+<p>All you have to do is put a title, a subtitle (optional) and then choose the users/projects to display. As you can see, I put my personnal projects and silex kitchen projects (for the example). That way, you can also put your contribution to other projects.</p>
+
+<h2 id="what-s-behind-it-">What's behind it?<a href="#what-s-behind-it-" class="anchor">#</a></h2>
+
+<p>This app is written in <a href="http://php.net" title="php">PHP</a> based on the <a href="https://github.com/lyrixx/Silex-Kitchen-Edition" title="silex kitchen">Silex kitchen</a> version of the <a href="http://silex.sensio.org" title="silex">Silex micro framework</a> with the help of the excellent <a href="https://github.com/ornicar/php-github-api">php github api</a>. The view part is done with <a href="http://twig.sensio.org" title="twig">twig</a> and <a href="http://twitter.github.com/bootstrap/">twitter bootstrap</a>.</p>
+
+<h2 id="how-to-install-it-">How to install it?<a href="#how-to-install-it-" class="anchor">#</a></h2>
+
+<p>Thanks to composer, you just have to</p>
+
+<p>Install <a href="http://getcomposer.org">composer</a> if it's not already done:</p>
+
+<pre class="bash" style="font-family:monospace;">php <span style="color: #660033;">-r</span> <span style="color: #ff0000;">&quot;eval('?&gt;'.file_get_contents('https://getcomposer.org/installer'));&quot;</span></pre>
+
+<p>Then, thanks to composer, you just need to:</p>
+
+<pre class="bash" style="font-family:monospace;">php composer.phar <span style="color: #c20cb9; font-weight: bold;">install</span></pre>
+
+<p>And there you go!</p>
+
+<p><strong><em>Be carefull</em></strong>: You'll need the php5-curl extension.</p>
+
+<p>Then, edit the <code>src/B55/gpb/resources/config/config.yml</code> or edit the <code>resources/config/prod.php</code> to set your configuration location and then create it (by copying the default one for example) and set your dashboard informations (the second option is the proper way).</p>
+
+<p>Don't forget to remove the index_dev.php!</p>
+
+<p><strong>The page are set in cache for 15min to avoid being shutdown by github (limit request number).</strong></p>
+
+<p>The cache time will soon be configurable.</p>
+
+<p>If you have too many projects and often rich the limit (and getting a 503 error page), you can &laquo;quick fixed&raquo; it by editing <code>src/B55/gpb/Controller/GpbControllerProvider.php</code> and add :</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #000088;">$github_api</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">authenticate</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$login</span><span style="color: #339933;">,</span> <span style="color: #000088;">$password</span><span style="color: #339933;">,</span> GithubClient<span style="color: #339933;">::</span><span style="color: #004000;">AUTH_HTTP_PASSWORD</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>before</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #000088;">$factory</span> <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> GpbFactory<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>I'll will change that some day to use the proper way and generate a token for the app.</p>
+
+<h2 id="what-s-next-">What's next?<a href="#what-s-next-" class="anchor">#</a></h2>
+
+<p>Now that I have this pages, what's next for GPB?</p>
+
+<ul><li>Configuration per project of the information you want to display (summary, commits, pull request, issues, &hellip;)</li>
+<li>cache time configurable</li>
+<li>better authentication</li>
+<li>A page for each project (why not getting project.github.com static page to do that? or parsing the readme.me?)</li>
+<li>&hellip; I'll see where i'll go with this latter :)</li>
+</ul><p>Thanks for reading this far! :)</p>            </div>
+          </div>
+        
+            <footer>
+        <p>
+            In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
+        <p>
+        <p>
+            &copy;
+                            <a href="http://bacardi55.org">
+                  Bacardi55
+                </a>
+                        2013
+            <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+            </small>
+        </p>
+    </footer>
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+    <script src="../../../../js/vendor/bootstrap.min.js"></script>
+      </body>
+</html>

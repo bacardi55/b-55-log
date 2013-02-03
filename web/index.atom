@@ -4,65 +4,118 @@
     <subtitle>My front page on the internet</subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-    <id>Bacardi55 front page</id>
-    <updated>2013-01-29T00:05:15+01:00</updated>        <entry>
-        <title>Adding a default «vhost» to nginx</title>
-        <link rel="alternate" type="text/html" href="/2013/01/28/adding-a-default-vhost-to-nginx.html"/>
-        <id>2013/01/28/adding-a-default-vhost-to-nginx.html</id>
-        <updated>2013-01-28T00:00:00+01:00</updated>
+            <updated>2013-02-03T03:13:43+01:00</updated>
+            <entry>
+        <title>Presenting Github Php dashBoard</title>
+        <content><![CDATA[My new project page is now available here.
+
+Your what?#
+
+My new project homepage]]></content>
+        <link rel="alternate" type="text/html" href="/2013/02/03/presenting-github-php-dashboard-gpb.html"/>
+                <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
-            <email></email>
+            <email>admin@bacardi55.org</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Why I love opensource</title>
+        <content><![CDATA[This is a quick blog post to say that I love opensource. Everyone who knows me k]]></content>
+        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
+                <updated>2013-02-03T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Add an twig extension in Silex</title>
+        <content><![CDATA[The problematic#
+
+Today, I wanted to use a twig extension for a new project (tha]]></content>
+        <link rel="alternate" type="text/html" href="/2013/02/02/add-an-twig-extension-in-silex.html"/>
+                <updated>2013-02-02T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Alternate css classes easily in twig</title>
+        <content><![CDATA[Today, I wanted to style a little bit my project.
+The basic way in classic PHP p]]></content>
+        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
+                <updated>2013-02-02T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Adding a default «vhost» to nginx</title>
+        <content><![CDATA[Today I wanted to install this blog on my new nginx server. As this site is simp]]></content>
+        <link rel="alternate" type="text/html" href="/2013/01/28/adding-a-default-vhost-to-nginx.html"/>
+                <updated>2013-01-28T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
         </author>
     </entry>
         <entry>
         <title>Switching quickly from 1 screen to 2</title>
+        <content><![CDATA[As I open to switch often between 1 and 2 screen (I use a laptop), I made a very]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
-        <id>2013/01/28/switching-quickly-from-1-screen-to-2.html</id>
-        <updated>2013-01-28T00:00:00+01:00</updated>
+                <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
-            <email></email>
-        </author>
-    </entry>
-        <entry>
-        <title>Return a Yaml file with silex</title>
-        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
-        <id>2013/01/27/return-a-yaml-file-with-silex.html</id>
-        <updated>2013-01-27T00:00:00+01:00</updated>
-        <author>
-            <name>Bacardi55</name>
-            <email></email>
+            <email>admin@bacardi55.org</email>
         </author>
     </entry>
         <entry>
         <title>Save a vim file despite open it as a simple user</title>
+        <content><![CDATA[If, as me, you often open a file forgetting to put sudo first, you hate that mes]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
-        <id>2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html</id>
-        <updated>2013-01-27T00:00:00+01:00</updated>
+                <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
-            <email></email>
+            <email>admin@bacardi55.org</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Return a Yaml file with silex</title>
+        <content><![CDATA[Today, I wanted to return a Yaml file to my browser but I wanted to be forced to]]></content>
+        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
+                <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
         </author>
     </entry>
         <entry>
         <title>Make a RSS feed from a Solr research in drupal</title>
+        <content><![CDATA[The problematic#
+
+At my work, I had the task to create a RSS feed on a Drupal we]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
-        <id>2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html</id>
-        <updated>2013-01-27T00:00:00+01:00</updated>
+                <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
-            <email></email>
+            <email>admin@bacardi55.org</email>
         </author>
     </entry>
         <entry>
         <title>New blog</title>
+        <content><![CDATA[Welcome on my new blog platform.#
+
+Again ? For real?#
+
+Yes! But this time, I wil]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/20/new-blog.html"/>
-        <id>2013/01/20/new-blog.html</id>
-        <updated>2013-01-20T00:00:00+01:00</updated>
+                <updated>2013-01-20T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
-            <email></email>
+            <email>admin@bacardi55.org</email>
         </author>
     </entry>
     </feed>

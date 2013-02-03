@@ -1,8 +1,8 @@
 {% extends "index.html.twig" %}
 
 {% block content_main %}
-  <ul>
-    {% for post  in posts %}
+  <ul class="inline">
+    {% for post in posts %}
       <li>
         <a href="{{ relativeRoot }}/{{ post.path }}">{{ post.title|title }}</a>
       </li>

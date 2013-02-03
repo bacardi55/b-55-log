@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Add an twig extension in Silex</title>
+
+    <meta name="description" content="My front page on the internet">
+    <meta name="author" content="Bacardi55">
+    <meta name="viewport" content="width=device-width">
+
+    
+    
+    <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="../../../../css/main.css">
+
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../../../..">Bacardi55 front page</a>
+                <div class="nav-collapse collapse">
+                                            <ul class="nav">
+                                                                                                                        <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                        <li><a href="http://projects.bacardi55.org">My projects</a></li>
+                                                </ul>
+                    
+                                            <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
+                                    <li><a href="http://project/bacardi55.org" alt="my projects">My projects</a><li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Add an twig extension in Silex</h1>
+                  </div>
+                              
+              <h2 id="the-problematic">The problematic<a href="#the-problematic" class="anchor">#</a></h2>
+
+<p>Today, I wanted to use a <a href="http://twig.sensiolabs.org" title="twig">twig</a> extension for a new project (that i'll present in a few days) in <a href="http://silex.sensio.org" title="silex">Silex</a>.</p>
+
+<p>To be precise, I wanted the awesome <a href="https://github.com/fabpot/Twig-extensions" title="twig extensions">twig text extension</a>. This extension let you for example truncate your text directly in the view. That removes code from the controller/model part but it's also usefull if you want to display a truncated text and a tooltip with the full text when putting your mouse over the text and passing only one variable with the full text.</p>
+
+<p>For example, if you want to display only the first 10 characters of the variable maVar, just :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #00aaff;">maVar</span><span style="color: #D36900;">|</span>truncate<span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">10</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>I found different answers on the internet but it didn't work for me.</p>
+
+<h2 id="the-solution">The solution<a href="#the-solution" class="anchor">#</a></h2>
+
+<p>In your app.php, just add :</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #000088;">$app</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">register</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> TwigServiceProvider<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span>
+    <span style="color: #0000ff;">'twig.options'</span>        <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span>
+        <span style="color: #0000ff;">'cache'</span>            <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/isset"><span style="color: #990000;">isset</span></a><span style="color: #009900;">&#40;</span><span style="color: #000088;">$app</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'twig.options.cache'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span> ? <span style="color: #000088;">$app</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'twig.options.cache'</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">:</span> <span style="color: #009900; font-weight: bold;">false</span><span style="color: #339933;">,</span>
+        <span style="color: #0000ff;">'strict_variables'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span>
+    <span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span>
+    <span style="color: #0000ff;">'twig.form.templates'</span> <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'form_div_layout.html.twig'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'common/form_div_layout.html.twig'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span>
+    <span style="color: #0000ff;">'twig.path'</span>           <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span>
+      __DIR__ <span style="color: #339933;">.</span> <span style="color: #0000ff;">'/../resources/views'</span><span style="color: #339933;">,</span>
+    <span style="color: #009900;">&#41;</span>
+<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000088;">$app</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'twig'</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$app</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">share</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$app</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">extend</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'twig'</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$twig</span><span style="color: #339933;">,</span> <span style="color: #000088;">$app</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000088;">$twig</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">addExtension</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> Twig_Extensions_Extension_Text<span style="color: #009900;">&#40;</span><span style="color: #000088;">$app</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+    <span style="color: #b1b100;">return</span> <span style="color: #000088;">$twig</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>You should already have the first <code>$app-&gt;register(new TwigServiceProvider(), &hellip;)</code> part if you use twig.</p>
+
+<p>The second part is the twig extension registration. Here, I add only one extension but you can add more by adding other <code>$twig-&gt;addExtensio(&hellip;)</code> if you want. There are many cool <a href="https://github.com/fabpot/Twig-extensions">twig extensions</a> (i18n, debug).</p>
+
+<p>There you go, you can now use the <code>truncate</code>, <code>wordwrap</code> (does as the <a href="http://www.php.net/manual/fr/function.wordwrap.php">wordwrap php function</a>) and <code>nl2br</code> filters in twig :).</p>
+
+<p><strong><em>Watch out</em></strong>: Don't forget the <code>return $twig;</code> line! I lost half an hour because of this so don't do as me ^^.</p>
+
+<p>As always, hope that will help someone (at least me when i'll have the same issue in another project ^^).</p>            </div>
+          </div>
+        
+            <footer>
+        <p>
+            In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
+        <p>
+        <p>
+            &copy;
+                            <a href="http://bacardi55.org">
+                  Bacardi55
+                </a>
+                        2013
+            <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+            </small>
+        </p>
+    </footer>
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+    <script src="../../../../js/vendor/bootstrap.min.js"></script>
+      </body>
+</html>
