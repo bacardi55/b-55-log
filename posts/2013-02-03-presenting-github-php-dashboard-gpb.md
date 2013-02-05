@@ -3,6 +3,7 @@ layout: post
 title:  Presenting Github Php dashBoard
 subtitle: Aka GPH
 tags:   [php, github, gpb, dashboard, about_me]
+author: bacardi55
 ---
 
 My new project page is now available [here](http://projects.bacardi55.org "bacardi55's projects").

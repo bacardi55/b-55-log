@@ -2,6 +2,7 @@
 layout: post
 title:  Return a Yaml file with silex
 tags:   [silex, yaml, php]
+author: bacardi55
 ---
 
 Today, I wanted to return a Yaml file to my browser but I wanted to be forced to download it.

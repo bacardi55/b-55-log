@@ -11,14 +11,13 @@
 
     <meta name="description" content="My front page on the internet">
     <meta name="author" content="Bacardi55">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     
     
-    <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="../../../../css/main.css">
-
+          <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="../../../../css/main.css">
     
     <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
@@ -37,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="../../../..">Bacardi55 front page</a>
+                <a class="brand" href="../../../..">Bacardi55&#039;s front page</a>
                 <div class="nav-collapse collapse">
                                             <ul class="nav">
                                                                                                                         <li><a href="../../../../about.html">About me</a></li>
@@ -53,7 +52,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
-                                    <li><a href="http://project/bacardi55.org" alt="my projects">My projects</a><li>
+                                    <li><a href="http://projects.bacardi55.org" alt="my projects">My projects</a><li>
                                     <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
                                     <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
                                     <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
@@ -69,13 +68,48 @@
           <div class="container">
 
         
-                  <div class="row">
-            <div class="span10 offset1 content">
+            <div class="row">
+        <div class="span10 offset1 content">
                                                 <div class="page-header">
-                    <h1>Add an twig extension in Silex</h1>
-                  </div>
-                              
-              <h2 id="the-problematic">The problematic<a href="#the-problematic" class="anchor">#</a></h2>
+                        <h1>Add an twig extension in Silex</h1>
+                    </div>
+                            
+                            <div class="pull-left">
+                                            By bacardi55 -
+                                        2013 February 02
+                </div>
+                                    <div class="pull-right">
+                        <ul class="tag_box inline">
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/silex.html">
+                                    silex
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/twig.html">
+                                    twig
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/twig extension.html">
+                                    twig extension
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/php.html">
+                                    php
+                                </a>
+                            </li>
+                                                  </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                                <hr />
+
+                <h2>The problematic</h2>
 
 <p>Today, I wanted to use a <a href="http://twig.sensiolabs.org" title="twig">twig</a> extension for a new project (that i'll present in a few days) in <a href="http://silex.sensio.org" title="silex">Silex</a>.</p>
 
@@ -87,7 +121,7 @@
 
 <p>I found different answers on the internet but it didn't work for me.</p>
 
-<h2 id="the-solution">The solution<a href="#the-solution" class="anchor">#</a></h2>
+<h2>The solution</h2>
 
 <p>In your app.php, just add :</p>
 
@@ -108,17 +142,20 @@
     <span style="color: #b1b100;">return</span> <span style="color: #000088;">$twig</span><span style="color: #339933;">;</span>
 <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
 
-<p>You should already have the first <code>$app-&gt;register(new TwigServiceProvider(), &hellip;)</code> part if you use twig.</p>
+<p>You should already have the first <code>$app-&gt;register(new TwigServiceProvider(), …)</code> part if you use twig.</p>
 
-<p>The second part is the twig extension registration. Here, I add only one extension but you can add more by adding other <code>$twig-&gt;addExtensio(&hellip;)</code> if you want. There are many cool <a href="https://github.com/fabpot/Twig-extensions">twig extensions</a> (i18n, debug).</p>
+<p>The second part is the twig extension registration. Here, I add only one extension but you can add more by adding other <code>$twig-&gt;addExtensio(…)</code> if you want. There are many cool <a href="https://github.com/fabpot/Twig-extensions">twig extensions</a> (i18n, debug).</p>
 
 <p>There you go, you can now use the <code>truncate</code>, <code>wordwrap</code> (does as the <a href="http://www.php.net/manual/fr/function.wordwrap.php">wordwrap php function</a>) and <code>nl2br</code> filters in twig :).</p>
 
 <p><strong><em>Watch out</em></strong>: Don't forget the <code>return $twig;</code> line! I lost half an hour because of this so don't do as me ^^.</p>
 
-<p>As always, hope that will help someone (at least me when i'll have the same issue in another project ^^).</p>            </div>
-          </div>
-        
+<p>As always, hope that will help someone (at least me when i'll have the same issue in another project ^^).</p>
+
+
+                    </div>
+      </div>
+
             <footer>
         <p>
             In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
@@ -137,8 +174,8 @@
       </div>
     
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
-    <script src="../../../../js/vendor/bootstrap.min.js"></script>
+          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="../../../../js/vendor/bootstrap.min.js"></script>
       </body>
 </html>

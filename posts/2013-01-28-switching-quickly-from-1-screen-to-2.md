@@ -3,6 +3,7 @@ layout: post
 title:  Switching quickly from 1 screen to 2
 subtitle: with xrandr
 tags: [dualscreen, xrandr, script, bash]
+author: bacardi55
 ---
 
 As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.

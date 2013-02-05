@@ -11,14 +11,13 @@
 
     <meta name="description" content="My front page on the internet">
     <meta name="author" content="Bacardi55">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     
     
-    <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="../../../../css/main.css">
-
+          <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="../../../../css/main.css">
     
     <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
@@ -37,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="../../../..">Bacardi55 front page</a>
+                <a class="brand" href="../../../..">Bacardi55&#039;s front page</a>
                 <div class="nav-collapse collapse">
                                             <ul class="nav">
                                                                                                                         <li><a href="../../../../about.html">About me</a></li>
@@ -53,7 +52,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
-                                    <li><a href="http://project/bacardi55.org" alt="my projects">My projects</a><li>
+                                    <li><a href="http://projects.bacardi55.org" alt="my projects">My projects</a><li>
                                     <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
                                     <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
                                     <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
@@ -69,28 +68,60 @@
           <div class="container">
 
         
-                  <div class="row">
-            <div class="span10 offset1 content">
+            <div class="row">
+        <div class="span10 offset1 content">
                                                 <div class="page-header">
-                    <h1>Sshfs For The Win!</h1>
-                  </div>
-                              
-              <p>I don't know other developers work (actually, I do have an idea since I see some of them every day ^^), but I don't like to work directly on my archlinux that runs my laptop.
-Projects are often very different from each other and the requirement are never the same (php version, mysql/maria db version, the php.ini, &hellip;).
+                        <h1>Sshfs For The Win!</h1>
+                    </div>
+                            
+                            <div class="pull-left">
+                                            By bacardi55 -
+                                        2013 February 04
+                </div>
+                                    <div class="pull-right">
+                        <ul class="tag_box inline">
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/gnu/linux.html">
+                                    gnu/linux
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/sshfs.html">
+                                    sshfs
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/unmount.html">
+                                    unmount
+                                </a>
+                            </li>
+                                                  </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                                <hr />
+
+                <p>I don't know other developers work (actually, I do have an idea since I see some of them every day ^^), but I don't like to work directly on my archlinux that runs my laptop.
+Projects are often very different from each other and the requirement are never the same (php version, mysql/maria db version, the php.ini, …).
 To avoid this, I use Virtual Machines. I choose to work with kvm and the libvirt to manage the virtual machines.</p>
 
 <p>I can now use 1 VM for each project. I can be a little bit more smart and regroup project that have the same configuration (or almost the same ^^) to avoir having 55 VM and being lost.</p>
 
 <p>Be carefull to not create too much VM. Imagine that you need to open 3 projects at the same time (it happens, 2 even more often), you'll have to open 3 Virtual Machines. Maybe you can do this with a very powerfull machine but mine can't do it so I group projects together when I can :).</p>
 
-<h2 id="edit-your-code">Edit your code<a href="#edit-your-code" class="anchor">#</a></h2>
+<h2>Edit your code</h2>
 
 <p>This is neat but when you do that, you have 3 solutions to write code on your VM:</p>
 
-<ul><li>Installing X on the VM and start using it in full screen;</li>
+<ul>
+<li>Installing X on the VM and start using it in full screen;</li>
 <li>Connect to the machine through ssh and start coding with vim;</li>
 <li>Use sshfs.</li>
-</ul><p>I don't even want to discuss the first option as I find it very dirty, heavy (you need 2 X), and makes me want to puke :p.
+</ul>
+
+<p>I don't even want to discuss the first option as I find it very dirty, heavy (you need 2 X), and makes me want to puke :p.
 The second option is ok if you use vim or other console text editor. But even in this case, it would mean to duplicate your vim configuration (or your other editor configuration). It could be done by having your configuration on a repository like git or mercurial or even svn but I don't like this method.</p>
 
 <p>The last method is my favorite: using sshfs (SSH FileSystem) to mount the directory where your source code is directly on your host.
@@ -98,13 +129,13 @@ You just need to do</p>
 
 <pre class="bash" style="font-family:monospace;">sshfs <span style="color: #c20cb9; font-weight: bold;">login</span><span style="color: #000000; font-weight: bold;">@</span>machine:<span style="color: #000000; font-weight: bold;">/</span>path<span style="color: #000000; font-weight: bold;">/</span>to<span style="color: #000000; font-weight: bold;">/</span>source<span style="color: #000000; font-weight: bold;">/</span>code <span style="color: #000000; font-weight: bold;">/</span>path<span style="color: #000000; font-weight: bold;">/</span>to<span style="color: #000000; font-weight: bold;">/</span>mountpoint</pre>
 
-<p>And voil&agrave;!</p>
+<p>And voilà!</p>
 
 <p>Now you can use your local editor and its beautifull configuration for all your projects :).</p>
 
 <p>There are plenty of docs on the internet to learn how to install and configure it, so i'll let you find them :)</p>
 
-<h2 id="tips">Tips<a href="#tips" class="anchor">#</a></h2>
+<h2>Tips</h2>
 
 <p>Two quick command though:</p>
 
@@ -112,7 +143,7 @@ You just need to do</p>
 
 <pre class="bash" style="font-family:monospace;">fusermount <span style="color: #660033;">-u</span> <span style="color: #000000; font-weight: bold;">/</span>path<span style="color: #000000; font-weight: bold;">/</span>to<span style="color: #000000; font-weight: bold;">/</span>mountpoint<span style="color: #000000; font-weight: bold;">/</span></pre>
 
-<p>If <code>fusermount -u&nbsp;/path/to/mountpoint/</code> doesn't work and tells you that the device is busy</p>
+<p>If <code>fusermount -u /path/to/mountpoint/</code> doesn't work and tells you that the device is busy</p>
 
 <p>Simply do</p>
 
@@ -120,9 +151,12 @@ You just need to do</p>
 
 <p>That should do the trick :)</p>
 
-<p>Hope that this could help someone (to be honnest, I started this blog post as a quick reminder for the last command ^^).</p>            </div>
-          </div>
-        
+<p>Hope that this could help someone (to be honnest, I started this blog post as a quick reminder for the last command ^^).</p>
+
+
+                    </div>
+      </div>
+
             <footer>
         <p>
             In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
@@ -141,8 +175,8 @@ You just need to do</p>
       </div>
     
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
-    <script src="../../../../js/vendor/bootstrap.min.js"></script>
+          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="../../../../js/vendor/bootstrap.min.js"></script>
       </body>
 </html>

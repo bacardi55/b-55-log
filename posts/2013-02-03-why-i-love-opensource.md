@@ -3,6 +3,7 @@ tags: [about_me, blabla]
 layout: post
 title:  Why I love opensource
 subtitle: To create new project
+author: bacardi55
 ---
 
 This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.

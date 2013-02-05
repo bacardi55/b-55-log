@@ -2,6 +2,7 @@
 layout: post
 title:  Alternate css classes easily in twig
 tags:   [twig, css]
+author: bacardi55
 ---
 
 Today, I wanted to style a little bit my project.

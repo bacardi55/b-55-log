@@ -2,6 +2,7 @@
 layout: post
 title:  Adding a default «vhost» to nginx
 tags: [nginx, vhost, default]
+author: bacardi55
 ---
 
 Today I wanted to install this blog on my new [nginx](http://nginx.org "nginx") server. As this site is simply static html file, I thought why not using it as well to try to learn how to use it.

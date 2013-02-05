@@ -2,6 +2,7 @@
 layout: post
 title:  Add an twig extension in Silex
 tags: [silex, twig, twig extension, php]
+author: bacardi55
 ---
 
 The problematic

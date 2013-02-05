@@ -35,7 +35,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
-                                    <li><a href="http://project/bacardi55.org" alt="my projects">My projects</a><li>
+                                    <li><a href="http://projects.bacardi55.org" alt="my projects">My projects</a><li>
                                     <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
                                     <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
                                     <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
@@ -51,28 +51,27 @@
 
 {% block content_main %}
     {% if posts %}
-        <h2>Blog post</h2>
-        <ul>
+        <h2>Articles:</h2>
+        <dl class="dl-horizontal">
             {% for post in posts %}
-                <li><a href="{{ relativeRoot }}/{{ post.path }}">{{ post.metadatas.date|date('M d') }}: {{ post.title }}</a></li>
+                <dt>
+                    {{ post.metadatas.date|date('Y F d') }}
+                </dt>
+                <dd>
+                    <a href="{{ relativeRoot }}/{{ post.path }}">{{ post.title }}</a>
+                    {% if post.metadatas.author is not null %}
+                        | by {{ post.metadatas.author }}
+                    {% endif %}
+                </dd>
             {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if tags %}
-        <h2>Tags</h2>
-        <ul>
-            {% for tag in tags|keys %}
-                <li><a href="{{ relativeRoot }}/tags/{{ tag }}.html">{{ tag|title }}</a></li>
-            {% endfor %}
-        </ul>
+        </dl>
     {% endif %}
 {% endblock %}
 
 {% block content_title %}
 <div class="page-header">
     <h1>
-        {{ document.title|default(site.title|default('aaa')) }}
+        {{ document.title|default(site.title|default('')) }}
     </h1>
 </div>
 {% endblock %}

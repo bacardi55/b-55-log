@@ -1,13 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>Bacardi55 front page</title>
+    <title>Bacardi55&#039;s front page</title>
     <subtitle>My front page on the internet</subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2013-02-04T22:48:24+01:00</updated>
+            <updated>2013-02-06T00:42:33+01:00</updated>
             <entry>
         <title>Sshfs For The Win!</title>
-        <content><![CDATA[I don't know other developers work (actually, I do have an idea since I see some]]></content>
+        <content><![CDATA[<p>I don't know other developers work (actually, I do have an idea since I see some of them every day ^^), but I don't like to work directly on my archlinux that runs my laptop.
+Projects are often very different from each other and the requirement are never the same (php version, mysql/maria db version, the php.ini, …).
+To avoid this, I use Virtual Machines. I choose to work with kvm and the libvirt to manage the virtual machines.</p>
+
+<p>I can now use 1 VM for each project. I can be a little bit more smart and regroup project that have the same configuration (or almost the same ^^) to avoir having 55 VM and being lost.</p>
+
+<p>Be carefull to not create too much VM. Imagine that you need to open 3 projects at the same time (it happens, 2 even more often), you'll have to open 3 Virtual Machines. Maybe you can do this with a very powerfull machine but mine can't do it so I group projects together when I can :).</p>
+
+<h2>Edit your code</h2>
+
+<p>This is neat but when you do that, you have 3 solutions to write code on your VM:</p>
+
+<ul>
+<li>Installing X on the VM and start using it in full screen;</li>
+<li>Connect to the machine through ssh and start coding with vim;</li>
+<li>Use sshfs.</li>
+</ul>
+
+<p>I don't even want to discuss the first option as I find it very dirty, heavy (you need 2 X), and makes me want to puke :p.
+The second option is ok if you use vim or other console text editor. But even in this case, it would mean to duplicate your vim configuration (or your other editor configuration). It could be done by having your configuration on a repository like git or mercurial or even svn but I don't like this method.</p>
+
+<p>The last method is my favorite: using sshfs (SSH FileSystem) to mount the directory where your source code is directly on your host.
+You just need to do</p>
+
+<pre class="bash" style="font-family:monospace;">sshfs <span style="color: #c20cb9; font-weight: bold;">login</span><span style="color: #000000; font-weight: bold;">@</span>machine:<span style="color: #000000; font-weight: bold;">/</span>path<span style="color: #000000; font-weight: bold;">/</span>to<span style="color: #000000; font-weight: bold;">/</span>source<span style="color: #000000; font-weight: bold;">/</span>code <span style="color: #000000; font-weight: bold;">/</span>path<span style="color: #000000; font-weight: bold;">/</span>to<span style="color: #000000; font-weight: bold;">/</span>mountpoint</pre>
+
+<p>And voilà!</p>
+
+<p>Now you can use your local editor and its beautifull configuration for all your projects :).</p>
+
+<p>There are plenty of docs on the internet to learn how to install and configure it, so i'll let you find them :)</p>
+
+<h2>Tips</h2>
+
+<p>Two quick command though:</p>
+
+<p>Unmount the directory:</p>
+
+<pre class="bash" style="font-family:monospace;">fusermount <span style="color: #660033;">-u</span> <span style="color: #000000; font-weight: bold;">/</span>path<span style="color: #000000; font-weight: bold;">/</span>to<span style="color: #000000; font-weight: bold;">/</span>mountpoint<span style="color: #000000; font-weight: bold;">/</span></pre>
+
+<p>If <code>fusermount -u /path/to/mountpoint/</code> doesn't work and tells you that the device is busy</p>
+
+<p>Simply do</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">umount</span> <span style="color: #660033;">-l</span> <span style="color: #000000; font-weight: bold;">/</span>path<span style="color: #000000; font-weight: bold;">/</span>to<span style="color: #000000; font-weight: bold;">/</span>mountpoint</pre>
+
+<p>That should do the trick :)</p>
+
+<p>Hope that this could help someone (to be honnest, I started this blog post as a quick reminder for the last command ^^).</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/02/04/sshfs-for-the-win.html"/>
                 <updated>2013-02-04T00:00:00+01:00</updated>
         <author>
@@ -17,7 +66,32 @@
     </entry>
         <entry>
         <title>Why I love opensource</title>
-        <content><![CDATA[This is a quick blog post to say that I love opensource. Everyone who knows me k]]></content>
+        <content><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
+
+<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
+
+<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
+
+<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
+This post isn't about presenting silex, it's just to thanks the opensource community.</p>
+
+<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
+
+<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
+I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
+
+<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
+
+<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
+Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
+
+<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
+
+<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
+This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
+
+<p><strong>Open source, live long and prosper!</strong></p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
@@ -27,11 +101,101 @@
     </entry>
         <entry>
         <title>Presenting Github Php dashBoard</title>
-        <content><![CDATA[My new project page is now available here.
+        <content><![CDATA[<p>My new project page is now available <a href="http://projects.bacardi55.org" title="bacardi55's projects">here</a>.</p>
 
-Your what?#
+<h2>Your what?</h2>
 
-My new project homepage]]></content>
+<p>My new project homepage! This project is very simple as there is only on screen. GPB create a page that will display information about any github project you want (as long as it is a public project).</p>
+
+<p>GPB create a dashboard presenting several informations about github repositories like the description, the number of commits, the last commits, ect… (see <a href="http://projects.bacardi55.org" title="bacardi55's project page">my project homepage</a>) to see what it is displayed.</p>
+
+<h2>Why did you do that?</h2>
+
+<p>I changed my blog for a reason: to change my « php developer web card » (my presence on the web). The first step was <a href="http://bacardi55.org">this blog</a>. I want it to be the frontpage.</p>
+
+<p>Now that I've done this, as long as I keep writing blog post, I fullfil my first goal.</p>
+
+<p>The second step was a page to present nicely my opensource projects. I have my <a href="http://github.com/bacardi55">github page</a> but I don't like the way it is presented. So I decided to create a quick page for that. I wanted to code something simple that would load a config an display the informations (as simple as yaml file). When I start thinking about what I would write inside the description for each project, I thought about what I wrote on github. I thought about copying / pasting it but i didn't like the idea of maintening the same text in 2 different places.</p>
+
+<p><em>That's how GPB is borned!</em></p>
+
+<h2>What is GPB?</h2>
+
+<p>I created GPB, aka Github Php dashBoard (previously Github Php Board, that's why GPB :)), to simply get all the informations about my github projects and display it in a classy way. Doing this, I just need to keep my github project cleans and everything will be fine :).</p>
+
+<h2>How does it works?</h2>
+
+<p>There is a simple <code>config.yml</code> file that let you choose the github projects to display (you can choose projects from different users). It use only the non authenticated github api so you won't be able to create repo or stuff like that from GPB. That was not the primary goal and I don't know if it will be one day.</p>
+
+<p>The default config file (the one that create my project page) is :</p>
+
+<pre class="yaml" style="font-family:monospace;"><span style="color: #007F45;">githubPhpBoard</span>:<span style="color: green;">
+    title</span><span style="font-weight: bold; color: brown;">: </span>Bacardi55 project page<span style="color: #007F45;">
+    subtitle</span>:<span style="color: #007F45;">
+    users</span>:<span style="color: #007F45;">
+        - bacardi55</span><span style="font-weight: bold; color: brown;">:
+</span>            - b-<span style="">55</span>-log
+            - i55WebManager
+            - jobEscaper55
+            - dotfiles
+            - gpb<span style="color: #007F45;">
+        - lyrixx</span><span style="font-weight: bold; color: brown;">:
+</span>            - Silex-Kitchen-Edition</pre>
+
+<p>All you have to do is put a title, a subtitle (optional) and then choose the users/projects to display. As you can see, I put my personnal projects and silex kitchen projects (for the example). That way, you can also put your contribution to other projects.</p>
+
+<h2>What's behind it?</h2>
+
+<p>This app is written in <a href="http://php.net" title="php">PHP</a> based on the <a href="https://github.com/lyrixx/Silex-Kitchen-Edition" title="silex kitchen">Silex kitchen</a> version of the <a href="http://silex.sensio.org" title="silex">Silex micro framework</a> with the help of the excellent <a href="https://github.com/ornicar/php-github-api">php github api</a>. The view part is done with <a href="http://twig.sensio.org" title="twig">twig</a> and <a href="http://twitter.github.com/bootstrap/">twitter bootstrap</a>.</p>
+
+<h2>How to install it?</h2>
+
+<p>Thanks to composer, you just have to</p>
+
+<p>Install <a href="http://getcomposer.org">composer</a> if it's not already done:</p>
+
+<pre class="bash" style="font-family:monospace;">php <span style="color: #660033;">-r</span> <span style="color: #ff0000;">&quot;eval('?&gt;'.file_get_contents('https://getcomposer.org/installer'));&quot;</span></pre>
+
+<p>Then, thanks to composer, you just need to:</p>
+
+<pre class="bash" style="font-family:monospace;">php composer.phar <span style="color: #c20cb9; font-weight: bold;">install</span></pre>
+
+<p>And there you go!</p>
+
+<p><strong><em>Be carefull</em></strong>: You'll need the php5-curl extension.</p>
+
+<p>Then, edit the <code>src/B55/gpb/resources/config/config.yml</code> or edit the <code>resources/config/prod.php</code> to set your configuration location and then create it (by copying the default one for example) and set your dashboard informations (the second option is the proper way).</p>
+
+<p>Don't forget to remove the index_dev.php!</p>
+
+<p><strong>The page are set in cache for 15min to avoid being shutdown by github (limit request number).</strong></p>
+
+<p>The cache time will soon be configurable.</p>
+
+<p>If you have too many projects and often rich the limit (and getting a 503 error page), you can «quick fixed» it by editing <code>src/B55/gpb/Controller/GpbControllerProvider.php</code> and add :</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #000088;">$github_api</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">authenticate</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$login</span><span style="color: #339933;">,</span> <span style="color: #000088;">$password</span><span style="color: #339933;">,</span> GithubClient<span style="color: #339933;">::</span><span style="color: #004000;">AUTH_HTTP_PASSWORD</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>before</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #000088;">$factory</span> <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> GpbFactory<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>I'll will change that some day to use the proper way and generate a token for the app.</p>
+
+<h2>What's next?</h2>
+
+<p>Now that I have this pages, what's next for GPB?</p>
+
+<ul>
+<li>Configuration per project of the information you want to display (summary, commits, pull request, issues, …)</li>
+<li>cache time configurable</li>
+<li>better authentication</li>
+<li>A page for each project (why not getting project.github.com static page to do that? or parsing the readme.me?)</li>
+<li>… I'll see where i'll go with this latter :)</li>
+</ul>
+
+<p>Thanks for reading this far! :)</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/02/03/presenting-github-php-dashboard-gpb.html"/>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
@@ -41,8 +205,41 @@ My new project homepage]]></content>
     </entry>
         <entry>
         <title>Alternate css classes easily in twig</title>
-        <content><![CDATA[Today, I wanted to style a little bit my project.
-The basic way in classic PHP p]]></content>
+        <content><![CDATA[<p>Today, I wanted to style a little bit my project.
+The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
+
+<p>For example:</p>
+
+<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
+
+<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
+
+<p>To use the modulo function in twig, just use</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
+
+<p>And there you go, as simple as in PHP.</p>
+
+<p>Then, using twig, you can do this:</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
+
+<p>Or in my case I needed this :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>To be able to use the index of my parent loop :)</p>
+
+<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>Isn't it beautiful ? But it gets even better!</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
                 <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
@@ -52,9 +249,49 @@ The basic way in classic PHP p]]></content>
     </entry>
         <entry>
         <title>Add an twig extension in Silex</title>
-        <content><![CDATA[The problematic#
+        <content><![CDATA[<h2>The problematic</h2>
 
-Today, I wanted to use a twig extension for a new project (tha]]></content>
+<p>Today, I wanted to use a <a href="http://twig.sensiolabs.org" title="twig">twig</a> extension for a new project (that i'll present in a few days) in <a href="http://silex.sensio.org" title="silex">Silex</a>.</p>
+
+<p>To be precise, I wanted the awesome <a href="https://github.com/fabpot/Twig-extensions" title="twig extensions">twig text extension</a>. This extension let you for example truncate your text directly in the view. That removes code from the controller/model part but it's also usefull if you want to display a truncated text and a tooltip with the full text when putting your mouse over the text and passing only one variable with the full text.</p>
+
+<p>For example, if you want to display only the first 10 characters of the variable maVar, just :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #00aaff;">maVar</span><span style="color: #D36900;">|</span>truncate<span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">10</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>I found different answers on the internet but it didn't work for me.</p>
+
+<h2>The solution</h2>
+
+<p>In your app.php, just add :</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #000088;">$app</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">register</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> TwigServiceProvider<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span>
+    <span style="color: #0000ff;">'twig.options'</span>        <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span>
+        <span style="color: #0000ff;">'cache'</span>            <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/isset"><span style="color: #990000;">isset</span></a><span style="color: #009900;">&#40;</span><span style="color: #000088;">$app</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'twig.options.cache'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span> ? <span style="color: #000088;">$app</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'twig.options.cache'</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">:</span> <span style="color: #009900; font-weight: bold;">false</span><span style="color: #339933;">,</span>
+        <span style="color: #0000ff;">'strict_variables'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span>
+    <span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span>
+    <span style="color: #0000ff;">'twig.form.templates'</span> <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'form_div_layout.html.twig'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'common/form_div_layout.html.twig'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span>
+    <span style="color: #0000ff;">'twig.path'</span>           <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span>
+      __DIR__ <span style="color: #339933;">.</span> <span style="color: #0000ff;">'/../resources/views'</span><span style="color: #339933;">,</span>
+    <span style="color: #009900;">&#41;</span>
+<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000088;">$app</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'twig'</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$app</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">share</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$app</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">extend</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'twig'</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$twig</span><span style="color: #339933;">,</span> <span style="color: #000088;">$app</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000088;">$twig</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">addExtension</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> Twig_Extensions_Extension_Text<span style="color: #009900;">&#40;</span><span style="color: #000088;">$app</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+    <span style="color: #b1b100;">return</span> <span style="color: #000088;">$twig</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>You should already have the first <code>$app-&gt;register(new TwigServiceProvider(), …)</code> part if you use twig.</p>
+
+<p>The second part is the twig extension registration. Here, I add only one extension but you can add more by adding other <code>$twig-&gt;addExtensio(…)</code> if you want. There are many cool <a href="https://github.com/fabpot/Twig-extensions">twig extensions</a> (i18n, debug).</p>
+
+<p>There you go, you can now use the <code>truncate</code>, <code>wordwrap</code> (does as the <a href="http://www.php.net/manual/fr/function.wordwrap.php">wordwrap php function</a>) and <code>nl2br</code> filters in twig :).</p>
+
+<p><strong><em>Watch out</em></strong>: Don't forget the <code>return $twig;</code> line! I lost half an hour because of this so don't do as me ^^.</p>
+
+<p>As always, hope that will help someone (at least me when i'll have the same issue in another project ^^).</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/02/02/add-an-twig-extension-in-silex.html"/>
                 <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
@@ -64,7 +301,55 @@ Today, I wanted to use a twig extension for a new project (tha]]></content>
     </entry>
         <entry>
         <title>Adding a default «vhost» to nginx</title>
-        <content><![CDATA[Today I wanted to install this blog on my new nginx server. As this site is simp]]></content>
+        <content><![CDATA[<p>Today I wanted to install this blog on my new <a href="http://nginx.org" title="nginx">nginx</a> server. As this site is simply static html file, I thought why not using it as well to try to learn how to use it.</p>
+
+<p>So I created my server :</p>
+
+<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span>;
+  server_name bacardi55.org;
+  root <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>www<span style="color: #000000; font-weight: bold;">/</span>b-<span style="color: #000000;">55</span>-log<span style="color: #000000; font-weight: bold;">/</span>web;
+&nbsp;
+  access_log  <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>blog_access.log;
+  error_log   <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>blog_error.log;
+<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+
+<p>Then, I wanted to add two other domain to redirect to this one:</p>
+
+<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span>;
+  server_name domaine2.tld domaine3.tld;
+  access_log <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>other_domaine.access.log;
+&nbsp;
+  rewrite        ^ http:<span style="color: #000000; font-weight: bold;">//</span>bacardi55.org permanent;
+<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+
+<p>But It didn't work as I didn't have a default server.
+The redirection wasn't apply as nginx considered my blog server the default. So the to 2 other vhost keep working and wasn't redirected. I didn't like that because I don't want this blog to be indexed 3 times by search engines.</p>
+
+<p>So to correct this, I had to create a default server that redirect everything that didn't match any of my other server_name.
+This is what I put in my conf file:</p>
+
+<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span> default;
+  server_name _;
+  access_log <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>default.access.log;
+&nbsp;
+  server_name_in_redirect off;
+&nbsp;
+  root  <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>www<span style="color: #000000; font-weight: bold;">/</span>;
+<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+
+<p>Be carefull though, I followed the documentation and put</p>
+
+<pre class="bash" style="font-family:monospace;">listen <span style="color: #000000;">80</span> default;</pre>
+
+<p>And there you go :)</p>
+
+<p>But it didn't work. I actually had to put the <code>IP:80</code> instead of just <code>80</code> as in the official doc.</p>
+
+<p>I may have miss something in my nginx that make it doesn't work but if than can help someone other than me :).</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/28/adding-a-default-vhost-to-nginx.html"/>
                 <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
@@ -74,7 +359,52 @@ Today, I wanted to use a twig extension for a new project (tha]]></content>
     </entry>
         <entry>
         <title>Switching quickly from 1 screen to 2</title>
-        <content><![CDATA[As I open to switch often between 1 and 2 screen (I use a laptop), I made a very]]></content>
+        <content><![CDATA[<p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
+&nbsp;
+<span style="color: #007800;">NB</span>=<span style="color: #000000; font-weight: bold;">`</span>xrandr<span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">grep</span> <span style="color: #ff0000;">&quot; connected&quot;</span><span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">wc</span> -l<span style="color: #000000; font-weight: bold;">`</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;<span style="color: #007800;">$NB</span>&quot;</span> <span style="color: #660033;">-eq</span> <span style="color: #000000;">2</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+  xrandr <span style="color: #660033;">--output</span> VGA-<span style="color: #000000;">0</span> <span style="color: #660033;">--auto</span> <span style="color: #660033;">--left-of</span> LVDS
+  <span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> = <span style="color: #ff0000;">&quot;off&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+    xrandr <span style="color: #660033;">--output</span> LVDS <span style="color: #660033;">--off</span>
+  <span style="color: #000000; font-weight: bold;">fi</span>
+<span style="color: #000000; font-weight: bold;">else</span>
+  xrandr <span style="color: #660033;">--auto</span>
+<span style="color: #000000; font-weight: bold;">fi</span></pre>
+
+<p>I named my script <code>dualscreen</code>.
+Now, I you just have to run <code>dualscreen</code> in a term (or in a launcher like dmenu or your kde/gnome launcher). Then the script will the detect if 1 or 2 screen are plugged and do what it need to do.</p>
+
+<p>If you want to plug a second screen and switch off the screen of the laptop, you can run <code>dualscreen off</code> and there you go !</p>
+
+<p>Of course you need to adapt the output name depending on your hardware. Just run <code>randr</code> in a terminal.
+For example, here is what I have running <code>xrandr</code>:</p>
+
+<pre class="bash" style="font-family:monospace;">Screen <span style="color: #000000;">0</span>: minimum <span style="color: #000000;">320</span> x <span style="color: #000000;">200</span>, current <span style="color: #000000;">1366</span> x <span style="color: #000000;">768</span>, maximum <span style="color: #000000;">16384</span> x <span style="color: #000000;">16384</span>
+LVDS connected 1366x768+<span style="color: #000000;">0</span>+<span style="color: #000000;">0</span> <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span> 0mm x 0mm
+1366x768       <span style="color: #000000;">60.2</span><span style="color: #000000; font-weight: bold;">*</span>+
+1280x720       <span style="color: #000000;">59.9</span>
+1152x768       <span style="color: #000000;">59.8</span>
+1024x768       <span style="color: #000000;">59.9</span>
+800x600        <span style="color: #000000;">59.9</span>
+848x480        <span style="color: #000000;">59.7</span>
+720x480        <span style="color: #000000;">59.7</span>
+640x480        <span style="color: #000000;">59.4</span>
+DisplayPort-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+HDMI-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+VGA-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span></pre>
+
+<p>This means that I have 4 outputs. The LVDS is my laptop output. Then, plug your screen and run the xrandr command again.
+You'll see another output connected. This is the one you should use in the script.</p>
+
+<p>Bonus:</p>
+
+<p>If you are lucky enough that your computer send an acpi signal or something to detect that a screen is plugged, you can do it automatically.</p>
+
+<p>Unfortunatly it's not the case with my current laptop so I don't know more ^^. Maybe someone can send me an email with the procedure :).</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
                 <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
@@ -84,9 +414,36 @@ Today, I wanted to use a twig extension for a new project (tha]]></content>
     </entry>
         <entry>
         <title>Make a RSS feed from a Solr research in drupal</title>
-        <content><![CDATA[The problematic#
+        <content><![CDATA[<h2>The problematic</h2>
 
-At my work, I had the task to create a RSS feed on a Drupal we]]></content>
+<hr />
+
+<p>At my work, I had the task to create a RSS feed on a Drupal website for some Solr search result pages.
+I was working on a project where all the listing pages were generated by solr request. As usual, the client asked for an RSS feed for this pages. But she also asked to be able to put a keyword in the search and have a RSS feed for only the search pages.
+To do that, I needed to launch the solr query to have the result of my RSS feed.
+I also needed to be do it outside Drupal to let the varnish cache it (without specific rules as the link won't need authentification).</p>
+
+<h2>My solution</h2>
+
+<hr />
+
+<p>I don't know if this is a perfect solution, but in that can help someone, here what I did.</p>
+
+<p>I had several options but I started by creating a rss.php controller.
+Inside I loaded my manager class that will include the needed files.
+I needed the settings.php to load the database settings. The class load the solr configuration and is now ready to create the query.</p>
+
+<p>In Drupal, After each solr request, I put in cache all fixed arguments of the query (like the content type, the publish options, ect…).
+After that, I generate a url with the request name (to retrieve it in cache) and the non fixed parameter (such as keywords).</p>
+
+<p>Then back in my manager, I parsed the url the retrieve the parameters. Then I load from the cache the fixed parameters of the request.
+I then generate the solr request and launch it thanks to the <a href="https://code.google.com/p/solr-php-client/">solr-php-client</a>.
+I tried to used the class within the apachesorl module, but there required a to high level of drupal bootstrapping.</p>
+
+<p>After that, I simply created a class that generate a RSS feed from a drupal request. I think this class is pretty generic and I'll try to put it on my github as an opensource lib.</p>
+
+<p>Hope that could help some developers that need to do a RSS feed from a drupal apache solr query :).</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
@@ -96,7 +453,16 @@ At my work, I had the task to create a RSS feed on a Drupal we]]></content>
     </entry>
         <entry>
         <title>Save a vim file despite open it as a simple user</title>
-        <content><![CDATA[If, as me, you often open a file forgetting to put sudo first, you hate that mes]]></content>
+        <content><![CDATA[<p>If, as me, you often open a file forgetting to put sudo first, you hate that message <code>'readonly' option is set</code>, there is a simple solution to save your file anyway and not redo everything after opening the file with sudo.</p>
+
+<p>You need to have sudo installed.</p>
+
+<p>In, vim, just do
+<code>:w !sudo tee %</code></p>
+
+<p>And there you go :)
+Make an alias in your vimrc and you'll never worried about forgetting to open a file with sudo.</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
@@ -106,7 +472,28 @@ At my work, I had the task to create a RSS feed on a Drupal we]]></content>
     </entry>
         <entry>
         <title>Return a Yaml file with silex</title>
-        <content><![CDATA[Today, I wanted to return a Yaml file to my browser but I wanted to be forced to]]></content>
+        <content><![CDATA[<p>Today, I wanted to return a Yaml file to my browser but I wanted to be forced to download it.</p>
+
+<p>It's not a file so I can not use the $app->stream helper. Instead I return a simple http response.</p>
+
+<p>As I didn't find right away my answer, I thought about putting it in a blog post.</p>
+
+<p>In your controller, add :</p>
+
+<p><code>use Symfony\Component\HttpFoundation\Response;</code></p>
+
+<p>Then, where you want to return your yaml file:</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> Response<span style="color: #009900;">&#40;</span>
+    <span style="color: #000088;">$yaml</span><span style="color: #339933;">,</span>
+    <span style="color: #cc66cc;">200</span><span style="color: #339933;">,</span>
+    <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'Content-Type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'text/x-yaml'</span><span style="color: #339933;">,</span>
+        <span style="color: #0000ff;">'Content-Disposition'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'attachment; filename=&quot;filename.yaml&quot;'</span>
+    <span style="color: #009900;">&#41;</span>
+<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>And there you go :)</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
@@ -116,11 +503,39 @@ At my work, I had the task to create a RSS feed on a Drupal we]]></content>
     </entry>
         <entry>
         <title>New blog</title>
-        <content><![CDATA[Welcome on my new blog platform.#
+        <content><![CDATA[<h2>Welcome on my new blog platform.</h2>
 
-Again ? For real?#
+<h3>Again ? For real?</h3>
 
-Yes! But this time, I wil]]></content>
+<p>Yes! But this time, I will write blog post and article and it will be in english.
+I apologize right now for all the mistakes I'll made through my posts.</p>
+
+<h3>Why a new blog platform?</h3>
+
+<p>I could have start writting in my wordpress blog but I wanted a fresh start as I feeling like a new developer since I got back my passion for coding at home since 2013. I wanted a clean plate and new stuff to write about.</p>
+
+<h3>Why do I use carew ?</h3>
+
+<p><a href="http://carew.github.com" title="Carew">Carew</a> is a static blog generator like <a href="http://jekyllrb.com/" title="jekyll">jekyll</a> but written in php. It means that I write my articles in plain text in markdown format (like on github) and then I build my static site and push the file on the server. It means that my blog will be on git (<a href="https://lab.bacardi55.org" title="gitlab">gitlab</a> and <a href="http://github.com/bacardi55" title="github">github</a>) and will be open sourced (what else©®).
+It could be strange to want to use a static site in 2013 when everything is dynamic. But I don't feel that my little blog is a place where there will be a lot of comments… This blog will be about stuff that I don't want to forget, about my laptop configuration that I like on my daily use and of course about coding. I intend to write article about my new dev but also about some php toughts and new php features.
+I really think it will help myself improve and stay keep up with all the exciting news in the web development! Hope many of you will enjoy them as well.</p>
+
+<h3>Why in english this time?</h3>
+
+<p>I wanted for a long time to have a blog in english. As I'm french, I thought about writting my blog posts both in english and french. But I realized I was way too lazy to do that ^^. So I thought about doing one in english.
+As I started 2013 by coding a lot at home, I thought this was the time to start this new blog by trying carew :).</p>
+
+<h3>What's new ?</h3>
+
+<p>I have 2 main project for right now:</p>
+
+<ul>
+<li>i55WebManager: This project intend to manage my <a href="http://i3wm.org" title="i3wm">i3</a> (i3 is my Window Manager) session and open for me all my windows in the wanted workspaces with the wanted layout. i55WebManager is a <a href="http://silex.sensiolabs.org/" title="silex">silex</a> application with <a href="http://twitter.github.com/bootstrap/" title="twitter bootstrap">twitter bootstrap</a>. It's a new version of my i3WebManager (I've redone it to use <a href="http://silex.sensiolabs.org/" title="silex">silex</a> with <a href="http://twitter.github.com/bootstrap/" title="twitter bootstrap">twitter bootstrap</a> and <a href="http://html5boilerplate.com/" title="html5boilerplate">html5boilerplate</a> and to use <a href="http://silex.sensiolabs.org/" title="silex">silex</a> in a better and proper way). There is more information on the i3WebManager page (the i55WebManager repo will soon be on github too).</li>
+<li><a href="https://github.com/bacardi55/jobEscaper55" title="jobEscaper55">jobEscaper55</a>: This is a <a href="http://symfony.com" title="symfony">Symfony2</a> web application that let user create their resume and put it online. The main goal is to have my resume on the internet, in both html and pdf format. I intend to redo it soon (after finishing the i55WebManager v1.0) using symfony2.2 and <a href="http://twitter.github.com/bootstrap/" title="twitter bootstrap">twitter bootstrap</a> for the frontend to be able to have my resume in a responsive way.</li>
+</ul>
+
+<p>In another area, I installed a <a href="https://lab.bacardi55.org" title="gitlab">gitlab</a> for handling my code before sending them to github or for my private code. For example my blog post will be commit on my gitlab while in draft and publishing in my github afterwards.</p>
+]]></content>
         <link rel="alternate" type="text/html" href="/2013/01/20/new-blog.html"/>
                 <updated>2013-01-20T00:00:00+01:00</updated>
         <author>
