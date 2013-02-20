@@ -4,10 +4,230 @@
     <subtitle>My front page on the internet</subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2013-02-06T00:42:33+01:00</updated>
+            <updated>2013-02-20T00:00:00+01:00</updated>
             <entry>
+        <title>Using Vim and Ctags for PHP development</title>
+                <updated>2013-02-20T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/02/20/using-vim-and-ctags-for-php-development.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>As you may know (by knowing me or by reading the <a href="/about.html" title="about me">about me</a> page), I use <a href="http://vim.org" title="vim">Vim</a> to write code.</p>
+
+<p>This blog post isn't about trolling about which editor is the best (as the answer is <a href="http://vim.org">Vim</a> anyway :P (sorry, I couldn't help it ^^)) but to indicate how you can use <a href="http://vim.org">vim</a> with <a href="http://ctags.sourceforge.net/">ctags</a> (also called exhuberant ctags) to write <a href="http://php.net">PHP</a> code (or other languages).</p>
+
+<h2>Why?</h2>
+
+<p>There is one feature that all developers brag about when trolling against vim (beside the obvious «it's too difficult» or stuff like that) is the hability to click on a function and go directly to its definition.</p>
+
+<p>In «classic» editor like eclipse or netbeans, a simple « control click » on a function name and there you go.</p>
+
+<p>Some vim developer use the <a href="vim-taglist.sourceforge.net/">taglist</a> plug-in to have the function list but this is not what we really want.</p>
+
+<p>If you are reading this post, you probably now that this is not a basic vim feature :(. But, as we are using the powerful vim, there is plug-in for this!</p>
+
+<h2>Ok, that sounds nice, but how?</h2>
+
+<h3>By using ctags!</h3>
+
+<p>According to the official <a href="http://ctags.sourceforge.net">ctags website</a> :
+«Ctags generates an index (or tag) file of language objects found in source files that allows these items to be quickly and easily located by a text editor or other utility. A tag signifies a language object for which an index entry is available (or, alternatively, the index entry created for that object). »</p>
+
+<p>So basically, it parse your code and create an index to tell what is where :p. That's a good start :).</p>
+
+<h3>Install Ctags</h3>
+
+<p>Firstable, we need to install ctags. Depending on your distribution, it could be called «ctags» or «exhuberant ctags». A simple search in your packet manager should answer you :).</p>
+
+<p>Then, you'll need to install the <a href="http://www.vim.org/scripts/script.php?script_id=610">Vim ctags plugin</a> as any other plug-in. I'm strongly advising to use <a href="https://github.com/gmarik/vundle">vundle</a> to handle all your Vim plug-ins. I'll write a post about it in the feature, but that's not the purpose of this one :).</p>
+
+<h3>Create the tag index</h3>
+
+<p>At this point, we need to now tell ctags to parse our code to create the index file.</p>
+
+<p>The first problem with ctags is that the default option for PHP (ctags manage more than 30 languages) are not good enough for me. Hopefully, you can pass to the ctags command a lot of options to parse your code according to your will.</p>
+
+<p>The second problem is that depending on the type of project that you're working on, you might need to change the parameters that you pass through ctags.</p>
+
+<p>As a matter of fact, I'm coding either in <a href="http://drupal.org">Drupal</a> and <a href="http://symfony.com">Symfony</a> / <a href="http://silex.sensio.org">Silex</a>. Drupal need some specific options to parse all .module, .install, .inc, … files. On the other hand, Symfony/Silex need to parse real POO code as PHP 5.3+ let us write.</p>
+
+<p>I ended up with a php_ctags.sh script that I launch after pulling the source code of my project. That way, each time i pull new code, ctags parse it and update the index file :).</p>
+
+<p>The script has 2 options: parsing a «framework» project or a Drupal project.</p>
+
+<p>The script look like this:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
+<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> == <span style="color: #ff0000;">&quot;&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>;<span style="color: #000000; font-weight: bold;">then</span>
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;Usage: php_ctags [type]&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;Types are : &quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;  - drupal&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;  - framework&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">exit</span> <span style="color: #000000;">0</span>;
+<span style="color: #000000; font-weight: bold;">fi</span>;
+&nbsp;
+<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> == <span style="color: #ff0000;">&quot;drupal&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>;<span style="color: #000000; font-weight: bold;">then</span>
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;running drupal ctags&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">exec</span> ctags <span style="color: #660033;">--langmap</span>=php:.engine.inc.module.theme.install.php <span style="color: #660033;">--php-kinds</span>=cdfi <span style="color: #660033;">--languages</span>=php <span style="color: #660033;">--recurse</span> <span style="color: #660033;">--exclude</span>=<span style="color: #ff0000;">&quot;.svn&quot;</span> <span style="color: #660033;">--exclude</span>=<span style="color: #ff0000;">&quot;sites/default/&quot;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">elif</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> == <span style="color: #ff0000;">&quot;framework&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>;<span style="color: #000000; font-weight: bold;">then</span>
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;running framework ctags&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">exec</span> ctags <span style="color: #660033;">-f</span> tags <span style="color: #660033;">-h</span> <span style="color: #ff0000;">&quot;.php&quot;</span> <span style="color: #660033;">-R</span> \
+    <span style="color: #660033;">--exclude</span>=<span style="color: #ff0000;">&quot;.svn&quot;</span> \
+    <span style="color: #660033;">--totals</span>=<span style="color: #c20cb9; font-weight: bold;">yes</span> \
+    <span style="color: #666666; font-style: italic;">#--tag-relative=yes \</span>
+    <span style="color: #660033;">--PHP-kinds</span>=+cf \
+    <span style="color: #660033;">--regex-PHP</span>=<span style="color: #ff0000;">'/abstract class ([^ ]*)/\1/c/'</span> \
+    <span style="color: #660033;">--regex-PHP</span>=<span style="color: #ff0000;">'/interface ([^ ]*)/\1/c/'</span> \
+    <span style="color: #660033;">--regex-PHP</span>=<span style="color: #ff0000;">'/(public |static |abstract |protected |private )+function ([^ (]*)/\2/f/'</span>
+<span style="color: #000000; font-weight: bold;">else</span>
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;Not a valid type&quot;</span>;
+<span style="color: #000000; font-weight: bold;">fi</span>;</pre>
+
+<p>You can find <a href="https://github.com/bacardi55/dotfiles/blob/master/script/php_ctags.sh">here</a> on github (in case I change it after this blog post).</p>
+
+<p>This script can be improved but it's enough for me :). If you have comments, don't hesitate to raise a discussion on github or twitter.</p>
+
+<h3>Use it in Vim</h3>
+
+<p>Ok, now that we have our file, we need to tell vim to use it.</p>
+
+<p>The basic approach would be to use
+<code>:set tags=~/path/to/index</code>
+and there you go.</p>
+
+<p>But I don't like the idea of doing this every time. So I added this in my vimrc:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #7a0874; font-weight: bold;">let</span> <span style="color: #007800;">FILETAG</span>=expand<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #ff0000;">&quot;./tags&quot;</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>
+<span style="color: #000000; font-weight: bold;">if</span> filereadable<span style="color: #7a0874; font-weight: bold;">&#40;</span>FILETAG<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+  <span style="color: #000000; font-weight: bold;">set</span> <span style="color: #007800;">tags</span>=tags
+endif</pre>
+
+<p>I just need to have the file in the directory where I open vim. That way, i just need to go to the root directory of a project, start vim and my tag file is loaded :)</p>
+
+<p>To do the equivalent of the control+click feature, just do <code>Ctrl-]</code> (this means pressing «control» and «]» together)on a function name, and it should bring you to the good file, on the function definition.</p>
+
+<p>If you want to go back to the file you were on, <code>ctrl-t</code> will bring you back (this means pressing «control» and «t» together).</p>
+
+<p>If you prefer opening the function definition in a split windows, use <code>ctrl-w-]</code>.</p>
+
+<p>You can also use this vim command :</p>
+
+<ul>
+<li>:ts – shows the list.</li>
+<li>:tn – goes to the next tag in that list.</li>
+<li>:tp - goes to the previous tag in that list.</li>
+<li>:tf – goes to the function which is in the first of the list.</li>
+<li>:tl – goes to the function which is in the last of the list</li>
+</ul>
+
+<p>See you soon for more vim tips!</p>
+]]></content>
+    </entry>
+        <entry>
+        <title>Change the length of a field in Drupal</title>
+                <updated>2013-02-19T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/02/19/change-the-length-of-a-field-settings-in-drupal.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>The problem</h2>
+
+<p>Today, I wanted to change a size settings in a Drupal field as the client needs changed (who said « as always » ? :°)).</p>
+
+<p>Drupal let the user/coder do a lot of stuff but you can't change the length of a field if there is already values in this field in your database.</p>
+
+<p>As you can imagine, we had value in our database… So I had to found a way to do this change in a clean way.</p>
+
+<p>As in drupal there is no such thing as « clean way » (who said « Troll spotted » :-P), i found a solution. Not a great one, but a working one ^^.</p>
+
+<h2>How to</h2>
+
+<h3>How Drupal handle the fields settings?</h3>
+
+<p>Drupal stores the <em>definitions</em> of the fields in two tables:</p>
+
+<ul>
+<li><code>field_config</code>: This table contains the storage data;</li>
+<li><code>field_config_instance</code>: This table contains information relative to a specific instance of the field (we won't touch this one).</li>
+</ul>
+
+<p>Drupal stores the values of the fields in:</p>
+
+<ul>
+<li><code>field_data_&lt;field_name&gt;</code></li>
+<li><code>field_revision_&lt;field_name&gt;</code></li>
+</ul>
+
+<p>** change <code>&lt;field_name&gt;</code> by the name of your field :) **</p>
+
+<h3>So, what do we do with that?</h3>
+
+<p>In brief, you need to:</p>
+
+<ul>
+<li>Alter <code>field_data_&lt;field_name&gt;</code>;</li>
+<li>Alter <code>field_revision_&lt;field_name&gt;</code>;</li>
+<li>Change the value in <code>field_config</code> for your field.</li>
+</ul>
+
+<p>In my example, the new size is <code>&lt;NEW VALUE&gt;</code> so don't forget to change it.</p>
+
+<h3>The code</h3>
+
+<p>I wanted to put all the code in the hook_update_N, so I used the db_query function:</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">// Change field_data_&lt;field_name&gt; structure table</span>
+<span style="color: #666666; font-style: italic;">// to set a size of 15 for the value field.</span>
+<span style="color: #000088;">$query</span> <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;ALTER TABLE {field_data_&lt;field_name&gt;}
+  CHANGE  {&lt;field_name&gt;_value} {&lt;field_name&gt;_value}
+  VARCHAR( &lt;NEW VALUE&gt; ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL&quot;</span><span style="color: #339933;">;</span>
+db_query<span style="color: #009900;">&#40;</span><span style="color: #000088;">$query</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">// Change field_revision_&lt;field_name&gt; structure table</span>
+<span style="color: #666666; font-style: italic;">// to set a size of 15 for the value field.</span>
+<span style="color: #000088;">$query</span> <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;ALTER TABLE {field_revision_&lt;field_name&gt;}
+  CHANGE  {&lt;field_name&gt;_value}  {&lt;field_name&gt;_value}
+  VARCHAR( &lt;NEW VALUE&gt; ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL&quot;</span><span style="color: #339933;">;</span>
+db_query<span style="color: #009900;">&#40;</span><span style="color: #000088;">$query</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">// Get field_config data for the job reference field.</span>
+<span style="color: #000088;">$result</span> <span style="color: #339933;">=</span> db_select<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'field_config'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'fc'</span><span style="color: #009900;">&#41;</span>
+  <span style="color: #339933;">-&gt;</span><span style="color: #004000;">fields</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'fc'</span><span style="color: #339933;">,</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'data'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>
+  <span style="color: #339933;">-&gt;</span><span style="color: #004000;">condition</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'fc.field_name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'&lt;field_name&gt;'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'='</span><span style="color: #009900;">&#41;</span>
+  <span style="color: #339933;">-&gt;</span><span style="color: #004000;">execute</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>
+  <span style="color: #339933;">-&gt;</span><span style="color: #004000;">fetchAll</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span><a href="http://www.php.net/count"><span style="color: #990000;">count</span></a><span style="color: #009900;">&#40;</span><span style="color: #000088;">$result</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+  <span style="color: #000088;">$data</span> <span style="color: #339933;">=</span> <a href="http://www.php.net/unserialize"><span style="color: #990000;">unserialize</span></a><span style="color: #009900;">&#40;</span><span style="color: #000088;">$result</span><span style="color: #009900;">&#91;</span><span style="color: #cc66cc;">0</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">data</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span><a href="http://www.php.net/array_key_exists"><span style="color: #990000;">array_key_exists</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'settings'</span><span style="color: #339933;">,</span> <span style="color: #000088;">$data</span><span style="color: #009900;">&#41;</span>
+    <span style="color: #339933;">&amp;&amp;</span> <a href="http://www.php.net/array_key_exists"><span style="color: #990000;">array_key_exists</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'max_length'</span><span style="color: #339933;">,</span> <span style="color: #000088;">$data</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'settings'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+&nbsp;
+    <span style="color: #666666; font-style: italic;">// Change the length to 15.</span>
+    <span style="color: #000088;">$data</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'settings'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'max_length'</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> <span style="color: #cc66cc;">15</span><span style="color: #339933;">;</span>
+    db_update<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'field_config'</span><span style="color: #009900;">&#41;</span>
+      <span style="color: #339933;">-&gt;</span><span style="color: #004000;">fields</span><span style="color: #009900;">&#40;</span><a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span>
+        <span style="color: #0000ff;">'data'</span> <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/serialize"><span style="color: #990000;">serialize</span></a><span style="color: #009900;">&#40;</span><span style="color: #000088;">$data</span><span style="color: #009900;">&#41;</span>
+      <span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>
+      <span style="color: #339933;">-&gt;</span><span style="color: #004000;">condition</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'field_name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'&lt;field_name&gt;'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'='</span><span style="color: #009900;">&#41;</span>
+      <span style="color: #339933;">-&gt;</span><span style="color: #004000;">execute</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span>
+<span style="color: #009900;">&#125;</span></pre>
+
+<p>And your good to go :)</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Sshfs For The Win!</title>
-        <content><![CDATA[<p>I don't know other developers work (actually, I do have an idea since I see some of them every day ^^), but I don't like to work directly on my archlinux that runs my laptop.
+                <updated>2013-02-04T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/02/04/sshfs-for-the-win.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>I don't know other developers work (actually, I do have an idea since I see some of them every day ^^), but I don't like to work directly on my archlinux that runs my laptop.
 Projects are often very different from each other and the requirement are never the same (php version, mysql/maria db version, the php.ini, …).
 To avoid this, I use Virtual Machines. I choose to work with kvm and the libvirt to manage the virtual machines.</p>
 
@@ -57,51 +277,16 @@ You just need to do</p>
 
 <p>Hope that this could help someone (to be honnest, I started this blog post as a quick reminder for the last command ^^).</p>
 ]]></content>
-        <link rel="alternate" type="text/html" href="/2013/02/04/sshfs-for-the-win.html"/>
-                <updated>2013-02-04T00:00:00+01:00</updated>
-        <author>
-            <name>Bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
     </entry>
         <entry>
-        <title>Why I love opensource</title>
-        <content><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
-
-<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
-
-<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
-
-<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
-This post isn't about presenting silex, it's just to thanks the opensource community.</p>
-
-<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
-
-<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
-I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
-
-<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
-
-<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
-Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
-
-<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
-
-<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
-This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
-
-<p><strong>Open source, live long and prosper!</strong></p>
-]]></content>
-        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
+        <title>Presenting Github Php dashBoard</title>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-    </entry>
-        <entry>
-        <title>Presenting Github Php dashBoard</title>
-        <content><![CDATA[<p>My new project page is now available <a href="http://projects.bacardi55.org" title="bacardi55's projects">here</a>.</p>
+        <link rel="alternate" type="text/html" href="/2013/02/03/presenting-github-php-dashboard-gpb.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>My new project page is now available <a href="http://projects.bacardi55.org" title="bacardi55's projects">here</a>.</p>
 
 <h2>Your what?</h2>
 
@@ -196,60 +381,51 @@ This is actually the main reason why <a href="http://bacardi55.org" title="bacar
 
 <p>Thanks for reading this far! :)</p>
 ]]></content>
-        <link rel="alternate" type="text/html" href="/2013/02/03/presenting-github-php-dashboard-gpb.html"/>
+    </entry>
+        <entry>
+        <title>Why I love opensource</title>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
+        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
+
+<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
+
+<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
+
+<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
+This post isn't about presenting silex, it's just to thanks the opensource community.</p>
+
+<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
+
+<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
+I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
+
+<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
+
+<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
+Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
+
+<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
+
+<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
+This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
+
+<p><strong>Open source, live long and prosper!</strong></p>
+]]></content>
     </entry>
         <entry>
-        <title>Alternate css classes easily in twig</title>
-        <content><![CDATA[<p>Today, I wanted to style a little bit my project.
-The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
-
-<p>For example:</p>
-
-<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
-
-<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
-
-<p>To use the modulo function in twig, just use</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
-
-<p>And there you go, as simple as in PHP.</p>
-
-<p>Then, using twig, you can do this:</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
-
-<p>Or in my case I needed this :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>To be able to use the index of my parent loop :)</p>
-
-<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>Isn't it beautiful ? But it gets even better!</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
-]]></content>
-        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
+        <title>Add an twig extension in Silex</title>
                 <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-    </entry>
-        <entry>
-        <title>Add an twig extension in Silex</title>
-        <content><![CDATA[<h2>The problematic</h2>
+        <link rel="alternate" type="text/html" href="/2013/02/02/add-an-twig-extension-in-silex.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>The problematic</h2>
 
 <p>Today, I wanted to use a <a href="http://twig.sensiolabs.org" title="twig">twig</a> extension for a new project (that i'll present in a few days) in <a href="http://silex.sensio.org" title="silex">Silex</a>.</p>
 
@@ -292,16 +468,60 @@ The basic way in classic PHP project would be to use the iterator variable of yo
 
 <p>As always, hope that will help someone (at least me when i'll have the same issue in another project ^^).</p>
 ]]></content>
-        <link rel="alternate" type="text/html" href="/2013/02/02/add-an-twig-extension-in-silex.html"/>
+    </entry>
+        <entry>
+        <title>Alternate css classes easily in twig</title>
                 <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
+        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
+The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
+
+<p>For example:</p>
+
+<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
+
+<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
+
+<p>To use the modulo function in twig, just use</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
+
+<p>And there you go, as simple as in PHP.</p>
+
+<p>Then, using twig, you can do this:</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
+
+<p>Or in my case I needed this :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>To be able to use the index of my parent loop :)</p>
+
+<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>Isn't it beautiful ? But it gets even better!</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
+]]></content>
     </entry>
         <entry>
         <title>Adding a default «vhost» to nginx</title>
-        <content><![CDATA[<p>Today I wanted to install this blog on my new <a href="http://nginx.org" title="nginx">nginx</a> server. As this site is simply static html file, I thought why not using it as well to try to learn how to use it.</p>
+                <updated>2013-01-28T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/28/adding-a-default-vhost-to-nginx.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today I wanted to install this blog on my new <a href="http://nginx.org" title="nginx">nginx</a> server. As this site is simply static html file, I thought why not using it as well to try to learn how to use it.</p>
 
 <p>So I created my server :</p>
 
@@ -350,16 +570,16 @@ This is what I put in my conf file:</p>
 
 <p>I may have miss something in my nginx that make it doesn't work but if than can help someone other than me :).</p>
 ]]></content>
-        <link rel="alternate" type="text/html" href="/2013/01/28/adding-a-default-vhost-to-nginx.html"/>
+    </entry>
+        <entry>
+        <title>Switching quickly from 1 screen to 2</title>
                 <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-    </entry>
-        <entry>
-        <title>Switching quickly from 1 screen to 2</title>
-        <content><![CDATA[<p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
+        <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
 
 <pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
 &nbsp;
@@ -405,16 +625,35 @@ You'll see another output connected. This is the one you should use in the scrip
 
 <p>Unfortunatly it's not the case with my current laptop so I don't know more ^^. Maybe someone can send me an email with the procedure :).</p>
 ]]></content>
-        <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
-                <updated>2013-01-28T00:00:00+01:00</updated>
+    </entry>
+        <entry>
+        <title>Save a vim file despite open it as a simple user</title>
+                <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
+        <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>If, as me, you often open a file forgetting to put sudo first, you hate that message <code>'readonly' option is set</code>, there is a simple solution to save your file anyway and not redo everything after opening the file with sudo.</p>
+
+<p>You need to have sudo installed.</p>
+
+<p>In, vim, just do
+<code>:w !sudo tee %</code></p>
+
+<p>And there you go :)
+Make an alias in your vimrc and you'll never worried about forgetting to open a file with sudo.</p>
+]]></content>
     </entry>
         <entry>
         <title>Make a RSS feed from a Solr research in drupal</title>
-        <content><![CDATA[<h2>The problematic</h2>
+                <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>The problematic</h2>
 
 <hr />
 
@@ -444,35 +683,16 @@ I tried to used the class within the apachesorl module, but there required a to 
 
 <p>Hope that could help some developers that need to do a RSS feed from a drupal apache solr query :).</p>
 ]]></content>
-        <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
-                <updated>2013-01-27T00:00:00+01:00</updated>
-        <author>
-            <name>Bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-    </entry>
-        <entry>
-        <title>Save a vim file despite open it as a simple user</title>
-        <content><![CDATA[<p>If, as me, you often open a file forgetting to put sudo first, you hate that message <code>'readonly' option is set</code>, there is a simple solution to save your file anyway and not redo everything after opening the file with sudo.</p>
-
-<p>You need to have sudo installed.</p>
-
-<p>In, vim, just do
-<code>:w !sudo tee %</code></p>
-
-<p>And there you go :)
-Make an alias in your vimrc and you'll never worried about forgetting to open a file with sudo.</p>
-]]></content>
-        <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
-                <updated>2013-01-27T00:00:00+01:00</updated>
-        <author>
-            <name>Bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
     </entry>
         <entry>
         <title>Return a Yaml file with silex</title>
-        <content><![CDATA[<p>Today, I wanted to return a Yaml file to my browser but I wanted to be forced to download it.</p>
+                <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to return a Yaml file to my browser but I wanted to be forced to download it.</p>
 
 <p>It's not a file so I can not use the $app->stream helper. Instead I return a simple http response.</p>
 
@@ -494,16 +714,16 @@ Make an alias in your vimrc and you'll never worried about forgetting to open a 
 
 <p>And there you go :)</p>
 ]]></content>
-        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
-                <updated>2013-01-27T00:00:00+01:00</updated>
+    </entry>
+        <entry>
+        <title>New blog</title>
+                <updated>2013-01-20T00:00:00+01:00</updated>
         <author>
             <name>Bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-    </entry>
-        <entry>
-        <title>New blog</title>
-        <content><![CDATA[<h2>Welcome on my new blog platform.</h2>
+        <link rel="alternate" type="text/html" href="/2013/01/20/new-blog.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>Welcome on my new blog platform.</h2>
 
 <h3>Again ? For real?</h3>
 
@@ -536,11 +756,5 @@ As I started 2013 by coding a lot at home, I thought this was the time to start 
 
 <p>In another area, I installed a <a href="https://lab.bacardi55.org" title="gitlab">gitlab</a> for handling my code before sending them to github or for my private code. For example my blog post will be commit on my gitlab while in draft and publishing in my github afterwards.</p>
 ]]></content>
-        <link rel="alternate" type="text/html" href="/2013/01/20/new-blog.html"/>
-                <updated>2013-01-20T00:00:00+01:00</updated>
-        <author>
-            <name>Bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
     </entry>
     </feed>

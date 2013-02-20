@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Using Vim and Ctags for PHP development</title>
+
+    <meta name="description" content="My front page on the internet">
+    <meta name="author" content="Bacardi55">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+          <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="../../../../css/main.css">
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../../../..">Bacardi55&#039;s front page</a>
+                <div class="nav-collapse collapse">
+                                            <ul class="nav">
+                                                                                                                        <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                        <li><a href="http://projects.bacardi55.org">My projects</a></li>
+                                                </ul>
+                    
+                                            <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
+                                    <li><a href="http://projects.bacardi55.org" alt="my projects">My projects</a><li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+          <div class="container">
+
+        
+            <div class="row">
+        <div class="span10 offset1 content">
+                                                <div class="page-header">
+                        <h1>Using Vim and Ctags for PHP development</h1>
+                    </div>
+                            
+                            <div class="pull-left">
+                                            By bacardi55 -
+                                        2013 February 20
+                </div>
+                                    <div class="pull-right">
+                        <ul class="tag_box inline">
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/vim.html">
+                                    vim
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/php.html">
+                                    php
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/ctags.html">
+                                    ctags
+                                </a>
+                            </li>
+                                                  </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                                <hr />
+
+                <p>As you may know (by knowing me or by reading the <a href="/about.html" title="about me">about me</a> page), I use <a href="http://vim.org" title="vim">Vim</a> to write code.</p>
+
+<p>This blog post isn't about trolling about which editor is the best (as the answer is <a href="http://vim.org">Vim</a> anyway :P (sorry, I couldn't help it ^^)) but to indicate how you can use <a href="http://vim.org">vim</a> with <a href="http://ctags.sourceforge.net/">ctags</a> (also called exhuberant ctags) to write <a href="http://php.net">PHP</a> code (or other languages).</p>
+
+<h2>Why?</h2>
+
+<p>There is one feature that all developers brag about when trolling against vim (beside the obvious «it's too difficult» or stuff like that) is the hability to click on a function and go directly to its definition.</p>
+
+<p>In «classic» editor like eclipse or netbeans, a simple « control click » on a function name and there you go.</p>
+
+<p>Some vim developer use the <a href="vim-taglist.sourceforge.net/">taglist</a> plug-in to have the function list but this is not what we really want.</p>
+
+<p>If you are reading this post, you probably now that this is not a basic vim feature :(. But, as we are using the powerful vim, there is plug-in for this!</p>
+
+<h2>Ok, that sounds nice, but how?</h2>
+
+<h3>By using ctags!</h3>
+
+<p>According to the official <a href="http://ctags.sourceforge.net">ctags website</a> :
+«Ctags generates an index (or tag) file of language objects found in source files that allows these items to be quickly and easily located by a text editor or other utility. A tag signifies a language object for which an index entry is available (or, alternatively, the index entry created for that object). »</p>
+
+<p>So basically, it parse your code and create an index to tell what is where :p. That's a good start :).</p>
+
+<h3>Install Ctags</h3>
+
+<p>Firstable, we need to install ctags. Depending on your distribution, it could be called «ctags» or «exhuberant ctags». A simple search in your packet manager should answer you :).</p>
+
+<p>Then, you'll need to install the <a href="http://www.vim.org/scripts/script.php?script_id=610">Vim ctags plugin</a> as any other plug-in. I'm strongly advising to use <a href="https://github.com/gmarik/vundle">vundle</a> to handle all your Vim plug-ins. I'll write a post about it in the feature, but that's not the purpose of this one :).</p>
+
+<h3>Create the tag index</h3>
+
+<p>At this point, we need to now tell ctags to parse our code to create the index file.</p>
+
+<p>The first problem with ctags is that the default option for PHP (ctags manage more than 30 languages) are not good enough for me. Hopefully, you can pass to the ctags command a lot of options to parse your code according to your will.</p>
+
+<p>The second problem is that depending on the type of project that you're working on, you might need to change the parameters that you pass through ctags.</p>
+
+<p>As a matter of fact, I'm coding either in <a href="http://drupal.org">Drupal</a> and <a href="http://symfony.com">Symfony</a> / <a href="http://silex.sensio.org">Silex</a>. Drupal need some specific options to parse all .module, .install, .inc, … files. On the other hand, Symfony/Silex need to parse real POO code as PHP 5.3+ let us write.</p>
+
+<p>I ended up with a php_ctags.sh script that I launch after pulling the source code of my project. That way, each time i pull new code, ctags parse it and update the index file :).</p>
+
+<p>The script has 2 options: parsing a «framework» project or a Drupal project.</p>
+
+<p>The script look like this:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
+<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> == <span style="color: #ff0000;">&quot;&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>;<span style="color: #000000; font-weight: bold;">then</span>
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;Usage: php_ctags [type]&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;Types are : &quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;  - drupal&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;  - framework&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">exit</span> <span style="color: #000000;">0</span>;
+<span style="color: #000000; font-weight: bold;">fi</span>;
+&nbsp;
+<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> == <span style="color: #ff0000;">&quot;drupal&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>;<span style="color: #000000; font-weight: bold;">then</span>
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;running drupal ctags&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">exec</span> ctags <span style="color: #660033;">--langmap</span>=php:.engine.inc.module.theme.install.php <span style="color: #660033;">--php-kinds</span>=cdfi <span style="color: #660033;">--languages</span>=php <span style="color: #660033;">--recurse</span> <span style="color: #660033;">--exclude</span>=<span style="color: #ff0000;">&quot;.svn&quot;</span> <span style="color: #660033;">--exclude</span>=<span style="color: #ff0000;">&quot;sites/default/&quot;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">elif</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> == <span style="color: #ff0000;">&quot;framework&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>;<span style="color: #000000; font-weight: bold;">then</span>
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;running framework ctags&quot;</span>;
+  <span style="color: #7a0874; font-weight: bold;">exec</span> ctags <span style="color: #660033;">-f</span> tags <span style="color: #660033;">-h</span> <span style="color: #ff0000;">&quot;.php&quot;</span> <span style="color: #660033;">-R</span> \
+    <span style="color: #660033;">--exclude</span>=<span style="color: #ff0000;">&quot;.svn&quot;</span> \
+    <span style="color: #660033;">--totals</span>=<span style="color: #c20cb9; font-weight: bold;">yes</span> \
+    <span style="color: #666666; font-style: italic;">#--tag-relative=yes \</span>
+    <span style="color: #660033;">--PHP-kinds</span>=+cf \
+    <span style="color: #660033;">--regex-PHP</span>=<span style="color: #ff0000;">'/abstract class ([^ ]*)/\1/c/'</span> \
+    <span style="color: #660033;">--regex-PHP</span>=<span style="color: #ff0000;">'/interface ([^ ]*)/\1/c/'</span> \
+    <span style="color: #660033;">--regex-PHP</span>=<span style="color: #ff0000;">'/(public |static |abstract |protected |private )+function ([^ (]*)/\2/f/'</span>
+<span style="color: #000000; font-weight: bold;">else</span>
+  <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;Not a valid type&quot;</span>;
+<span style="color: #000000; font-weight: bold;">fi</span>;</pre>
+
+<p>You can find <a href="https://github.com/bacardi55/dotfiles/blob/master/script/php_ctags.sh">here</a> on github (in case I change it after this blog post).</p>
+
+<p>This script can be improved but it's enough for me :). If you have comments, don't hesitate to raise a discussion on github or twitter.</p>
+
+<h3>Use it in Vim</h3>
+
+<p>Ok, now that we have our file, we need to tell vim to use it.</p>
+
+<p>The basic approach would be to use
+<code>:set tags=~/path/to/index</code>
+and there you go.</p>
+
+<p>But I don't like the idea of doing this every time. So I added this in my vimrc:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #7a0874; font-weight: bold;">let</span> <span style="color: #007800;">FILETAG</span>=expand<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #ff0000;">&quot;./tags&quot;</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>
+<span style="color: #000000; font-weight: bold;">if</span> filereadable<span style="color: #7a0874; font-weight: bold;">&#40;</span>FILETAG<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+  <span style="color: #000000; font-weight: bold;">set</span> <span style="color: #007800;">tags</span>=tags
+endif</pre>
+
+<p>I just need to have the file in the directory where I open vim. That way, i just need to go to the root directory of a project, start vim and my tag file is loaded :)</p>
+
+<p>To do the equivalent of the control+click feature, just do <code>Ctrl-]</code> (this means pressing «control» and «]» together)on a function name, and it should bring you to the good file, on the function definition.</p>
+
+<p>If you want to go back to the file you were on, <code>ctrl-t</code> will bring you back (this means pressing «control» and «t» together).</p>
+
+<p>If you prefer opening the function definition in a split windows, use <code>ctrl-w-]</code>.</p>
+
+<p>You can also use this vim command :</p>
+
+<ul>
+<li>:ts – shows the list.</li>
+<li>:tn – goes to the next tag in that list.</li>
+<li>:tp - goes to the previous tag in that list.</li>
+<li>:tf – goes to the function which is in the first of the list.</li>
+<li>:tl – goes to the function which is in the last of the list</li>
+</ul>
+
+<p>See you soon for more vim tips!</p>
+
+
+                    </div>
+      </div>
+
+            <footer>
+        <p>
+            In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
+        <p>
+        <p>
+            &copy;
+                            <a href="http://bacardi55.org">
+                  Bacardi55
+                </a>
+                        2013
+            <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+            </small>
+        </p>
+    </footer>
+      </div>
+    
+    
+          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="../../../../js/vendor/bootstrap.min.js"></script>
+      </body>
+</html>
