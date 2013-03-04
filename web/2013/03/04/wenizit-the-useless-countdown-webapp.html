@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Wenizit, the useless countdown webapp</title>
+
+    <meta name="description" content="My front page on the internet">
+    <meta name="author" content="Bacardi55">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+          <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="../../../../css/main.css">
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../../../..">Bacardi55&#039;s front page</a>
+                <div class="nav-collapse collapse">
+                                            <ul class="nav">
+                                                                                                                        <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                        <li><a href="http://projects.bacardi55.org">My projects</a></li>
+                                                </ul>
+                    
+                                            <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home">My home</a><li>
+                                    <li><a href="http://projects.bacardi55.org" alt="my projects">My projects</a><li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github">My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab">My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter">My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+          <div class="container">
+
+        
+            <div class="row">
+        <div class="span10 offset1 content">
+                                                <div class="page-header">
+                        <h1>Wenizit, the useless countdown webapp</h1>
+                    </div>
+                            
+                            <div class="pull-left">
+                                            By bacardi55 -
+                                        2013 March 04
+                </div>
+                                    <div class="pull-right">
+                        <ul class="tag_box inline">
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/php.html">
+                                    php
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/silex.html">
+                                    silex
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/wenizit.html">
+                                    wenizit
+                                </a>
+                            </li>
+                                                  </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                                <hr />
+
+                <h2>A day of useless coding</h2>
+
+<p>This week end, I had some time to loose. I wanted to code but I was too lazy to fix some of the <a href="https://github.com/bacardi55/GPB">GPB</a> bugs/new features or to get back to a previous project that really need to be finished (a cv manager which suppose to be the next step of my presence of the web as I was saying <a href="http://blog.dev/2013/02/03/presenting-github-php-dashboard-gpb.html">here</a>).</p>
+
+<p>Instead, a friend asked me to create a countdown for him. The need was basic: a simple Javascript countdown to display on a web page.</p>
+
+<p>There are tons of javascript code on the internet that let you do this very easily and I could have juste take a script, set the date a put it on a server. Would have been fast and easy and in javascript only (no need for a PHP server).</p>
+
+<p>Instead of that, I wanted to have some fun coding some PHP…</p>
+
+<h2>What did I do?</h2>
+
+<p>The idea was simple, create a very very small web app that let you create as much countdown as you want and display it with a nice Javascript code (I took an opensource one for the JS part).</p>
+
+<p>So I download my favorite <a href="http://silex.sensio.org">Silex</a> « distribution »: <a href="https://github.com/lyrixx/Silex-Kitchen-Edition">Silex Kitchen</a>.</p>
+
+<p>As <a href="http://symfony.com/blog/symfony-2-2-0">Symfony 2.2 was released few days ago</a>, I changed the composer.json file of the silex kitchen edition to upgrade the symfony component to the 2.2 versions.</p>
+
+<p>I had some issues as there was some changes in the API of some of the sf2 component. Nevermind, a fork of silex kitchen and 3 commits later, everything was fine :).</p>
+
+<p>I was surprise (in a good way) today to see that <a href="http://blog.lyrixx.info/">lyrixx</a> (the silex kitchen creator) merge some of my commits. I now have <a href="https://github.com/lyrixx/Silex-Kitchen-Edition/commits/master">my name in the commit page of silex kitchen</a> :).</p>
+
+<p>Anyway, few hours of coding later, <a href="https://github.com/bacardi55/wenizit">wenizit</a> was born.</p>
+
+<h2>Wenizit?</h2>
+
+<p>Wenizit (pronounce « When it is » with a strong french accent ^^) is a very little and very dumb app to create JS countdown.</p>
+
+<p>You can create open countdown or password protected countdown.</p>
+
+<p><a href="../../../../images/wenizit/wenizit.png">Here is a simple screenshot of wenizit</a>.</p>
+
+<p>Useless app is useless, but at least I had fun doing it ^^ (and it let me do some fixes for silex kitchen, so not that useless after all :)).</p>
+
+<p>The code is dirty, the app not really finished (there should be an admin part, a real antispam, a remember me for the password protected pages, …). But at least, it does the work I needed.</p>
+
+<p>I might continue fixing some stuff for wenizit one day because I like coding and it help me learn silex and the sf2 component a little bit more each time (and that's the real purpose actually).</p>
+
+<p>I really need to learn how to finish projects for real ^^.</p>
+
+<p>Anyway, I'm pretty sure that this app won't ever be used by someone else than me, but I don't really care as I code for fun ^^.</p>
+
+<p>The next blog post shoud be on a more interesting subject (probably another one on vim or maybe on php5.5).</p>
+
+
+                    </div>
+      </div>
+
+            <footer>
+        <p>
+            In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
+        <p>
+        <p>
+            &copy;
+                            <a href="http://bacardi55.org">
+                  Bacardi55
+                </a>
+                        2013
+            <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+            </small>
+        </p>
+    </footer>
+      </div>
+    
+    
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="../../../../js/vendor/bootstrap.min.js"></script>
+    
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-167056-9']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </body>
+</html>

@@ -4,8 +4,61 @@
     <subtitle>My front page on the internet</subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2013-02-27T00:00:00+01:00</updated>
+            <updated>2013-03-04T00:00:00+01:00</updated>
             <entry>
+        <title>Wenizit, the useless countdown webapp</title>
+                <updated>2013-03-04T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/03/04/wenizit-the-useless-countdown-webapp.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>A day of useless coding</h2>
+
+<p>This week end, I had some time to loose. I wanted to code but I was too lazy to fix some of the <a href="https://github.com/bacardi55/GPB">GPB</a> bugs/new features or to get back to a previous project that really need to be finished (a cv manager which suppose to be the next step of my presence of the web as I was saying <a href="http://blog.dev/2013/02/03/presenting-github-php-dashboard-gpb.html">here</a>).</p>
+
+<p>Instead, a friend asked me to create a countdown for him. The need was basic: a simple Javascript countdown to display on a web page.</p>
+
+<p>There are tons of javascript code on the internet that let you do this very easily and I could have juste take a script, set the date a put it on a server. Would have been fast and easy and in javascript only (no need for a PHP server).</p>
+
+<p>Instead of that, I wanted to have some fun coding some PHP…</p>
+
+<h2>What did I do?</h2>
+
+<p>The idea was simple, create a very very small web app that let you create as much countdown as you want and display it with a nice Javascript code (I took an opensource one for the JS part).</p>
+
+<p>So I download my favorite <a href="http://silex.sensio.org">Silex</a> « distribution »: <a href="https://github.com/lyrixx/Silex-Kitchen-Edition">Silex Kitchen</a>.</p>
+
+<p>As <a href="http://symfony.com/blog/symfony-2-2-0">Symfony 2.2 was released few days ago</a>, I changed the composer.json file of the silex kitchen edition to upgrade the symfony component to the 2.2 versions.</p>
+
+<p>I had some issues as there was some changes in the API of some of the sf2 component. Nevermind, a fork of silex kitchen and 3 commits later, everything was fine :).</p>
+
+<p>I was surprise (in a good way) today to see that <a href="http://blog.lyrixx.info/">lyrixx</a> (the silex kitchen creator) merge some of my commits. I now have <a href="https://github.com/lyrixx/Silex-Kitchen-Edition/commits/master">my name in the commit page of silex kitchen</a> :).</p>
+
+<p>Anyway, few hours of coding later, <a href="https://github.com/bacardi55/wenizit">wenizit</a> was born.</p>
+
+<h2>Wenizit?</h2>
+
+<p>Wenizit (pronounce « When it is » with a strong french accent ^^) is a very little and very dumb app to create JS countdown.</p>
+
+<p>You can create open countdown or password protected countdown.</p>
+
+<p><a href="../../../../images/wenizit/wenizit.png">Here is a simple screenshot of wenizit</a>.</p>
+
+<p>Useless app is useless, but at least I had fun doing it ^^ (and it let me do some fixes for silex kitchen, so not that useless after all :)).</p>
+
+<p>The code is dirty, the app not really finished (there should be an admin part, a real antispam, a remember me for the password protected pages, …). But at least, it does the work I needed.</p>
+
+<p>I might continue fixing some stuff for wenizit one day because I like coding and it help me learn silex and the sf2 component a little bit more each time (and that's the real purpose actually).</p>
+
+<p>I really need to learn how to finish projects for real ^^.</p>
+
+<p>Anyway, I'm pretty sure that this app won't ever be used by someone else than me, but I don't really care as I code for fun ^^.</p>
+
+<p>The next blog post shoud be on a more interesting subject (probably another one on vim or maybe on php5.5).</p>
+]]></content>
+    </entry>
+        <entry>
         <title>How can I use vim on a daily basis</title>
                 <updated>2013-02-27T00:00:00+01:00</updated>
         <author>
@@ -793,25 +846,6 @@ I tried to used the class within the apachesorl module, but there required a to 
 ]]></content>
     </entry>
         <entry>
-        <title>Save a vim file despite open it as a simple user</title>
-                <updated>2013-01-27T00:00:00+01:00</updated>
-        <author>
-            <name>Bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>If, as me, you often open a file forgetting to put sudo first, you hate that message <code>'readonly' option is set</code>, there is a simple solution to save your file anyway and not redo everything after opening the file with sudo.</p>
-
-<p>You need to have sudo installed.</p>
-
-<p>In, vim, just do
-<code>:w !sudo tee %</code></p>
-
-<p>And there you go :)
-Make an alias in your vimrc and you'll never worried about forgetting to open a file with sudo.</p>
-]]></content>
-    </entry>
-        <entry>
         <title>Return a Yaml file with silex</title>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
@@ -840,6 +874,25 @@ Make an alias in your vimrc and you'll never worried about forgetting to open a 
 <span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
 
 <p>And there you go :)</p>
+]]></content>
+    </entry>
+        <entry>
+        <title>Save a vim file despite open it as a simple user</title>
+                <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>If, as me, you often open a file forgetting to put sudo first, you hate that message <code>'readonly' option is set</code>, there is a simple solution to save your file anyway and not redo everything after opening the file with sudo.</p>
+
+<p>You need to have sudo installed.</p>
+
+<p>In, vim, just do
+<code>:w !sudo tee %</code></p>
+
+<p>And there you go :)
+Make an alias in your vimrc and you'll never worried about forgetting to open a file with sudo.</p>
 ]]></content>
     </entry>
         <entry>
