@@ -18,9 +18,9 @@
             {% block content_main %}
                 <div class="pull-left">
                     {% if document.metadatas.author is not null %}
-                        By {{ document.metadatas.author }} -
+                        By <i class="icon-user"></i>{{ document.metadatas.author }} -
                     {% endif %}
-                    {{ document.metadatas.date|date('Y F d') }}
+                    <i class="icon-calendar"></i>{{ document.metadatas.date|date('Y F d') }}
                 </div>
                 {% if tags and document.metadatas.tags|length > 0 %}
                     <div class="pull-right">
