@@ -4,8 +4,79 @@
     <subtitle>My front page on the internet</subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2013-03-04T00:00:00+01:00</updated>
+            <updated>2013-03-07T00:00:00+01:00</updated>
             <entry>
+        <title>Open html email and email attachment in mutt</title>
+                <updated>2013-03-07T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/03/07/open-your-attachment-directly-in-mutt.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>Quick intro</h2>
+
+<p>I don't write a lot about it, but I use <a href="http://mutt.org">mutt</a> to read my emails. You can easily guess why:</p>
+
+<ul>
+<li>Less memory consuming than thunderbird or evolution;</li>
+<li>Faster;</li>
+<li>Managed by keyboard;</li>
+<li>Used in a terminal :)</li>
+</ul>
+
+<p>For those who know me, they know that I really don't like using my mouse. I find that each time I remove my hand from my keyboard to go on my mouse, I loose time. That's why I'm using <a href="http://vim.org">vim</a> (that and the fact that it's the best editor :p</troll>), or why I'm using a tiling Window Manager (<a href="http://i3wm.org">i3</a>) or why I'm using mainly application that run inside a terminal.</p>
+
+<p>It's simply more consistent with the way I use my computer to work and code.</p>
+
+<p>Using mutt might seems like a real nerdy thing to do in 2013 but if you configure it properly, it's as good as any (but less RAM consuming) :).</p>
+
+<h2>Html email</h2>
+
+<p>I have to admit, I also use mutt because in my opinion, email should only be text. I hate html email and I hate even more when people send html email without the text alternative.</p>
+
+<p>But, we're in 2013 and I receive html email every day. When some of them don't have the text alternative, I can't always decide to throw it and ignore it (even if I often do). Sometime, even important email and not only spam can be in html only.</p>
+
+<p>They are several options to handle this and I choose to use the <code>~/.mailcap</code> file that contains a list of programs to use depending on the <a href="https://en.wikipedia.org/wiki/Internet_media_type">mime type</a> of the file.</p>
+
+<p>To read html email inside mutt, just add this in your <code>~/.mailcap</code>:</p>
+
+<pre class="bash" style="font-family:monospace;">text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html
+text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #660033;">-dump</span> <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html; copiousoutput</pre>
+
+<p><strong>You need to have links installed</strong>.</p>
+
+<p>And now, you'll be able to click on the html attachment and see the content of the email easily :).</p>
+
+<h2>Open email attachment</h2>
+
+<p>Ok, so now that we have done this for the html email, I'm sure you understood how to be able to open other attachment files: You just need to add new lines in your mailcap file :).</p>
+
+<p>Here is my mailcap file as an example:</p>
+
+<pre class="bash" style="font-family:monospace;">text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html
+text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #660033;">-dump</span> <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html; copiousoutput
+text<span style="color: #000000; font-weight: bold;">/*</span>; <span style="color: #c20cb9; font-weight: bold;">less</span>
+image<span style="color: #000000; font-weight: bold;">/*</span>; gpicview <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>pdf; evince <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>msexcel; soffice <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>msword; soffice <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>vnd.ms-excel; soffice <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>vnd.openxmlformats-officedocument.wordprocessingml.document; soffice <span style="color: #000000; font-weight: bold;">%</span>s</pre>
+
+<p>I'm using gpicview for all images, soffice for office document (libre office and MS office document), less for text and evince for pdf.</p>
+
+<p>You can add more line here for other type of file (eg: video, sound, …).</p>
+
+<p>All you have to do now is press « v » on a email that has attachment and then press enter on the attach file and it will be open by the right program.</p>
+
+<h2>Bonus</h2>
+
+<p>If you don't know the mime type of a file, you can use ^e (ctrl+e) on a attached file in mutt to know the mime type. Then you just need to copy it and paste it in your mailcap file and choose which program will handle the files with this mime type :).</p>
+
+<p>Hope this helped some of you :)</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Wenizit, the useless countdown webapp</title>
                 <updated>2013-03-04T00:00:00+01:00</updated>
         <author>
@@ -807,6 +878,25 @@ You'll see another output connected. This is the one you should use in the scrip
 ]]></content>
     </entry>
         <entry>
+        <title>Save a vim file despite open it as a simple user</title>
+                <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>Bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>If, as me, you often open a file forgetting to put sudo first, you hate that message <code>'readonly' option is set</code>, there is a simple solution to save your file anyway and not redo everything after opening the file with sudo.</p>
+
+<p>You need to have sudo installed.</p>
+
+<p>In, vim, just do
+<code>:w !sudo tee %</code></p>
+
+<p>And there you go :)
+Make an alias in your vimrc and you'll never worried about forgetting to open a file with sudo.</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Make a RSS feed from a Solr research in drupal</title>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
@@ -874,25 +964,6 @@ I tried to used the class within the apachesorl module, but there required a to 
 <span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
 
 <p>And there you go :)</p>
-]]></content>
-    </entry>
-        <entry>
-        <title>Save a vim file despite open it as a simple user</title>
-                <updated>2013-01-27T00:00:00+01:00</updated>
-        <author>
-            <name>Bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>If, as me, you often open a file forgetting to put sudo first, you hate that message <code>'readonly' option is set</code>, there is a simple solution to save your file anyway and not redo everything after opening the file with sudo.</p>
-
-<p>You need to have sudo installed.</p>
-
-<p>In, vim, just do
-<code>:w !sudo tee %</code></p>
-
-<p>And there you go :)
-Make an alias in your vimrc and you'll never worried about forgetting to open a file with sudo.</p>
 ]]></content>
     </entry>
         <entry>

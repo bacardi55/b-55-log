@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Open html email and email attachment in mutt</title>
+
+    <meta name="description" content="My front page on the internet">
+    <meta name="author" content="Bacardi55">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+          <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="../../../../css/main.css">
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../../../..">Bacardi55&#039;s front page</a>
+                <div class="nav-collapse collapse">
+                                            <ul class="nav">
+                                                                                                                        <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                        <li><a href="http://projects.bacardi55.org">My projects</a></li>
+                                                </ul>
+                    
+                                            <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home"><i class="icon-home"></i> My home</a><li>
+                                    <li><a href="http://projects.bacardi55.org" alt="my projects"><i class="icon-briefcase"></i> My projects</a><li>
+                                    <li class="divider"></li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github"><i class="icon-globe"></i> My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab"><i class="icon-globe"></i> My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter"><i class="icon-globe"></i> My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+          <div class="container">
+
+        
+            <div class="row">
+        <div class="span10 offset1 content">
+                                                <div class="page-header">
+                        <h1>Open html email and email attachment in mutt</h1>
+                    </div>
+                            
+                            <div class="pull-left">
+                                            By <i class="icon-user"></i>bacardi55 -
+                                        <i class="icon-calendar"></i>2013 March 07
+                </div>
+                                    <div class="pull-right">
+                        <ul class="tag_box inline">
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/mutt.html">
+                                    mutt
+                                </a>
+                            </li>
+                                                  </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                                <hr />
+
+                <h2>Quick intro</h2>
+
+<p>I don't write a lot about it, but I use <a href="http://mutt.org">mutt</a> to read my emails. You can easily guess why:</p>
+
+<ul>
+<li>Less memory consuming than thunderbird or evolution;</li>
+<li>Faster;</li>
+<li>Managed by keyboard;</li>
+<li>Used in a terminal :)</li>
+</ul>
+
+<p>For those who know me, they know that I really don't like using my mouse. I find that each time I remove my hand from my keyboard to go on my mouse, I loose time. That's why I'm using <a href="http://vim.org">vim</a> (that and the fact that it's the best editor :p</troll>), or why I'm using a tiling Window Manager (<a href="http://i3wm.org">i3</a>) or why I'm using mainly application that run inside a terminal.</p>
+
+<p>It's simply more consistent with the way I use my computer to work and code.</p>
+
+<p>Using mutt might seems like a real nerdy thing to do in 2013 but if you configure it properly, it's as good as any (but less RAM consuming) :).</p>
+
+<h2>Html email</h2>
+
+<p>I have to admit, I also use mutt because in my opinion, email should only be text. I hate html email and I hate even more when people send html email without the text alternative.</p>
+
+<p>But, we're in 2013 and I receive html email every day. When some of them don't have the text alternative, I can't always decide to throw it and ignore it (even if I often do). Sometime, even important email and not only spam can be in html only.</p>
+
+<p>They are several options to handle this and I choose to use the <code>~/.mailcap</code> file that contains a list of programs to use depending on the <a href="https://en.wikipedia.org/wiki/Internet_media_type">mime type</a> of the file.</p>
+
+<p>To read html email inside mutt, just add this in your <code>~/.mailcap</code>:</p>
+
+<pre class="bash" style="font-family:monospace;">text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html
+text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #660033;">-dump</span> <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html; copiousoutput</pre>
+
+<p><strong>You need to have links installed</strong>.</p>
+
+<p>And now, you'll be able to click on the html attachment and see the content of the email easily :).</p>
+
+<h2>Open email attachment</h2>
+
+<p>Ok, so now that we have done this for the html email, I'm sure you understood how to be able to open other attachment files: You just need to add new lines in your mailcap file :).</p>
+
+<p>Here is my mailcap file as an example:</p>
+
+<pre class="bash" style="font-family:monospace;">text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html
+text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #660033;">-dump</span> <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html; copiousoutput
+text<span style="color: #000000; font-weight: bold;">/*</span>; <span style="color: #c20cb9; font-weight: bold;">less</span>
+image<span style="color: #000000; font-weight: bold;">/*</span>; gpicview <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>pdf; evince <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>msexcel; soffice <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>msword; soffice <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>vnd.ms-excel; soffice <span style="color: #000000; font-weight: bold;">%</span>s
+application<span style="color: #000000; font-weight: bold;">/</span>vnd.openxmlformats-officedocument.wordprocessingml.document; soffice <span style="color: #000000; font-weight: bold;">%</span>s</pre>
+
+<p>I'm using gpicview for all images, soffice for office document (libre office and MS office document), less for text and evince for pdf.</p>
+
+<p>You can add more line here for other type of file (eg: video, sound, …).</p>
+
+<p>All you have to do now is press « v » on a email that has attachment and then press enter on the attach file and it will be open by the right program.</p>
+
+<h2>Bonus</h2>
+
+<p>If you don't know the mime type of a file, you can use ^e (ctrl+e) on a attached file in mutt to know the mime type. Then you just need to copy it and paste it in your mailcap file and choose which program will handle the files with this mime type :).</p>
+
+<p>Hope this helped some of you :)</p>
+
+
+                    </div>
+      </div>
+
+            <footer>
+        <p>
+            In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
+        <p>
+        <p>
+            &copy;
+                            <a href="http://bacardi55.org">
+                  Bacardi55
+                </a>
+                        2013
+            <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+            </small>
+        </p>
+    </footer>
+      </div>
+    
+    
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="../../../../js/vendor/bootstrap.min.js"></script>
+    
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-167056-9']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </body>
+</html>
