@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>Bacardi55&#039;s front page</title>
-    <subtitle>My front page on the internet</subtitle>
+    <title>bacardi55&#039;s blog</title>
+    <subtitle></subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
             <updated>2013-03-07T00:00:00+01:00</updated>
@@ -9,7 +9,7 @@
         <title>Open html email and email attachment in mutt</title>
                 <updated>2013-03-07T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/03/07/open-your-attachment-directly-in-mutt.html"/>
@@ -80,7 +80,7 @@ application<span style="color: #000000; font-weight: bold;">/</span>vnd.openxmlf
         <title>Wenizit, the useless countdown webapp</title>
                 <updated>2013-03-04T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/03/04/wenizit-the-useless-countdown-webapp.html"/>
@@ -133,7 +133,7 @@ application<span style="color: #000000; font-weight: bold;">/</span>vnd.openxmlf
         <title>How can I use vim on a daily basis</title>
                 <updated>2013-02-27T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/02/27/how-can-i-use-vim-on-a-daily-basis.html"/>
@@ -209,7 +209,7 @@ application<span style="color: #000000; font-weight: bold;">/</span>vnd.openxmlf
         <title>Saving a vim session before quitting</title>
                 <updated>2013-02-21T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/02/21/saving-a-vim-session-before-quitting.html"/>
@@ -260,7 +260,7 @@ autocmd VimEnter <span style="color: #000000; font-weight: bold;">*</span> call 
         <title>Using Vim and Ctags for PHP development</title>
                 <updated>2013-02-20T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/02/20/using-vim-and-ctags-for-php-development.html"/>
@@ -380,7 +380,7 @@ endif</pre>
         <title>Change the length of a field in Drupal</title>
                 <updated>2013-02-19T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/02/19/change-the-length-of-a-field-settings-in-drupal.html"/>
@@ -474,7 +474,7 @@ db_query<span style="color: #009900;">&#40;</span><span style="color: #000088;">
         <title>Sshfs For The Win!</title>
                 <updated>2013-02-04T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/02/04/sshfs-for-the-win.html"/>
@@ -533,7 +533,7 @@ You just need to do</p>
         <title>Presenting Github Php dashBoard</title>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/02/03/presenting-github-php-dashboard-gpb.html"/>
@@ -637,7 +637,7 @@ You just need to do</p>
         <title>Why I love opensource</title>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
@@ -672,7 +672,7 @@ This is actually the main reason why <a href="http://bacardi55.org" title="bacar
         <title>Add an twig extension in Silex</title>
                 <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/02/02/add-an-twig-extension-in-silex.html"/>
@@ -724,7 +724,7 @@ This is actually the main reason why <a href="http://bacardi55.org" title="bacar
         <title>Alternate css classes easily in twig</title>
                 <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
@@ -768,7 +768,7 @@ The basic way in classic PHP project would be to use the iterator variable of yo
         <title>Adding a default «vhost» to nginx</title>
                 <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/01/28/adding-a-default-vhost-to-nginx.html"/>
@@ -826,7 +826,7 @@ This is what I put in my conf file:</p>
         <title>Switching quickly from 1 screen to 2</title>
                 <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
@@ -881,7 +881,7 @@ You'll see another output connected. This is the one you should use in the scrip
         <title>Save a vim file despite open it as a simple user</title>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
@@ -900,7 +900,7 @@ Make an alias in your vimrc and you'll never worried about forgetting to open a 
         <title>Make a RSS feed from a Solr research in drupal</title>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
@@ -939,7 +939,7 @@ I tried to used the class within the apachesorl module, but there required a to 
         <title>Return a Yaml file with silex</title>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
@@ -970,7 +970,7 @@ I tried to used the class within the apachesorl module, but there required a to 
         <title>New blog</title>
                 <updated>2013-01-20T00:00:00+01:00</updated>
         <author>
-            <name>Bacardi55</name>
+            <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
         <link rel="alternate" type="text/html" href="/2013/01/20/new-blog.html"/>

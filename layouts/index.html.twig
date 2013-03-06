@@ -28,6 +28,9 @@
 
                     {% block nav_right %}
                         <ul class="nav pull-right">
+                            <li>
+                              <a href="index.atom"><img src="{{ relativeRoot }}/images/rss.png" /></a>
+                            </li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
                                     Bacardi55
@@ -50,6 +53,8 @@
     </div>
 {% endblock %}
 
+{% block content_title '' %}
+
 {% block content_main %}
     {% if posts %}
         <dl class="dl-horizontal">
@@ -66,14 +71,6 @@
             {% endfor %}
         </dl>
     {% endif %}
-{% endblock %}
-
-{% block content_title %}
-<div class="page-header">
-    <h1>
-        {{ document.title|default(site.title|default('')) }}
-    </h1>
-</div>
 {% endblock %}
 
 

@@ -6,9 +6,6 @@ navigation: main
 layout: page
 ---
 
-About this blog
-----
-
 This blog is generetaed by [Carew](http://carew.github.com "Carew"). It is a static blog generator like [jekyll](http://jekyllrb.com/ "jekyll") but written in php. It means that I write my articles in plain text in markdown format (like on github) and then I build my static site and push the file on the server. It means that my blog will be on git ([gitlab](https://lab.bacardi55.org "gitlab") and [github](http://github.com/bacardi55 "github")) and will be open sourced (what else©®).
 
 It could be strange to want to use a static site in 2013 when everything is dynamic. But I don't feel that my little blog is a place where there will be a lot of comments… This blog will be about stuff that I don't want to forget, about my laptop configuration that I like on my daily use and of course about coding. I intend to write article about my new dev but also about some php toughts and new php features.
