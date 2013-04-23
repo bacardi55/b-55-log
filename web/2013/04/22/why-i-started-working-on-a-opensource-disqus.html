@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Why I started working on a opensource disqus</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="bacardi55">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+          <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="../../../../css/main.css">
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../../../..">bacardi55&#039;s blog</a>
+                <div class="nav-collapse collapse">
+                                            <ul class="nav">
+                                                                                                                        <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                        <li><a href="http://projects.bacardi55.org">My projects</a></li>
+                                                </ul>
+                    
+                                            <ul class="nav pull-right">
+                            <li>
+                              <a href="index.atom"><img src="../../../../images/rss.png" /></a>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home"><i class="icon-home"></i> My home</a><li>
+                                    <li><a href="http://projects.bacardi55.org" alt="my projects"><i class="icon-briefcase"></i> My projects</a><li>
+                                    <li class="divider"></li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github"><i class="icon-globe"></i> My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab"><i class="icon-globe"></i> My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter"><i class="icon-globe"></i> My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+          <div class="container">
+
+        
+            <div class="row">
+        <div class="span10 offset1 content">
+                                                <div class="page-header">
+                        <h1>Why I started working on a opensource disqus</h1>
+                    </div>
+                            
+                            <div class="pull-left">
+                                            By <i class="icon-user"></i>bacardi55 -
+                                        <i class="icon-calendar"></i>2013 April 22
+                </div>
+                                    <div class="pull-right">
+                        <ul class="tag_box inline">
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/angularjs.html">
+                                    angularjs
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/jocs.html">
+                                    jocs
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/disqus.html">
+                                    disqus
+                                </a>
+                            </li>
+                                                  </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                                <hr />
+
+                <h2>Disqus ?</h2>
+
+<p>From the <a href="https://disqus.com" title="disqus">Disqus website</a>:</p>
+
+<p><code>From small blogs to massive websites, Disqus is the easiest way to build active communities.
+It's free to use and works with virtually any type of website.</code></p>
+
+<p>In short, it's a simple comment system. I heard you saying «that's it?». And the anwser is yes.</p>
+
+<p>Advantages:</p>
+
+<ul>
+<li>The comment system is not managed by yourself;</li>
+<li>You don't have to worry about spam;</li>
+<li>You just includ some Javascript code on your page and your good to go;</li>
+<li>Include a social aspect in comments.</li>
+</ul>
+
+<p>Drawbacks:</p>
+
+<ul>
+<li>The major one for me: You don't own your data. If you do a basic comments system in php, ruby or whatever, you host the data of your users. If you use Disqus, Disqus own the content. For me this reason is more than enough to not use disqus. On disqus' website, they say that the data belongs to them.</li>
+<li>You don't have access to the source code of disqus. Therefore, you don't know what it does.</li>
+<li>You can't adapt it to your needs.</li>
+</ul>
+
+<h2>Ok, so no comments on your website?</h2>
+
+<p>Exactly. At this moment, there is no comment section on this blog. As a matter of fact, it doesn't bother me much. I might have 10 readers tops :D so I don't really care.</p>
+
+<p>I'm following a lot of developers blog and see a lot of them switching to heavy CMS or blog plateform to go this kind of static websites. And most of them are using disqus… There also people to use disqus on non static website. I really don't know why, but I feel like the «cloud» is the good excuse to not really care where our data are.</p>
+
+<h2>So?</h2>
+
+<p>So I started hacking a couple of weeks ago a new project to put it on this blog. I don't really need a comment system but maybe people will see it on maybe try it instead of disqus. The project is in a very early stage and will be release as a 0.1-alpha soon.</p>
+
+<p>Before starting, I had these pre-requisite:</p>
+
+<ul>
+<li>Separate completly the frontend and the backend;</li>
+<li>Learn how to use angularjs for the frontend;</li>
+</ul>
+
+<p>The first one would let user write other backends in the language they want. I'm well aware that php is not loved in the opensource community so that way, user will be able to have their own backend with their own features in the language they like.</p>
+
+<p>The second one was more of a selfish choice as I wanted to learn how to writte angularjs app.</p>
+
+<p>The project is separated in 2 different projects:</p>
+
+<ul>
+<li>Jocs (Javascript Opensource Comments System): (say it like «jokes» :))A full javascript frontend writting with <a href="http://angularjs.org/" title="angularjs">angularjs</a>, the Superheroic JavaScript MVW Framework :). This frontend has to be set up in your web page when you want to add a comment system.</li>
+<li>Pocs: This is a backend written in php with <a href="http://silex.sensio.org">silex</a>. This is a very basic backend that handle the web service + a simple admin page to add frontend.</li>
+</ul>
+
+<h2>Where am I?</h2>
+
+<h3>Jocs' on me</h3>
+
+<p>For now, I'm in the early stage. The app is currently working on my local but for now, it's not as user friendly as disqus to set it up on your website.
+For example, to make it work with my blog, I had to change the path to the angularjs views. There is also no response to comment yet but that will be soon.</p>
+
+<p>I have a huge todolist and I'll try to put it on the github repo at the same time as the source code (probably at the end of the week).
+This won't be perfect but it would be a version that does the minimum to work :).</p>
+
+<p>What it does for now:</p>
+
+<ul>
+<li>Display the comments after the page is loaded.</li>
+<li>Add a comment.</li>
+<li>Display gravatar if available.</li>
+</ul>
+
+<p>Soon:</p>
+
+<ul>
+<li>Response to comment (hierarchy)</li>
+<li>Antispam</li>
+<li>…</li>
+</ul>
+
+<p>You can see a capture here:
+<a href="../../../../images/jocs/alpha.png">here</a></p>
+
+<h3>Pocs</h3>
+
+<p>For the backoffice, it's also the early stage. I'm developping both frontend and backend at the same time so it takes time :).
+What it does for now:</p>
+
+<ul>
+<li>Install script to create the first user.</li>
+<li>Add/Remove frontend (link the frontend to the backend with an API key and a fixed base URL).</li>
+</ul>
+
+<p>Soon:</p>
+
+<ul>
+<li>See comments per frontend / url and remove the unwanted ones.</li>
+<li>…</li>
+</ul>
+
+<p>I think the code will be on github at this end of this week so people might be able to look at it.
+It will be <a href="http://github.com/bacardi55/jocs" title="jocs">here</a> and <a href="http://github.com/bacardi55/pocs" title="pocs">here</a>.</p>
+
+<h2>Conclusion</h2>
+
+<p>I'll install it soon to try to test it here. I'll continue update this blog with the news of this project.
+Hope that project will inspire developers to switch from disqus for jocs or their own comment system :).</p>
+
+
+                    </div>
+      </div>
+
+            <footer>
+        <p>
+            In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
+        <p>
+        <p>
+            &copy;
+                            <a href="http://bacardi55.org">
+                  bacardi55
+                </a>
+                        2013
+            <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+            </small>
+        </p>
+    </footer>
+      </div>
+    
+    
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="../../../../js/vendor/bootstrap.min.js"></script>
+    
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-167056-9']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </body>
+</html>

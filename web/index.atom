@@ -4,8 +4,125 @@
     <subtitle></subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2013-03-07T00:00:00+01:00</updated>
+            <updated>2013-04-22T00:00:00+02:00</updated>
             <entry>
+        <title>Why I started working on a opensource disqus</title>
+                <updated>2013-04-22T00:00:00+02:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/04/22/why-i-started-working-on-a-opensource-disqus.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>Disqus ?</h2>
+
+<p>From the <a href="https://disqus.com" title="disqus">Disqus website</a>:</p>
+
+<p><code>From small blogs to massive websites, Disqus is the easiest way to build active communities.
+It's free to use and works with virtually any type of website.</code></p>
+
+<p>In short, it's a simple comment system. I heard you saying «that's it?». And the anwser is yes.</p>
+
+<p>Advantages:</p>
+
+<ul>
+<li>The comment system is not managed by yourself;</li>
+<li>You don't have to worry about spam;</li>
+<li>You just includ some Javascript code on your page and your good to go;</li>
+<li>Include a social aspect in comments.</li>
+</ul>
+
+<p>Drawbacks:</p>
+
+<ul>
+<li>The major one for me: You don't own your data. If you do a basic comments system in php, ruby or whatever, you host the data of your users. If you use Disqus, Disqus own the content. For me this reason is more than enough to not use disqus. On disqus' website, they say that the data belongs to them.</li>
+<li>You don't have access to the source code of disqus. Therefore, you don't know what it does.</li>
+<li>You can't adapt it to your needs.</li>
+</ul>
+
+<h2>Ok, so no comments on your website?</h2>
+
+<p>Exactly. At this moment, there is no comment section on this blog. As a matter of fact, it doesn't bother me much. I might have 10 readers tops :D so I don't really care.</p>
+
+<p>I'm following a lot of developers blog and see a lot of them switching to heavy CMS or blog plateform to go this kind of static websites. And most of them are using disqus… There also people to use disqus on non static website. I really don't know why, but I feel like the «cloud» is the good excuse to not really care where our data are.</p>
+
+<h2>So?</h2>
+
+<p>So I started hacking a couple of weeks ago a new project to put it on this blog. I don't really need a comment system but maybe people will see it on maybe try it instead of disqus. The project is in a very early stage and will be release as a 0.1-alpha soon.</p>
+
+<p>Before starting, I had these pre-requisite:</p>
+
+<ul>
+<li>Separate completly the frontend and the backend;</li>
+<li>Learn how to use angularjs for the frontend;</li>
+</ul>
+
+<p>The first one would let user write other backends in the language they want. I'm well aware that php is not loved in the opensource community so that way, user will be able to have their own backend with their own features in the language they like.</p>
+
+<p>The second one was more of a selfish choice as I wanted to learn how to writte angularjs app.</p>
+
+<p>The project is separated in 2 different projects:</p>
+
+<ul>
+<li>Jocs (Javascript Opensource Comments System): (say it like «jokes» :))A full javascript frontend writting with <a href="http://angularjs.org/" title="angularjs">angularjs</a>, the Superheroic JavaScript MVW Framework :). This frontend has to be set up in your web page when you want to add a comment system.</li>
+<li>Pocs: This is a backend written in php with <a href="http://silex.sensio.org">silex</a>. This is a very basic backend that handle the web service + a simple admin page to add frontend.</li>
+</ul>
+
+<h2>Where am I?</h2>
+
+<h3>Jocs' on me</h3>
+
+<p>For now, I'm in the early stage. The app is currently working on my local but for now, it's not as user friendly as disqus to set it up on your website.
+For example, to make it work with my blog, I had to change the path to the angularjs views. There is also no response to comment yet but that will be soon.</p>
+
+<p>I have a huge todolist and I'll try to put it on the github repo at the same time as the source code (probably at the end of the week).
+This won't be perfect but it would be a version that does the minimum to work :).</p>
+
+<p>What it does for now:</p>
+
+<ul>
+<li>Display the comments after the page is loaded.</li>
+<li>Add a comment.</li>
+<li>Display gravatar if available.</li>
+</ul>
+
+<p>Soon:</p>
+
+<ul>
+<li>Response to comment (hierarchy)</li>
+<li>Antispam</li>
+<li>…</li>
+</ul>
+
+<p>You can see a capture here:
+<a href="../../../../images/jocs/alpha.png">here</a></p>
+
+<h3>Pocs</h3>
+
+<p>For the backoffice, it's also the early stage. I'm developping both frontend and backend at the same time so it takes time :).
+What it does for now:</p>
+
+<ul>
+<li>Install script to create the first user.</li>
+<li>Add/Remove frontend (link the frontend to the backend with an API key and a fixed base URL).</li>
+</ul>
+
+<p>Soon:</p>
+
+<ul>
+<li>See comments per frontend / url and remove the unwanted ones.</li>
+<li>…</li>
+</ul>
+
+<p>I think the code will be on github at this end of this week so people might be able to look at it.
+It will be <a href="http://github.com/bacardi55/jocs" title="jocs">here</a> and <a href="http://github.com/bacardi55/pocs" title="pocs">here</a>.</p>
+
+<h2>Conclusion</h2>
+
+<p>I'll install it soon to try to test it here. I'll continue update this blog with the news of this project.
+Hope that project will inspire developers to switch from disqus for jocs or their own comment system :).</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Open html email and email attachment in mutt</title>
                 <updated>2013-03-07T00:00:00+01:00</updated>
         <author>
@@ -765,6 +882,61 @@ The basic way in classic PHP project would be to use the iterator variable of yo
 ]]></content>
     </entry>
         <entry>
+        <title>Switching quickly from 1 screen to 2</title>
+                <updated>2013-01-28T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
+&nbsp;
+<span style="color: #007800;">NB</span>=<span style="color: #000000; font-weight: bold;">`</span>xrandr<span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">grep</span> <span style="color: #ff0000;">&quot; connected&quot;</span><span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">wc</span> -l<span style="color: #000000; font-weight: bold;">`</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;<span style="color: #007800;">$NB</span>&quot;</span> <span style="color: #660033;">-eq</span> <span style="color: #000000;">2</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+  xrandr <span style="color: #660033;">--output</span> VGA-<span style="color: #000000;">0</span> <span style="color: #660033;">--auto</span> <span style="color: #660033;">--left-of</span> LVDS
+  <span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> = <span style="color: #ff0000;">&quot;off&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+    xrandr <span style="color: #660033;">--output</span> LVDS <span style="color: #660033;">--off</span>
+  <span style="color: #000000; font-weight: bold;">fi</span>
+<span style="color: #000000; font-weight: bold;">else</span>
+  xrandr <span style="color: #660033;">--auto</span>
+<span style="color: #000000; font-weight: bold;">fi</span></pre>
+
+<p>I named my script <code>dualscreen</code>.
+Now, I you just have to run <code>dualscreen</code> in a term (or in a launcher like dmenu or your kde/gnome launcher). Then the script will the detect if 1 or 2 screen are plugged and do what it need to do.</p>
+
+<p>If you want to plug a second screen and switch off the screen of the laptop, you can run <code>dualscreen off</code> and there you go !</p>
+
+<p>Of course you need to adapt the output name depending on your hardware. Just run <code>randr</code> in a terminal.
+For example, here is what I have running <code>xrandr</code>:</p>
+
+<pre class="bash" style="font-family:monospace;">Screen <span style="color: #000000;">0</span>: minimum <span style="color: #000000;">320</span> x <span style="color: #000000;">200</span>, current <span style="color: #000000;">1366</span> x <span style="color: #000000;">768</span>, maximum <span style="color: #000000;">16384</span> x <span style="color: #000000;">16384</span>
+LVDS connected 1366x768+<span style="color: #000000;">0</span>+<span style="color: #000000;">0</span> <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span> 0mm x 0mm
+1366x768       <span style="color: #000000;">60.2</span><span style="color: #000000; font-weight: bold;">*</span>+
+1280x720       <span style="color: #000000;">59.9</span>
+1152x768       <span style="color: #000000;">59.8</span>
+1024x768       <span style="color: #000000;">59.9</span>
+800x600        <span style="color: #000000;">59.9</span>
+848x480        <span style="color: #000000;">59.7</span>
+720x480        <span style="color: #000000;">59.7</span>
+640x480        <span style="color: #000000;">59.4</span>
+DisplayPort-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+HDMI-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+VGA-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span></pre>
+
+<p>This means that I have 4 outputs. The LVDS is my laptop output. Then, plug your screen and run the xrandr command again.
+You'll see another output connected. This is the one you should use in the script.</p>
+
+<p>Bonus:</p>
+
+<p>If you are lucky enough that your computer send an acpi signal or something to detect that a screen is plugged, you can do it automatically.</p>
+
+<p>Unfortunatly it's not the case with my current laptop so I don't know more ^^. Maybe someone can send me an email with the procedure :).</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Adding a default «vhost» to nginx</title>
                 <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
@@ -823,80 +995,6 @@ This is what I put in my conf file:</p>
 ]]></content>
     </entry>
         <entry>
-        <title>Switching quickly from 1 screen to 2</title>
-                <updated>2013-01-28T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
-
-<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
-&nbsp;
-<span style="color: #007800;">NB</span>=<span style="color: #000000; font-weight: bold;">`</span>xrandr<span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">grep</span> <span style="color: #ff0000;">&quot; connected&quot;</span><span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">wc</span> -l<span style="color: #000000; font-weight: bold;">`</span>
-&nbsp;
-<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;<span style="color: #007800;">$NB</span>&quot;</span> <span style="color: #660033;">-eq</span> <span style="color: #000000;">2</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
-  xrandr <span style="color: #660033;">--output</span> VGA-<span style="color: #000000;">0</span> <span style="color: #660033;">--auto</span> <span style="color: #660033;">--left-of</span> LVDS
-  <span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> = <span style="color: #ff0000;">&quot;off&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
-    xrandr <span style="color: #660033;">--output</span> LVDS <span style="color: #660033;">--off</span>
-  <span style="color: #000000; font-weight: bold;">fi</span>
-<span style="color: #000000; font-weight: bold;">else</span>
-  xrandr <span style="color: #660033;">--auto</span>
-<span style="color: #000000; font-weight: bold;">fi</span></pre>
-
-<p>I named my script <code>dualscreen</code>.
-Now, I you just have to run <code>dualscreen</code> in a term (or in a launcher like dmenu or your kde/gnome launcher). Then the script will the detect if 1 or 2 screen are plugged and do what it need to do.</p>
-
-<p>If you want to plug a second screen and switch off the screen of the laptop, you can run <code>dualscreen off</code> and there you go !</p>
-
-<p>Of course you need to adapt the output name depending on your hardware. Just run <code>randr</code> in a terminal.
-For example, here is what I have running <code>xrandr</code>:</p>
-
-<pre class="bash" style="font-family:monospace;">Screen <span style="color: #000000;">0</span>: minimum <span style="color: #000000;">320</span> x <span style="color: #000000;">200</span>, current <span style="color: #000000;">1366</span> x <span style="color: #000000;">768</span>, maximum <span style="color: #000000;">16384</span> x <span style="color: #000000;">16384</span>
-LVDS connected 1366x768+<span style="color: #000000;">0</span>+<span style="color: #000000;">0</span> <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span> 0mm x 0mm
-1366x768       <span style="color: #000000;">60.2</span><span style="color: #000000; font-weight: bold;">*</span>+
-1280x720       <span style="color: #000000;">59.9</span>
-1152x768       <span style="color: #000000;">59.8</span>
-1024x768       <span style="color: #000000;">59.9</span>
-800x600        <span style="color: #000000;">59.9</span>
-848x480        <span style="color: #000000;">59.7</span>
-720x480        <span style="color: #000000;">59.7</span>
-640x480        <span style="color: #000000;">59.4</span>
-DisplayPort-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
-HDMI-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
-VGA-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span></pre>
-
-<p>This means that I have 4 outputs. The LVDS is my laptop output. Then, plug your screen and run the xrandr command again.
-You'll see another output connected. This is the one you should use in the script.</p>
-
-<p>Bonus:</p>
-
-<p>If you are lucky enough that your computer send an acpi signal or something to detect that a screen is plugged, you can do it automatically.</p>
-
-<p>Unfortunatly it's not the case with my current laptop so I don't know more ^^. Maybe someone can send me an email with the procedure :).</p>
-]]></content>
-    </entry>
-        <entry>
-        <title>Save a vim file despite open it as a simple user</title>
-                <updated>2013-01-27T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>If, as me, you often open a file forgetting to put sudo first, you hate that message <code>'readonly' option is set</code>, there is a simple solution to save your file anyway and not redo everything after opening the file with sudo.</p>
-
-<p>You need to have sudo installed.</p>
-
-<p>In, vim, just do
-<code>:w !sudo tee %</code></p>
-
-<p>And there you go :)
-Make an alias in your vimrc and you'll never worried about forgetting to open a file with sudo.</p>
-]]></content>
-    </entry>
-        <entry>
         <title>Make a RSS feed from a Solr research in drupal</title>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
@@ -933,6 +1031,25 @@ I tried to used the class within the apachesorl module, but there required a to 
 <p>After that, I simply created a class that generate a RSS feed from a drupal request. I think this class is pretty generic and I'll try to put it on my github as an opensource lib.</p>
 
 <p>Hope that could help some developers that need to do a RSS feed from a drupal apache solr query :).</p>
+]]></content>
+    </entry>
+        <entry>
+        <title>Save a vim file despite open it as a simple user</title>
+                <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/27/save-a-vim-file-despite-open-it-as-a-simple-user.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>If, as me, you often open a file forgetting to put sudo first, you hate that message <code>'readonly' option is set</code>, there is a simple solution to save your file anyway and not redo everything after opening the file with sudo.</p>
+
+<p>You need to have sudo installed.</p>
+
+<p>In, vim, just do
+<code>:w !sudo tee %</code></p>
+
+<p>And there you go :)
+Make an alias in your vimrc and you'll never worried about forgetting to open a file with sudo.</p>
 ]]></content>
     </entry>
         <entry>
