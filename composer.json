@@ -1,13 +1,13 @@
 {
-    "name": "carew/boilerplate",
-    "description": "Carew boilerplate",
+    "name": "bacardi55/b-55-log",
+    "description": "Bacardi55's blog",
     "license": "MIT",
-    "homepage": "http://carew.github.com/",
-    "keywords": ["carew"],
+    "homepage": "http://bacardi55.org/",
+    "keywords": ["carew", "blog", "bacardi55", "php"],
     "authors": [
         {
-            "name": "Grégoire Pineau",
-            "email": "lyrixx@lyrixx.info"
+            "name": "Raphaël Khaïat",
+            "email": "admin@bacardi55.org"
         }
     ],
     "require": {
