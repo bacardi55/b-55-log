@@ -12,7 +12,14 @@
           {% endif %}
         {% endblock %}
 
-        {% block content_main document.body|default('')|raw %}
+        {% block content_main %}
+          This page doesn't exist, what do you want to do now?
+          <ul>
+            <li><a href="/">Homepage</a>?</li>
+            <li><a href="{{ latest.path }}">Last article ({{ latest.title }})</a></li>
+            <li><a href="">tags list</a></li>
+          </ul>
+        {% endblock %}
       </div>
     </div>
   {% endblock %}
