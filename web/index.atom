@@ -4,8 +4,55 @@
     <subtitle></subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2013-04-22T00:00:00+02:00</updated>
+            <updated>2013-04-30T00:00:00+02:00</updated>
             <entry>
+        <title>Error page with carew and nginx</title>
+                <updated>2013-04-30T00:00:00+02:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/04/30/error-page-with-carew-and-nginx.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>Error page with Nginx</h2>
+
+<p>Today, I wanted to simply add a 404 error page on my blog. The http server used to deliver this page is <a href="http://nginx.org">nginx</a>. As it's the first time I use it since this blog, I'm not yet use to it. I'm more use to create an .htaccess file for apache.</p>
+
+<p>The good news is, it's even easier with nginx to create custom error pages. No need to create an .htaccess file, you can do it in your vhost configuration file (site-available/filename).</p>
+
+<p>Just add <code>error_page 404 = /your_error_page</code> and it's done for the nginx part. Isn't that beautiful ? :).</p>
+
+<p>You can even catch more error on 1 ligne:</p>
+
+<p><code>error_page 404 500 502 504 = /your_error_page</code></p>
+
+<p>A full example:</p>
+
+<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+  listen <span style="color: #000000; font-weight: bold;">*</span>:<span style="color: #000000;">80</span>;
+  server_name domain.org;
+  root <span style="color: #000000; font-weight: bold;">/</span>path<span style="color: #000000; font-weight: bold;">/</span>to<span style="color: #000000; font-weight: bold;">/</span>project;
+&nbsp;
+  error_page <span style="color: #000000;">404</span> <span style="color: #000000;">500</span> <span style="color: #000000;">504</span> <span style="color: #000000;">502</span> <span style="color: #000000;">503</span> = <span style="color: #000000; font-weight: bold;">/</span>error.html;
+&nbsp;
+  access_log  <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>domain_access.log;
+  error_log   <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>domain_error.log;
+<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+
+<p>And voila!</p>
+
+<h2>The carew part</h2>
+
+<p>To create a error page in carew, you simply need to create a page and a specific layout for that page.
+In my example, as I redirect lots of different error to the error page, I just need to display an basic page.</p>
+
+<p>I created a <code>layout/errors.html.twig</code> and a <code>page\error.md</code> and that was done.</p>
+
+<p>The source code of this two files can be find on <a href="http://github.com/bacardi55/b-55-log/">the repository of this blog</a></p>
+
+<p>You won't have nginx error anymore on this blog (as it was on the tags page that wasn't working. It's fixed now, thanks to Rustx) :)</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Why I started working on a opensource disqus</title>
                 <updated>2013-04-22T00:00:00+02:00</updated>
         <author>
@@ -647,6 +694,41 @@ You just need to do</p>
 ]]></content>
     </entry>
         <entry>
+        <title>Why I love opensource</title>
+                <updated>2013-02-03T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
+
+<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
+
+<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
+
+<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
+This post isn't about presenting silex, it's just to thanks the opensource community.</p>
+
+<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
+
+<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
+I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
+
+<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
+
+<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
+Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
+
+<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
+
+<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
+This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
+
+<p><strong>Open source, live long and prosper!</strong></p>
+]]></content>
+    </entry>
+        <entry>
         <title>Presenting Github Php dashBoard</title>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
@@ -751,38 +833,47 @@ You just need to do</p>
 ]]></content>
     </entry>
         <entry>
-        <title>Why I love opensource</title>
-                <updated>2013-02-03T00:00:00+01:00</updated>
+        <title>Alternate css classes easily in twig</title>
+                <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
             <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
+        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
+The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
 
-<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
+<p>For example:</p>
 
-<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
+<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
 
-<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
-This post isn't about presenting silex, it's just to thanks the opensource community.</p>
+<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
 
-<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
+<p>To use the modulo function in twig, just use</p>
 
-<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
-I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
 
-<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
+<p>And there you go, as simple as in PHP.</p>
 
-<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
-Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
+<p>Then, using twig, you can do this:</p>
 
-<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
 
-<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
-This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
+<p>Or in my case I needed this :</p>
 
-<p><strong>Open source, live long and prosper!</strong></p>
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>To be able to use the index of my parent loop :)</p>
+
+<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>Isn't it beautiful ? But it gets even better!</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
 ]]></content>
     </entry>
         <entry>
@@ -835,105 +926,6 @@ This is actually the main reason why <a href="http://bacardi55.org" title="bacar
 <p><strong><em>Watch out</em></strong>: Don't forget the <code>return $twig;</code> line! I lost half an hour because of this so don't do as me ^^.</p>
 
 <p>As always, hope that will help someone (at least me when i'll have the same issue in another project ^^).</p>
-]]></content>
-    </entry>
-        <entry>
-        <title>Alternate css classes easily in twig</title>
-                <updated>2013-02-02T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
-The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
-
-<p>For example:</p>
-
-<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
-
-<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
-
-<p>To use the modulo function in twig, just use</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
-
-<p>And there you go, as simple as in PHP.</p>
-
-<p>Then, using twig, you can do this:</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
-
-<p>Or in my case I needed this :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>To be able to use the index of my parent loop :)</p>
-
-<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>Isn't it beautiful ? But it gets even better!</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
-]]></content>
-    </entry>
-        <entry>
-        <title>Switching quickly from 1 screen to 2</title>
-                <updated>2013-01-28T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
-
-<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
-&nbsp;
-<span style="color: #007800;">NB</span>=<span style="color: #000000; font-weight: bold;">`</span>xrandr<span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">grep</span> <span style="color: #ff0000;">&quot; connected&quot;</span><span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">wc</span> -l<span style="color: #000000; font-weight: bold;">`</span>
-&nbsp;
-<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;<span style="color: #007800;">$NB</span>&quot;</span> <span style="color: #660033;">-eq</span> <span style="color: #000000;">2</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
-  xrandr <span style="color: #660033;">--output</span> VGA-<span style="color: #000000;">0</span> <span style="color: #660033;">--auto</span> <span style="color: #660033;">--left-of</span> LVDS
-  <span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> = <span style="color: #ff0000;">&quot;off&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
-    xrandr <span style="color: #660033;">--output</span> LVDS <span style="color: #660033;">--off</span>
-  <span style="color: #000000; font-weight: bold;">fi</span>
-<span style="color: #000000; font-weight: bold;">else</span>
-  xrandr <span style="color: #660033;">--auto</span>
-<span style="color: #000000; font-weight: bold;">fi</span></pre>
-
-<p>I named my script <code>dualscreen</code>.
-Now, I you just have to run <code>dualscreen</code> in a term (or in a launcher like dmenu or your kde/gnome launcher). Then the script will the detect if 1 or 2 screen are plugged and do what it need to do.</p>
-
-<p>If you want to plug a second screen and switch off the screen of the laptop, you can run <code>dualscreen off</code> and there you go !</p>
-
-<p>Of course you need to adapt the output name depending on your hardware. Just run <code>randr</code> in a terminal.
-For example, here is what I have running <code>xrandr</code>:</p>
-
-<pre class="bash" style="font-family:monospace;">Screen <span style="color: #000000;">0</span>: minimum <span style="color: #000000;">320</span> x <span style="color: #000000;">200</span>, current <span style="color: #000000;">1366</span> x <span style="color: #000000;">768</span>, maximum <span style="color: #000000;">16384</span> x <span style="color: #000000;">16384</span>
-LVDS connected 1366x768+<span style="color: #000000;">0</span>+<span style="color: #000000;">0</span> <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span> 0mm x 0mm
-1366x768       <span style="color: #000000;">60.2</span><span style="color: #000000; font-weight: bold;">*</span>+
-1280x720       <span style="color: #000000;">59.9</span>
-1152x768       <span style="color: #000000;">59.8</span>
-1024x768       <span style="color: #000000;">59.9</span>
-800x600        <span style="color: #000000;">59.9</span>
-848x480        <span style="color: #000000;">59.7</span>
-720x480        <span style="color: #000000;">59.7</span>
-640x480        <span style="color: #000000;">59.4</span>
-DisplayPort-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
-HDMI-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
-VGA-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span></pre>
-
-<p>This means that I have 4 outputs. The LVDS is my laptop output. Then, plug your screen and run the xrandr command again.
-You'll see another output connected. This is the one you should use in the script.</p>
-
-<p>Bonus:</p>
-
-<p>If you are lucky enough that your computer send an acpi signal or something to detect that a screen is plugged, you can do it automatically.</p>
-
-<p>Unfortunatly it's not the case with my current laptop so I don't know more ^^. Maybe someone can send me an email with the procedure :).</p>
 ]]></content>
     </entry>
         <entry>
@@ -997,42 +989,58 @@ This is what I put in my conf file:</p>
 ]]></content>
     </entry>
         <entry>
-        <title>Make a RSS feed from a Solr research in drupal</title>
-                <updated>2013-01-27T00:00:00+01:00</updated>
+        <title>Switching quickly from 1 screen to 2</title>
+                <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
             <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-        <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<h2>The problematic</h2>
+        <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
 
-<hr />
+<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
+&nbsp;
+<span style="color: #007800;">NB</span>=<span style="color: #000000; font-weight: bold;">`</span>xrandr<span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">grep</span> <span style="color: #ff0000;">&quot; connected&quot;</span><span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">wc</span> -l<span style="color: #000000; font-weight: bold;">`</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;<span style="color: #007800;">$NB</span>&quot;</span> <span style="color: #660033;">-eq</span> <span style="color: #000000;">2</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+  xrandr <span style="color: #660033;">--output</span> VGA-<span style="color: #000000;">0</span> <span style="color: #660033;">--auto</span> <span style="color: #660033;">--left-of</span> LVDS
+  <span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> = <span style="color: #ff0000;">&quot;off&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+    xrandr <span style="color: #660033;">--output</span> LVDS <span style="color: #660033;">--off</span>
+  <span style="color: #000000; font-weight: bold;">fi</span>
+<span style="color: #000000; font-weight: bold;">else</span>
+  xrandr <span style="color: #660033;">--auto</span>
+<span style="color: #000000; font-weight: bold;">fi</span></pre>
 
-<p>At my work, I had the task to create a RSS feed on a Drupal website for some Solr search result pages.
-I was working on a project where all the listing pages were generated by solr request. As usual, the client asked for an RSS feed for this pages. But she also asked to be able to put a keyword in the search and have a RSS feed for only the search pages.
-To do that, I needed to launch the solr query to have the result of my RSS feed.
-I also needed to be do it outside Drupal to let the varnish cache it (without specific rules as the link won't need authentification).</p>
+<p>I named my script <code>dualscreen</code>.
+Now, I you just have to run <code>dualscreen</code> in a term (or in a launcher like dmenu or your kde/gnome launcher). Then the script will the detect if 1 or 2 screen are plugged and do what it need to do.</p>
 
-<h2>My solution</h2>
+<p>If you want to plug a second screen and switch off the screen of the laptop, you can run <code>dualscreen off</code> and there you go !</p>
 
-<hr />
+<p>Of course you need to adapt the output name depending on your hardware. Just run <code>randr</code> in a terminal.
+For example, here is what I have running <code>xrandr</code>:</p>
 
-<p>I don't know if this is a perfect solution, but in that can help someone, here what I did.</p>
+<pre class="bash" style="font-family:monospace;">Screen <span style="color: #000000;">0</span>: minimum <span style="color: #000000;">320</span> x <span style="color: #000000;">200</span>, current <span style="color: #000000;">1366</span> x <span style="color: #000000;">768</span>, maximum <span style="color: #000000;">16384</span> x <span style="color: #000000;">16384</span>
+LVDS connected 1366x768+<span style="color: #000000;">0</span>+<span style="color: #000000;">0</span> <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span> 0mm x 0mm
+1366x768       <span style="color: #000000;">60.2</span><span style="color: #000000; font-weight: bold;">*</span>+
+1280x720       <span style="color: #000000;">59.9</span>
+1152x768       <span style="color: #000000;">59.8</span>
+1024x768       <span style="color: #000000;">59.9</span>
+800x600        <span style="color: #000000;">59.9</span>
+848x480        <span style="color: #000000;">59.7</span>
+720x480        <span style="color: #000000;">59.7</span>
+640x480        <span style="color: #000000;">59.4</span>
+DisplayPort-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+HDMI-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+VGA-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span></pre>
 
-<p>I had several options but I started by creating a rss.php controller.
-Inside I loaded my manager class that will include the needed files.
-I needed the settings.php to load the database settings. The class load the solr configuration and is now ready to create the query.</p>
+<p>This means that I have 4 outputs. The LVDS is my laptop output. Then, plug your screen and run the xrandr command again.
+You'll see another output connected. This is the one you should use in the script.</p>
 
-<p>In Drupal, After each solr request, I put in cache all fixed arguments of the query (like the content type, the publish options, ect…).
-After that, I generate a url with the request name (to retrieve it in cache) and the non fixed parameter (such as keywords).</p>
+<p>Bonus:</p>
 
-<p>Then back in my manager, I parsed the url the retrieve the parameters. Then I load from the cache the fixed parameters of the request.
-I then generate the solr request and launch it thanks to the <a href="https://code.google.com/p/solr-php-client/">solr-php-client</a>.
-I tried to used the class within the apachesorl module, but there required a to high level of drupal bootstrapping.</p>
+<p>If you are lucky enough that your computer send an acpi signal or something to detect that a screen is plugged, you can do it automatically.</p>
 
-<p>After that, I simply created a class that generate a RSS feed from a drupal request. I think this class is pretty generic and I'll try to put it on my github as an opensource lib.</p>
-
-<p>Hope that could help some developers that need to do a RSS feed from a drupal apache solr query :).</p>
+<p>Unfortunatly it's not the case with my current laptop so I don't know more ^^. Maybe someone can send me an email with the procedure :).</p>
 ]]></content>
     </entry>
         <entry>
@@ -1083,6 +1091,45 @@ Make an alias in your vimrc and you'll never worried about forgetting to open a 
 <span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
 
 <p>And there you go :)</p>
+]]></content>
+    </entry>
+        <entry>
+        <title>Make a RSS feed from a Solr research in drupal</title>
+                <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/27/make-a-rss-feed-from-a-solr-research-in-drupal.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>The problematic</h2>
+
+<hr />
+
+<p>At my work, I had the task to create a RSS feed on a Drupal website for some Solr search result pages.
+I was working on a project where all the listing pages were generated by solr request. As usual, the client asked for an RSS feed for this pages. But she also asked to be able to put a keyword in the search and have a RSS feed for only the search pages.
+To do that, I needed to launch the solr query to have the result of my RSS feed.
+I also needed to be do it outside Drupal to let the varnish cache it (without specific rules as the link won't need authentification).</p>
+
+<h2>My solution</h2>
+
+<hr />
+
+<p>I don't know if this is a perfect solution, but in that can help someone, here what I did.</p>
+
+<p>I had several options but I started by creating a rss.php controller.
+Inside I loaded my manager class that will include the needed files.
+I needed the settings.php to load the database settings. The class load the solr configuration and is now ready to create the query.</p>
+
+<p>In Drupal, After each solr request, I put in cache all fixed arguments of the query (like the content type, the publish options, ect…).
+After that, I generate a url with the request name (to retrieve it in cache) and the non fixed parameter (such as keywords).</p>
+
+<p>Then back in my manager, I parsed the url the retrieve the parameters. Then I load from the cache the fixed parameters of the request.
+I then generate the solr request and launch it thanks to the <a href="https://code.google.com/p/solr-php-client/">solr-php-client</a>.
+I tried to used the class within the apachesorl module, but there required a to high level of drupal bootstrapping.</p>
+
+<p>After that, I simply created a class that generate a RSS feed from a drupal request. I think this class is pretty generic and I'll try to put it on my github as an opensource lib.</p>
+
+<p>Hope that could help some developers that need to do a RSS feed from a drupal apache solr query :).</p>
 ]]></content>
     </entry>
         <entry>
