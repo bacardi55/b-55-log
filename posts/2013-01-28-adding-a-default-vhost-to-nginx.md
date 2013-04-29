@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Adding a default «vhost» to nginx
+title:  Adding a default «vhost» to nginx (updated 2013-04-29)
 tags: [nginx, vhost, default]
 author: bacardi55
 ---
@@ -11,7 +11,7 @@ So I created my server :
 
     bash
     server {
-      listen XX.XX.XXX.XXX:80;
+      listen *:80;
       server_name bacardi55.org;
       root /var/www/b-55-log/web;
 
@@ -24,7 +24,7 @@ Then, I wanted to add two other domain to redirect to this one:
 
     bash
     server {
-      listen XX.XX.XXX.XXX:80;
+      listen *:80;
       server_name domaine2.tld domaine3.tld;
       access_log /var/log/nginx/other_domaine.access.log;
 
@@ -33,14 +33,14 @@ Then, I wanted to add two other domain to redirect to this one:
 
 
 But It didn't work as I didn't have a default server.
-The redirection wasn't apply as nginx considered my blog server the default. So the to 2 other vhost keep working and wasn't redirected. I didn't like that because I don't want this blog to be indexed 3 times by search engines.
+The redirection wasn't working as nginx considered my blog server the default. So the to 2 other vhost kept working and wasn't redirected. I didn't like that because I don't want this blog to be indexed 3 times by search engines.
 
 So to correct this, I had to create a default server that redirect everything that didn't match any of my other server_name.
 This is what I put in my conf file:
 
     bash
     server {
-      listen XX.XX.XXX.XXX:80 default;
+      listen *:80 default;
       server_name _;
       access_log /var/log/nginx/default.access.log;
 
@@ -60,3 +60,5 @@ And there you go :)
 But it didn't work. I actually had to put the `IP:80` instead of just `80` as in the official doc.
 
 I may have miss something in my nginx that make it doesn't work but if than can help someone other than me :).
+
+PS: Thanks to my friend [Rust](http://blog.teknicity.net/) to advising me not to use the IP address but only *:80.

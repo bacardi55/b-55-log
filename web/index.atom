@@ -937,7 +937,7 @@ You'll see another output connected. This is the one you should use in the scrip
 ]]></content>
     </entry>
         <entry>
-        <title>Adding a default «vhost» to nginx</title>
+        <title>Adding a default «vhost» to nginx (updated 2013-04-29)</title>
                 <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
             <name>bacardi55</name>
@@ -949,7 +949,7 @@ You'll see another output connected. This is the one you should use in the scrip
 <p>So I created my server :</p>
 
 <pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
-  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span>;
+  listen <span style="color: #000000; font-weight: bold;">*</span>:<span style="color: #000000;">80</span>;
   server_name bacardi55.org;
   root <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>www<span style="color: #000000; font-weight: bold;">/</span>b-<span style="color: #000000;">55</span>-log<span style="color: #000000; font-weight: bold;">/</span>web;
 &nbsp;
@@ -960,7 +960,7 @@ You'll see another output connected. This is the one you should use in the scrip
 <p>Then, I wanted to add two other domain to redirect to this one:</p>
 
 <pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
-  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span>;
+  listen <span style="color: #000000; font-weight: bold;">*</span>:<span style="color: #000000;">80</span>;
   server_name domaine2.tld domaine3.tld;
   access_log <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>other_domaine.access.log;
 &nbsp;
@@ -968,13 +968,13 @@ You'll see another output connected. This is the one you should use in the scrip
 <span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
 
 <p>But It didn't work as I didn't have a default server.
-The redirection wasn't apply as nginx considered my blog server the default. So the to 2 other vhost keep working and wasn't redirected. I didn't like that because I don't want this blog to be indexed 3 times by search engines.</p>
+The redirection wasn't working as nginx considered my blog server the default. So the to 2 other vhost kept working and wasn't redirected. I didn't like that because I don't want this blog to be indexed 3 times by search engines.</p>
 
 <p>So to correct this, I had to create a default server that redirect everything that didn't match any of my other server_name.
 This is what I put in my conf file:</p>
 
 <pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
-  listen XX.XX.XXX.XXX:<span style="color: #000000;">80</span> default;
+  listen <span style="color: #000000; font-weight: bold;">*</span>:<span style="color: #000000;">80</span> default;
   server_name _;
   access_log <span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>log<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>default.access.log;
 &nbsp;
@@ -992,6 +992,8 @@ This is what I put in my conf file:</p>
 <p>But it didn't work. I actually had to put the <code>IP:80</code> instead of just <code>80</code> as in the official doc.</p>
 
 <p>I may have miss something in my nginx that make it doesn't work but if than can help someone other than me :).</p>
+
+<p>PS: Thanks to my friend <a href="http://blog.teknicity.net/">Rust</a> to advising me not to use the IP address but only *:80.</p>
 ]]></content>
     </entry>
         <entry>
