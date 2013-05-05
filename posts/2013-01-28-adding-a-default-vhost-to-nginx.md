@@ -61,4 +61,4 @@ But it didn't work. I actually had to put the `IP:80` instead of just `80` as in
 
 I may have miss something in my nginx that make it doesn't work but if than can help someone other than me :).
 
-PS: Thanks to my friend [Rust](http://blog.teknicity.net/) to advising me not to use the IP address but only *:80.
+PS: Thanks to my friend [Rustx](http://blog.teknicity.net/) to advising me not to use the IP address but only *:80.

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Installing PHP with Nxing on Debian</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="bacardi55">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+          <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="../../../../css/main.css">
+    
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../../../..">bacardi55&#039;s blog</a>
+                <div class="nav-collapse collapse">
+                                            <ul class="nav">
+                                                                                                                        <li><a href="../../../../about.html">About me</a></li>
+                                                                                                                                <li><a href="../../../../about-this-blog.html">About this blog</a></li>
+                                                                                        <li><a href="http://projects.bacardi55.org">My projects</a></li>
+                                                </ul>
+                    
+                                            <ul class="nav pull-right">
+                            <li>
+                              <a href="index.atom"><img src="../../../../images/rss.png" /></a>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
+                                    Bacardi55
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://bacardi55.org" alt="bacardi55 home"><i class="icon-home"></i> My home</a><li>
+                                    <li><a href="http://projects.bacardi55.org" alt="my projects"><i class="icon-briefcase"></i> My projects</a><li>
+                                    <li class="divider"></li>
+                                    <li><a href="http://github.com/bacardi55/" alt="my github"><i class="icon-globe"></i> My Github</a><li>
+                                    <li><a href="https://lab.bacardi55.org" alt="bacardi55's lab"><i class="icon-globe"></i> My lab</a><li>
+                                    <li><a href="http://twitter.com/bacardi555" alt="my twitter"><i class="icon-globe"></i> My twitter</a><li>
+                                </ul>
+                            </li>
+                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+          <div class="container">
+
+        
+            <div class="row">
+        <div class="span10 offset1 content">
+                                                <div class="page-header">
+                        <h1>Installing PHP with Nxing on Debian</h1>
+                    </div>
+                            
+                            <div class="pull-left">
+                                            By <i class="icon-user"></i>bacardi55 -
+                                        <i class="icon-calendar"></i>2013 May 05
+                </div>
+                                    <div class="pull-right">
+                        <ul class="tag_box inline">
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/nginx.html">
+                                    nginx
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/php.html">
+                                    php
+                                </a>
+                            </li>
+                                                  </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                                <hr />
+
+                <p>Tonight, I wanted to release the code of <a href="/2013/04/22/why-i-started-working-on-a-opensource-disqus.html">Jocs</a>, my open source like <a href="http://disqus.com">disqus</a>. To work, Jocs needs to be linked to a backend with some REST api. The default backend I created (Pocs) needs php 5.4 to work. I didn't realize at first as my local VM runs php 5.4.</p>
+
+<p>I use the <a href="http://php.net/manual/fr/class.jsonserializable.php">JsonSerializable</a> interface that let me handle easily my entity. It's very handy and I didn't realize that it was created in php 5.4.</p>
+
+<p>When I tried to install it tonight, I had an error due to this interface missing. So I decided to install Pocs on another server with php5.4. That's why I installed it on a server that had Nginx installed but not yet php.</p>
+
+<p>As I've never done that before, I thought why not writting a blog post about it as it will help me remember it :)</p>
+
+<h2>Pre requisit</h2>
+
+<p>Here, I assume that you installed nginx, php5-cgi and spawn-fcgi. By using <code>apt-get</code></p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">apt-get install</span> nginx, php5-cgi spawn-fcgi</pre>
+
+<h2>Create the init script</h2>
+
+<p>Then, you need to create the init script that will let you start / stop the php process that nginx will use:
+<code>/etc/init.d/php5-fcgi</code></p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/sh</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">### BEGIN INIT INFO</span>
+<span style="color: #666666; font-style: italic;"># Provides:       php5-fcgi</span>
+<span style="color: #666666; font-style: italic;"># Required-Start: $remote_fs $syslog</span>
+<span style="color: #666666; font-style: italic;"># Required-Stop:  $remote_fs $syslog</span>
+<span style="color: #666666; font-style: italic;"># Default-Start:  2 3 4 5</span>
+<span style="color: #666666; font-style: italic;"># Default-Stop:   0 1 6</span>
+<span style="color: #666666; font-style: italic;"># Short-Description: PHP5 FastCgi Spawned processes</span>
+<span style="color: #666666; font-style: italic;">### END INIT INFO</span>
+&nbsp;
+<span style="color: #007800;">COMMAND</span>=<span style="color: #000000; font-weight: bold;">/</span>usr<span style="color: #000000; font-weight: bold;">/</span>bin<span style="color: #000000; font-weight: bold;">/</span>spawn-fcgi
+<span style="color: #007800;">ADDRESS</span>=127.0.0.1
+<span style="color: #007800;">PORT</span>=<span style="color: #000000;">9000</span>
+<span style="color: #007800;">USER</span>=www-data
+<span style="color: #007800;">GROUP</span>=www-data
+<span style="color: #007800;">PHPCGI</span>=<span style="color: #000000; font-weight: bold;">/</span>usr<span style="color: #000000; font-weight: bold;">/</span>bin<span style="color: #000000; font-weight: bold;">/</span>php5-cgi
+<span style="color: #007800;">PIDFILE</span>=<span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>run<span style="color: #000000; font-weight: bold;">/</span>fastcgi-php.pid
+<span style="color: #007800;">RETVAL</span>=<span style="color: #000000;">0</span>
+&nbsp;
+<span style="color: #007800;">PHP_FCGI_MAX_REQUESTS</span>=<span style="color: #000000;">500</span>
+<span style="color: #007800;">PHP_FCGI_CHILDREN</span>=<span style="color: #000000;">2</span>
+&nbsp;
+start<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #7a0874; font-weight: bold;">&#41;</span> <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+    <span style="color: #7a0874; font-weight: bold;">export</span> PHP_FCGI_MAX_REQUESTS PHP_FCGI_CHILDREN
+    <span style="color: #007800;">$COMMAND</span> <span style="color: #660033;">-a</span> <span style="color: #007800;">$ADDRESS</span> <span style="color: #660033;">-p</span> <span style="color: #007800;">$PORT</span> <span style="color: #660033;">-u</span> <span style="color: #007800;">$USER</span> <span style="color: #660033;">-g</span> <span style="color: #007800;">$GROUP</span> <span style="color: #660033;">-f</span> <span style="color: #007800;">$PHPCGI</span> <span style="color: #660033;">-P</span> <span style="color: #007800;">$PIDFILE</span>
+<span style="color: #7a0874; font-weight: bold;">&#125;</span>
+&nbsp;
+stop<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #7a0874; font-weight: bold;">&#41;</span> <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">/</span>usr<span style="color: #000000; font-weight: bold;">/</span>bin<span style="color: #000000; font-weight: bold;">/</span><span style="color: #c20cb9; font-weight: bold;">killall</span> <span style="color: #660033;">-9</span> php5-cgi
+<span style="color: #7a0874; font-weight: bold;">&#125;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">case</span> <span style="color: #ff0000;">&quot;$1&quot;</span> <span style="color: #000000; font-weight: bold;">in</span>
+    start<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+      start
+      <span style="color: #007800;">RETVAL</span>=<span style="color: #007800;">$?</span>
+  <span style="color: #000000; font-weight: bold;">;;</span>
+    stop<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+      stop
+      <span style="color: #007800;">RETVAL</span>=<span style="color: #007800;">$?</span>
+  <span style="color: #000000; font-weight: bold;">;;</span>
+    restart<span style="color: #000000; font-weight: bold;">|</span>reload<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+      stop
+      start
+      <span style="color: #007800;">RETVAL</span>=<span style="color: #007800;">$?</span>
+  <span style="color: #000000; font-weight: bold;">;;</span>
+    <span style="color: #000000; font-weight: bold;">*</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>
+      <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;Usage: fastcgi {start|stop|restart}&quot;</span>
+      <span style="color: #7a0874; font-weight: bold;">exit</span> <span style="color: #000000;">1</span>
+  <span style="color: #000000; font-weight: bold;">;;</span>
+<span style="color: #000000; font-weight: bold;">esac</span>
+<span style="color: #7a0874; font-weight: bold;">exit</span> <span style="color: #007800;">$RETVAL</span></pre>
+
+<p>Then, you need to activate the script:</p>
+
+<pre class="bash" style="font-family:monospace;">update-rc.d php5-fcgi defaults</pre>
+
+<p>And now start it:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">/</span>etc<span style="color: #000000; font-weight: bold;">/</span>init.d<span style="color: #000000; font-weight: bold;">/</span>php5-fcgi start</pre>
+
+<h2>Config nginx</h2>
+
+<p>Edit the fastcgi param file: <code>/etc/nginx/fastcgi_params</code> to match the following:</p>
+
+<pre class="bash" style="font-family:monospace;">fastcgi_param  QUERY_STRING       <span style="color: #007800;">$query_string</span>;
+fastcgi_param  REQUEST_METHOD     <span style="color: #007800;">$request_method</span>;
+fastcgi_param  CONTENT_TYPE       <span style="color: #007800;">$content_type</span>;
+fastcgi_param  CONTENT_LENGTH     <span style="color: #007800;">$content_length</span>;
+&nbsp;
+fastcgi_param  SCRIPT_NAME        <span style="color: #007800;">$fastcgi_script_name</span>;
+fastcgi_param  REQUEST_URI        <span style="color: #007800;">$request_uri</span>;
+fastcgi_param  DOCUMENT_URI       <span style="color: #007800;">$document_uri</span>;
+fastcgi_param  DOCUMENT_ROOT      <span style="color: #007800;">$document_root</span>;
+fastcgi_param  SERVER_PROTOCOL    <span style="color: #007800;">$server_protocol</span>;
+&nbsp;
+fastcgi_param  GATEWAY_INTERFACE  CGI<span style="color: #000000; font-weight: bold;">/</span><span style="color: #000000;">1.1</span>;
+fastcgi_param  SERVER_SOFTWARE    nginx<span style="color: #000000; font-weight: bold;">/</span><span style="color: #007800;">$nginx_version</span>;
+&nbsp;
+fastcgi_param  REMOTE_ADDR        <span style="color: #007800;">$remote_addr</span>;
+fastcgi_param  REMOTE_PORT        <span style="color: #007800;">$remote_port</span>;
+fastcgi_param  SERVER_ADDR        <span style="color: #007800;">$server_addr</span>;
+fastcgi_param  SERVER_PORT        <span style="color: #007800;">$server_port</span>;
+fastcgi_param  SERVER_NAME        <span style="color: #007800;">$server_name</span>;
+&nbsp;
+fastcgi_param  HTTPS              <span style="color: #007800;">$https</span>;
+&nbsp;
+<span style="color: #666666; font-style: italic;"># PHP only, required if PHP was built with --enable-force-cgi-redirect</span>
+fastcgi_param  REDIRECT_STATUS    <span style="color: #000000;">200</span>;
+&nbsp;
+fastcgi_split_path_info ^<span style="color: #7a0874; font-weight: bold;">&#40;</span>.+\.php<span style="color: #7a0874; font-weight: bold;">&#41;</span><span style="color: #7a0874; font-weight: bold;">&#40;</span>.<span style="color: #000000; font-weight: bold;">*</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>$;
+fastcgi_param PATH_INFO <span style="color: #007800;">$fastcgi_path_info</span>;
+fastcgi_param PATH_TRANSLATED <span style="color: #007800;">$document_root</span><span style="color: #007800;">$fastcgi_path_info</span>;
+fastcgi_param SCRIPT_FILENAME <span style="color: #007800;">$document_root</span><span style="color: #007800;">$fastcgi_script_name</span>;</pre>
+
+<p>You need to add the last 4 lines, you should have the rest of the file already.</p>
+
+<h2>Config your server</h2>
+
+<p>In your server configuration, add this part:</p>
+
+<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+    …
+&nbsp;
+    location ~ ^<span style="color: #7a0874; font-weight: bold;">&#40;</span>.+\.php<span style="color: #7a0874; font-weight: bold;">&#41;</span><span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #000000; font-weight: bold;">/</span>.<span style="color: #000000; font-weight: bold;">*</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>?$ <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+        fastcgi_pass  localhost:<span style="color: #000000;">9000</span>;
+        include <span style="color: #000000; font-weight: bold;">/</span>etc<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>fastcgi_params;
+    <span style="color: #7a0874; font-weight: bold;">&#125;</span>
+<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+
+<p>Then, restart nginx <code>/etc/init.d/nginx restart</code> and it should work :).</p>
+
+
+                    </div>
+      </div>
+
+            <footer>
+        <p>
+            In case of any remarks or questions, please use the <a href="https://github.com/bacardi55/b-55-log/issues">github tracker</a> :)
+        <p>
+        <p>
+            &copy;
+                            <a href="http://bacardi55.org">
+                  bacardi55
+                </a>
+                        2013
+            <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+            </small>
+        </p>
+    </footer>
+      </div>
+    
+    
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="../../../../js/vendor/bootstrap.min.js"></script>
+    
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-167056-9']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </body>
+</html>

@@ -4,8 +4,148 @@
     <subtitle></subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2013-04-30T00:00:00+02:00</updated>
+            <updated>2013-05-05T00:00:00+02:00</updated>
             <entry>
+        <title>Installing PHP with Nxing on Debian</title>
+                <updated>2013-05-05T00:00:00+02:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/05/05/installing-php-with-nxing.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Tonight, I wanted to release the code of <a href="/2013/04/22/why-i-started-working-on-a-opensource-disqus.html">Jocs</a>, my open source like <a href="http://disqus.com">disqus</a>. To work, Jocs needs to be linked to a backend with some REST api. The default backend I created (Pocs) needs php 5.4 to work. I didn't realize at first as my local VM runs php 5.4.</p>
+
+<p>I use the <a href="http://php.net/manual/fr/class.jsonserializable.php">JsonSerializable</a> interface that let me handle easily my entity. It's very handy and I didn't realize that it was created in php 5.4.</p>
+
+<p>When I tried to install it tonight, I had an error due to this interface missing. So I decided to install Pocs on another server with php5.4. That's why I installed it on a server that had Nginx installed but not yet php.</p>
+
+<p>As I've never done that before, I thought why not writting a blog post about it as it will help me remember it :)</p>
+
+<h2>Pre requisit</h2>
+
+<p>Here, I assume that you installed nginx, php5-cgi and spawn-fcgi. By using <code>apt-get</code></p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">apt-get install</span> nginx, php5-cgi spawn-fcgi</pre>
+
+<h2>Create the init script</h2>
+
+<p>Then, you need to create the init script that will let you start / stop the php process that nginx will use:
+<code>/etc/init.d/php5-fcgi</code></p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/sh</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">### BEGIN INIT INFO</span>
+<span style="color: #666666; font-style: italic;"># Provides:       php5-fcgi</span>
+<span style="color: #666666; font-style: italic;"># Required-Start: $remote_fs $syslog</span>
+<span style="color: #666666; font-style: italic;"># Required-Stop:  $remote_fs $syslog</span>
+<span style="color: #666666; font-style: italic;"># Default-Start:  2 3 4 5</span>
+<span style="color: #666666; font-style: italic;"># Default-Stop:   0 1 6</span>
+<span style="color: #666666; font-style: italic;"># Short-Description: PHP5 FastCgi Spawned processes</span>
+<span style="color: #666666; font-style: italic;">### END INIT INFO</span>
+&nbsp;
+<span style="color: #007800;">COMMAND</span>=<span style="color: #000000; font-weight: bold;">/</span>usr<span style="color: #000000; font-weight: bold;">/</span>bin<span style="color: #000000; font-weight: bold;">/</span>spawn-fcgi
+<span style="color: #007800;">ADDRESS</span>=127.0.0.1
+<span style="color: #007800;">PORT</span>=<span style="color: #000000;">9000</span>
+<span style="color: #007800;">USER</span>=www-data
+<span style="color: #007800;">GROUP</span>=www-data
+<span style="color: #007800;">PHPCGI</span>=<span style="color: #000000; font-weight: bold;">/</span>usr<span style="color: #000000; font-weight: bold;">/</span>bin<span style="color: #000000; font-weight: bold;">/</span>php5-cgi
+<span style="color: #007800;">PIDFILE</span>=<span style="color: #000000; font-weight: bold;">/</span>var<span style="color: #000000; font-weight: bold;">/</span>run<span style="color: #000000; font-weight: bold;">/</span>fastcgi-php.pid
+<span style="color: #007800;">RETVAL</span>=<span style="color: #000000;">0</span>
+&nbsp;
+<span style="color: #007800;">PHP_FCGI_MAX_REQUESTS</span>=<span style="color: #000000;">500</span>
+<span style="color: #007800;">PHP_FCGI_CHILDREN</span>=<span style="color: #000000;">2</span>
+&nbsp;
+start<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #7a0874; font-weight: bold;">&#41;</span> <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+    <span style="color: #7a0874; font-weight: bold;">export</span> PHP_FCGI_MAX_REQUESTS PHP_FCGI_CHILDREN
+    <span style="color: #007800;">$COMMAND</span> <span style="color: #660033;">-a</span> <span style="color: #007800;">$ADDRESS</span> <span style="color: #660033;">-p</span> <span style="color: #007800;">$PORT</span> <span style="color: #660033;">-u</span> <span style="color: #007800;">$USER</span> <span style="color: #660033;">-g</span> <span style="color: #007800;">$GROUP</span> <span style="color: #660033;">-f</span> <span style="color: #007800;">$PHPCGI</span> <span style="color: #660033;">-P</span> <span style="color: #007800;">$PIDFILE</span>
+<span style="color: #7a0874; font-weight: bold;">&#125;</span>
+&nbsp;
+stop<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #7a0874; font-weight: bold;">&#41;</span> <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">/</span>usr<span style="color: #000000; font-weight: bold;">/</span>bin<span style="color: #000000; font-weight: bold;">/</span><span style="color: #c20cb9; font-weight: bold;">killall</span> <span style="color: #660033;">-9</span> php5-cgi
+<span style="color: #7a0874; font-weight: bold;">&#125;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">case</span> <span style="color: #ff0000;">&quot;$1&quot;</span> <span style="color: #000000; font-weight: bold;">in</span>
+    start<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+      start
+      <span style="color: #007800;">RETVAL</span>=<span style="color: #007800;">$?</span>
+  <span style="color: #000000; font-weight: bold;">;;</span>
+    stop<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+      stop
+      <span style="color: #007800;">RETVAL</span>=<span style="color: #007800;">$?</span>
+  <span style="color: #000000; font-weight: bold;">;;</span>
+    restart<span style="color: #000000; font-weight: bold;">|</span>reload<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+      stop
+      start
+      <span style="color: #007800;">RETVAL</span>=<span style="color: #007800;">$?</span>
+  <span style="color: #000000; font-weight: bold;">;;</span>
+    <span style="color: #000000; font-weight: bold;">*</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>
+      <span style="color: #7a0874; font-weight: bold;">echo</span> <span style="color: #ff0000;">&quot;Usage: fastcgi {start|stop|restart}&quot;</span>
+      <span style="color: #7a0874; font-weight: bold;">exit</span> <span style="color: #000000;">1</span>
+  <span style="color: #000000; font-weight: bold;">;;</span>
+<span style="color: #000000; font-weight: bold;">esac</span>
+<span style="color: #7a0874; font-weight: bold;">exit</span> <span style="color: #007800;">$RETVAL</span></pre>
+
+<p>Then, you need to activate the script:</p>
+
+<pre class="bash" style="font-family:monospace;">update-rc.d php5-fcgi defaults</pre>
+
+<p>And now start it:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">/</span>etc<span style="color: #000000; font-weight: bold;">/</span>init.d<span style="color: #000000; font-weight: bold;">/</span>php5-fcgi start</pre>
+
+<h2>Config nginx</h2>
+
+<p>Edit the fastcgi param file: <code>/etc/nginx/fastcgi_params</code> to match the following:</p>
+
+<pre class="bash" style="font-family:monospace;">fastcgi_param  QUERY_STRING       <span style="color: #007800;">$query_string</span>;
+fastcgi_param  REQUEST_METHOD     <span style="color: #007800;">$request_method</span>;
+fastcgi_param  CONTENT_TYPE       <span style="color: #007800;">$content_type</span>;
+fastcgi_param  CONTENT_LENGTH     <span style="color: #007800;">$content_length</span>;
+&nbsp;
+fastcgi_param  SCRIPT_NAME        <span style="color: #007800;">$fastcgi_script_name</span>;
+fastcgi_param  REQUEST_URI        <span style="color: #007800;">$request_uri</span>;
+fastcgi_param  DOCUMENT_URI       <span style="color: #007800;">$document_uri</span>;
+fastcgi_param  DOCUMENT_ROOT      <span style="color: #007800;">$document_root</span>;
+fastcgi_param  SERVER_PROTOCOL    <span style="color: #007800;">$server_protocol</span>;
+&nbsp;
+fastcgi_param  GATEWAY_INTERFACE  CGI<span style="color: #000000; font-weight: bold;">/</span><span style="color: #000000;">1.1</span>;
+fastcgi_param  SERVER_SOFTWARE    nginx<span style="color: #000000; font-weight: bold;">/</span><span style="color: #007800;">$nginx_version</span>;
+&nbsp;
+fastcgi_param  REMOTE_ADDR        <span style="color: #007800;">$remote_addr</span>;
+fastcgi_param  REMOTE_PORT        <span style="color: #007800;">$remote_port</span>;
+fastcgi_param  SERVER_ADDR        <span style="color: #007800;">$server_addr</span>;
+fastcgi_param  SERVER_PORT        <span style="color: #007800;">$server_port</span>;
+fastcgi_param  SERVER_NAME        <span style="color: #007800;">$server_name</span>;
+&nbsp;
+fastcgi_param  HTTPS              <span style="color: #007800;">$https</span>;
+&nbsp;
+<span style="color: #666666; font-style: italic;"># PHP only, required if PHP was built with --enable-force-cgi-redirect</span>
+fastcgi_param  REDIRECT_STATUS    <span style="color: #000000;">200</span>;
+&nbsp;
+fastcgi_split_path_info ^<span style="color: #7a0874; font-weight: bold;">&#40;</span>.+\.php<span style="color: #7a0874; font-weight: bold;">&#41;</span><span style="color: #7a0874; font-weight: bold;">&#40;</span>.<span style="color: #000000; font-weight: bold;">*</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>$;
+fastcgi_param PATH_INFO <span style="color: #007800;">$fastcgi_path_info</span>;
+fastcgi_param PATH_TRANSLATED <span style="color: #007800;">$document_root</span><span style="color: #007800;">$fastcgi_path_info</span>;
+fastcgi_param SCRIPT_FILENAME <span style="color: #007800;">$document_root</span><span style="color: #007800;">$fastcgi_script_name</span>;</pre>
+
+<p>You need to add the last 4 lines, you should have the rest of the file already.</p>
+
+<h2>Config your server</h2>
+
+<p>In your server configuration, add this part:</p>
+
+<pre class="bash" style="font-family:monospace;">server <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+    …
+&nbsp;
+    location ~ ^<span style="color: #7a0874; font-weight: bold;">&#40;</span>.+\.php<span style="color: #7a0874; font-weight: bold;">&#41;</span><span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #000000; font-weight: bold;">/</span>.<span style="color: #000000; font-weight: bold;">*</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>?$ <span style="color: #7a0874; font-weight: bold;">&#123;</span>
+        fastcgi_pass  localhost:<span style="color: #000000;">9000</span>;
+        include <span style="color: #000000; font-weight: bold;">/</span>etc<span style="color: #000000; font-weight: bold;">/</span>nginx<span style="color: #000000; font-weight: bold;">/</span>fastcgi_params;
+    <span style="color: #7a0874; font-weight: bold;">&#125;</span>
+<span style="color: #7a0874; font-weight: bold;">&#125;</span></pre>
+
+<p>Then, restart nginx <code>/etc/init.d/nginx restart</code> and it should work :).</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Error page with carew and nginx</title>
                 <updated>2013-04-30T00:00:00+02:00</updated>
         <author>
@@ -694,41 +834,6 @@ You just need to do</p>
 ]]></content>
     </entry>
         <entry>
-        <title>Why I love opensource</title>
-                <updated>2013-02-03T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
-
-<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
-
-<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
-
-<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
-This post isn't about presenting silex, it's just to thanks the opensource community.</p>
-
-<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
-
-<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
-I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
-
-<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
-
-<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
-Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
-
-<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
-
-<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
-This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
-
-<p><strong>Open source, live long and prosper!</strong></p>
-]]></content>
-    </entry>
-        <entry>
         <title>Presenting Github Php dashBoard</title>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
@@ -833,47 +938,38 @@ This is actually the main reason why <a href="http://bacardi55.org" title="bacar
 ]]></content>
     </entry>
         <entry>
-        <title>Alternate css classes easily in twig</title>
-                <updated>2013-02-02T00:00:00+01:00</updated>
+        <title>Why I love opensource</title>
+                <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
             <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
-The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
+        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
 
-<p>For example:</p>
+<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
 
-<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
+<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
 
-<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
+<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
+This post isn't about presenting silex, it's just to thanks the opensource community.</p>
 
-<p>To use the modulo function in twig, just use</p>
+<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
 
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
+<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
+I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
 
-<p>And there you go, as simple as in PHP.</p>
+<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
 
-<p>Then, using twig, you can do this:</p>
+<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
+Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
 
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
+<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
 
-<p>Or in my case I needed this :</p>
+<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
+This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
 
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>To be able to use the index of my parent loop :)</p>
-
-<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>Isn't it beautiful ? But it gets even better!</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
+<p><strong>Open source, live long and prosper!</strong></p>
 ]]></content>
     </entry>
         <entry>
@@ -926,6 +1022,50 @@ The basic way in classic PHP project would be to use the iterator variable of yo
 <p><strong><em>Watch out</em></strong>: Don't forget the <code>return $twig;</code> line! I lost half an hour because of this so don't do as me ^^.</p>
 
 <p>As always, hope that will help someone (at least me when i'll have the same issue in another project ^^).</p>
+]]></content>
+    </entry>
+        <entry>
+        <title>Alternate css classes easily in twig</title>
+                <updated>2013-02-02T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
+The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
+
+<p>For example:</p>
+
+<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
+
+<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
+
+<p>To use the modulo function in twig, just use</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
+
+<p>And there you go, as simple as in PHP.</p>
+
+<p>Then, using twig, you can do this:</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
+
+<p>Or in my case I needed this :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>To be able to use the index of my parent loop :)</p>
+
+<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>Isn't it beautiful ? But it gets even better!</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
 ]]></content>
     </entry>
         <entry>
@@ -985,7 +1125,7 @@ This is what I put in my conf file:</p>
 
 <p>I may have miss something in my nginx that make it doesn't work but if than can help someone other than me :).</p>
 
-<p>PS: Thanks to my friend <a href="http://blog.teknicity.net/">Rust</a> to advising me not to use the IP address but only *:80.</p>
+<p>PS: Thanks to my friend <a href="http://blog.teknicity.net/">Rustx</a> to advising me not to use the IP address but only *:80.</p>
 ]]></content>
     </entry>
         <entry>
@@ -1063,37 +1203,6 @@ Make an alias in your vimrc and you'll never worried about forgetting to open a 
 ]]></content>
     </entry>
         <entry>
-        <title>Return a Yaml file with silex</title>
-                <updated>2013-01-27T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to return a Yaml file to my browser but I wanted to be forced to download it.</p>
-
-<p>It's not a file so I can not use the $app->stream helper. Instead I return a simple http response.</p>
-
-<p>As I didn't find right away my answer, I thought about putting it in a blog post.</p>
-
-<p>In your controller, add :</p>
-
-<p><code>use Symfony\Component\HttpFoundation\Response;</code></p>
-
-<p>Then, where you want to return your yaml file:</p>
-
-<pre class="php" style="font-family:monospace;"><span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> Response<span style="color: #009900;">&#40;</span>
-    <span style="color: #000088;">$yaml</span><span style="color: #339933;">,</span>
-    <span style="color: #cc66cc;">200</span><span style="color: #339933;">,</span>
-    <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'Content-Type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'text/x-yaml'</span><span style="color: #339933;">,</span>
-        <span style="color: #0000ff;">'Content-Disposition'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'attachment; filename=&quot;filename.yaml&quot;'</span>
-    <span style="color: #009900;">&#41;</span>
-<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
-
-<p>And there you go :)</p>
-]]></content>
-    </entry>
-        <entry>
         <title>Make a RSS feed from a Solr research in drupal</title>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
@@ -1130,6 +1239,37 @@ I tried to used the class within the apachesorl module, but there required a to 
 <p>After that, I simply created a class that generate a RSS feed from a drupal request. I think this class is pretty generic and I'll try to put it on my github as an opensource lib.</p>
 
 <p>Hope that could help some developers that need to do a RSS feed from a drupal apache solr query :).</p>
+]]></content>
+    </entry>
+        <entry>
+        <title>Return a Yaml file with silex</title>
+                <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to return a Yaml file to my browser but I wanted to be forced to download it.</p>
+
+<p>It's not a file so I can not use the $app->stream helper. Instead I return a simple http response.</p>
+
+<p>As I didn't find right away my answer, I thought about putting it in a blog post.</p>
+
+<p>In your controller, add :</p>
+
+<p><code>use Symfony\Component\HttpFoundation\Response;</code></p>
+
+<p>Then, where you want to return your yaml file:</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> Response<span style="color: #009900;">&#40;</span>
+    <span style="color: #000088;">$yaml</span><span style="color: #339933;">,</span>
+    <span style="color: #cc66cc;">200</span><span style="color: #339933;">,</span>
+    <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'Content-Type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'text/x-yaml'</span><span style="color: #339933;">,</span>
+        <span style="color: #0000ff;">'Content-Disposition'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'attachment; filename=&quot;filename.yaml&quot;'</span>
+    <span style="color: #009900;">&#41;</span>
+<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>And there you go :)</p>
 ]]></content>
     </entry>
         <entry>
