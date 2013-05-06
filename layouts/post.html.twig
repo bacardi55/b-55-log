@@ -44,4 +44,23 @@
             {% endblock %}
         </div>
       </div>
+      <br /><br />
+      <div class="row">
+        <div  class="content span10 offset1" id="jocs" ng-app="jocsApp">
+          <div class="container" ng-view></div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+
+    <script src="/jocs/components/angular/angular.js"></script>
+    <script src="/jocs/components/angular-resource/angular-resource.js"></script>
+    <script src="/jocs/components/angular-cookies/angular-cookies.js"></script>
+    <script src="/jocs/components/angular-sanitize/angular-sanitize.js"></script>
+
+    <!-- build:js scripts/scripts.js -->
+    <script src="/jocs/scripts/70b83075.scripts.js"></script>
+    <!-- endbuild -->
 {% endblock %}

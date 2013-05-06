@@ -148,6 +148,12 @@ In my example, as I redirect lots of different error to the error page, I just n
 
                     </div>
       </div>
+      <br /><br />
+      <div class="row">
+                <div  class="content span10 offset1" id="jocs" ng-app="jocsApp">
+                    <div class="container" ng-view></div>
+                </div>
+                </div>
 
             <footer>
         <p>
@@ -166,7 +172,17 @@ In my example, as I redirect lots of different error to the error page, I just n
     </footer>
       </div>
     
-    
+        
+
+    <script src="/jocs/components/angular/angular.js"></script>
+    <script src="/jocs/components/angular-resource/angular-resource.js"></script>
+    <script src="/jocs/components/angular-cookies/angular-cookies.js"></script>
+    <script src="/jocs/components/angular-sanitize/angular-sanitize.js"></script>
+
+    <!-- build:js scripts/scripts.js -->
+    <script src="/jocs/scripts/70b83075.scripts.js"></script>
+    <!-- endbuild -->
+
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
       <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
       <script src="../../../../js/vendor/bootstrap.min.js"></script>
