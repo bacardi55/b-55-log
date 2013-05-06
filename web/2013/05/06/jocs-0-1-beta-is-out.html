@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Open html email and email attachment in mutt</title>
+    <title>Jocs 0.1-beta is out :)</title>
 
     <meta name="description" content="">
     <meta name="author" content="bacardi55">
@@ -75,19 +75,25 @@
             <div class="row">
         <div class="span10 offset1 content">
                                                 <div class="page-header">
-                        <h1>Open html email and email attachment in mutt</h1>
+                        <h1>Jocs 0.1-beta is out :)</h1>
                     </div>
                             
                             <div class="pull-left">
                                             By <i class="icon-user"></i>bacardi55 -
-                                        <i class="icon-calendar"></i>2013 March 07
+                                        <i class="icon-calendar"></i>2013 May 06
                 </div>
                                     <div class="pull-right">
                         <ul class="tag_box inline">
                                                       <li>
                                 <i class="icon-tag"></i>
-                                <a href="../../../../tags/mutt.html">
-                                    mutt
+                                <a href="../../../../tags/jocs.html">
+                                    jocs
+                                </a>
+                            </li>
+                                                      <li>
+                                <i class="icon-tag"></i>
+                                <a href="../../../../tags/pocs.html">
+                                    pocs
                                 </a>
                             </li>
                                                   </ul>
@@ -95,67 +101,20 @@
                     <div class="clearfix"></div>
                                 <hr />
 
-                <h2>Quick intro</h2>
+                <h2>Jocs and Pocs are in 0.1-beta!</h2>
 
-<p>I don't write a lot about it, but I use <a href="http://mutt.org">mutt</a> to read my emails. You can easily guess why:</p>
+<p>Hello everyone! I finally found the time to open the source code of my very early version of an open source <a href="http://disqus.com">disqus</a>. You can find the source code <a href="https://github.com/bacardi55/jocs">here</a>.</p>
 
-<ul>
-<li>Less memory consuming than thunderbird or evolution;</li>
-<li>Faster;</li>
-<li>Managed by keyboard;</li>
-<li>Used in a terminal :)</li>
-</ul>
+<p>This is an early version which doesn't have a lot of features yet. I prefer the «release often, release early». If I don't do that, I'll never do it ^^.
+Anyway, the system is currently use on this blog that is linked to php backend that I've developed in parallel as jocs. Its name is Pocs and you can find the source code <a href="https://github.com/bacardi55/pocs">here</a>.</p>
 
-<p>For those who know me, they know that I really don't like using my mouse. I find that each time I remove my hand from my keyboard to go on my mouse, I loose time. That's why I'm using <a href="http://vim.org">vim</a> (that and the fact that it's the best editor :p</troll>), or why I'm using a tiling Window Manager (<a href="http://i3wm.org">i3</a>) or why I'm using mainly application that run inside a terminal.</p>
+<p>I intend to continue to develop it at least until it is fully usable. For now, it's too early except if you like testing :).</p>
 
-<p>It's simply more consistent with the way I use my computer to work and code.</p>
+<p>The todo lists are on the readme of each github. Feel free to add your request on the github trackers.</p>
 
-<p>Using mutt might seems like a real nerdy thing to do in 2013 but if you configure it properly, it's as good as any (but less RAM consuming) :).</p>
+<p>No need for a long blog post for this, I'll create other blog posts to keep you posted.</p>
 
-<h2>Html email</h2>
-
-<p>I have to admit, I also use mutt because in my opinion, email should only be text. I hate html email and I hate even more when people send html email without the text alternative.</p>
-
-<p>But, we're in 2013 and I receive html email every day. When some of them don't have the text alternative, I can't always decide to throw it and ignore it (even if I often do). Sometime, even important email and not only spam can be in html only.</p>
-
-<p>They are several options to handle this and I choose to use the <code>~/.mailcap</code> file that contains a list of programs to use depending on the <a href="https://en.wikipedia.org/wiki/Internet_media_type">mime type</a> of the file.</p>
-
-<p>To read html email inside mutt, just add this in your <code>~/.mailcap</code>:</p>
-
-<pre class="bash" style="font-family:monospace;">text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html
-text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #660033;">-dump</span> <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html; copiousoutput</pre>
-
-<p><strong>You need to have links installed</strong>.</p>
-
-<p>And now, you'll be able to click on the html attachment and see the content of the email easily :).</p>
-
-<h2>Open email attachment</h2>
-
-<p>Ok, so now that we have done this for the html email, I'm sure you understood how to be able to open other attachment files: You just need to add new lines in your mailcap file :).</p>
-
-<p>Here is my mailcap file as an example:</p>
-
-<pre class="bash" style="font-family:monospace;">text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html
-text<span style="color: #000000; font-weight: bold;">/</span>html; links <span style="color: #660033;">-dump</span> <span style="color: #000000; font-weight: bold;">%</span>s; <span style="color: #007800;">nametemplate</span>=<span style="color: #000000; font-weight: bold;">%</span>s.html; copiousoutput
-text<span style="color: #000000; font-weight: bold;">/*</span>; <span style="color: #c20cb9; font-weight: bold;">less</span>
-image<span style="color: #000000; font-weight: bold;">/*</span>; gpicview <span style="color: #000000; font-weight: bold;">%</span>s
-application<span style="color: #000000; font-weight: bold;">/</span>pdf; evince <span style="color: #000000; font-weight: bold;">%</span>s
-application<span style="color: #000000; font-weight: bold;">/</span>msexcel; soffice <span style="color: #000000; font-weight: bold;">%</span>s
-application<span style="color: #000000; font-weight: bold;">/</span>msword; soffice <span style="color: #000000; font-weight: bold;">%</span>s
-application<span style="color: #000000; font-weight: bold;">/</span>vnd.ms-excel; soffice <span style="color: #000000; font-weight: bold;">%</span>s
-application<span style="color: #000000; font-weight: bold;">/</span>vnd.openxmlformats-officedocument.wordprocessingml.document; soffice <span style="color: #000000; font-weight: bold;">%</span>s</pre>
-
-<p>I'm using gpicview for all images, soffice for office document (libre office and MS office document), less for text and evince for pdf.</p>
-
-<p>You can add more line here for other type of file (eg: video, sound, …).</p>
-
-<p>All you have to do now is press « v » on a email that has attachment and then press enter on the attach file and it will be open by the right program.</p>
-
-<h2>Bonus</h2>
-
-<p>If you don't know the mime type of a file, you can use ^e (ctrl+e) on a attached file in mutt to know the mime type. Then you just need to copy it and paste it in your mailcap file and choose which program will handle the files with this mime type :).</p>
-
-<p>Hope this helped some of you :)</p>
+<p>PS: I open the comment system now even though there isn't a antispam yet. In case of trouble I might need to remove it until I add one… I like taking risks by using the app now :).</p>
 
 
                     </div>

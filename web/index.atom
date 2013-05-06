@@ -4,8 +4,32 @@
     <subtitle></subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2013-05-05T00:00:00+02:00</updated>
+            <updated>2013-05-06T00:00:00+02:00</updated>
             <entry>
+        <title>Jocs 0.1-beta is out :)</title>
+                <updated>2013-05-06T00:00:00+02:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/05/06/jocs-0-1-beta-is-out.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>Jocs and Pocs are in 0.1-beta!</h2>
+
+<p>Hello everyone! I finally found the time to open the source code of my very early version of an open source <a href="http://disqus.com">disqus</a>. You can find the source code <a href="https://github.com/bacardi55/jocs">here</a>.</p>
+
+<p>This is an early version which doesn't have a lot of features yet. I prefer the «release often, release early». If I don't do that, I'll never do it ^^.
+Anyway, the system is currently use on this blog that is linked to php backend that I've developed in parallel as jocs. Its name is Pocs and you can find the source code <a href="https://github.com/bacardi55/pocs">here</a>.</p>
+
+<p>I intend to continue to develop it at least until it is fully usable. For now, it's too early except if you like testing :).</p>
+
+<p>The todo lists are on the readme of each github. Feel free to add your request on the github trackers.</p>
+
+<p>No need for a long blog post for this, I'll create other blog posts to keep you posted.</p>
+
+<p>PS: I open the comment system now even though there isn't a antispam yet. In case of trouble I might need to remove it until I add one… I like taking risks by using the app now :).</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Installing PHP with Nxing on Debian</title>
                 <updated>2013-05-05T00:00:00+02:00</updated>
         <author>
@@ -973,6 +997,50 @@ This is actually the main reason why <a href="http://bacardi55.org" title="bacar
 ]]></content>
     </entry>
         <entry>
+        <title>Alternate css classes easily in twig</title>
+                <updated>2013-02-02T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
+The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
+
+<p>For example:</p>
+
+<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
+
+<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
+
+<p>To use the modulo function in twig, just use</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
+
+<p>And there you go, as simple as in PHP.</p>
+
+<p>Then, using twig, you can do this:</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
+
+<p>Or in my case I needed this :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>To be able to use the index of my parent loop :)</p>
+
+<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>Isn't it beautiful ? But it gets even better!</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Add an twig extension in Silex</title>
                 <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
@@ -1025,47 +1093,58 @@ This is actually the main reason why <a href="http://bacardi55.org" title="bacar
 ]]></content>
     </entry>
         <entry>
-        <title>Alternate css classes easily in twig</title>
-                <updated>2013-02-02T00:00:00+01:00</updated>
+        <title>Switching quickly from 1 screen to 2</title>
+                <updated>2013-01-28T00:00:00+01:00</updated>
         <author>
             <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
-The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
+        <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
 
-<p>For example:</p>
+<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
+&nbsp;
+<span style="color: #007800;">NB</span>=<span style="color: #000000; font-weight: bold;">`</span>xrandr<span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">grep</span> <span style="color: #ff0000;">&quot; connected&quot;</span><span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">wc</span> -l<span style="color: #000000; font-weight: bold;">`</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;<span style="color: #007800;">$NB</span>&quot;</span> <span style="color: #660033;">-eq</span> <span style="color: #000000;">2</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+  xrandr <span style="color: #660033;">--output</span> VGA-<span style="color: #000000;">0</span> <span style="color: #660033;">--auto</span> <span style="color: #660033;">--left-of</span> LVDS
+  <span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> = <span style="color: #ff0000;">&quot;off&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
+    xrandr <span style="color: #660033;">--output</span> LVDS <span style="color: #660033;">--off</span>
+  <span style="color: #000000; font-weight: bold;">fi</span>
+<span style="color: #000000; font-weight: bold;">else</span>
+  xrandr <span style="color: #660033;">--auto</span>
+<span style="color: #000000; font-weight: bold;">fi</span></pre>
 
-<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
+<p>I named my script <code>dualscreen</code>.
+Now, I you just have to run <code>dualscreen</code> in a term (or in a launcher like dmenu or your kde/gnome launcher). Then the script will the detect if 1 or 2 screen are plugged and do what it need to do.</p>
 
-<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
+<p>If you want to plug a second screen and switch off the screen of the laptop, you can run <code>dualscreen off</code> and there you go !</p>
 
-<p>To use the modulo function in twig, just use</p>
+<p>Of course you need to adapt the output name depending on your hardware. Just run <code>randr</code> in a terminal.
+For example, here is what I have running <code>xrandr</code>:</p>
 
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
+<pre class="bash" style="font-family:monospace;">Screen <span style="color: #000000;">0</span>: minimum <span style="color: #000000;">320</span> x <span style="color: #000000;">200</span>, current <span style="color: #000000;">1366</span> x <span style="color: #000000;">768</span>, maximum <span style="color: #000000;">16384</span> x <span style="color: #000000;">16384</span>
+LVDS connected 1366x768+<span style="color: #000000;">0</span>+<span style="color: #000000;">0</span> <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span> 0mm x 0mm
+1366x768       <span style="color: #000000;">60.2</span><span style="color: #000000; font-weight: bold;">*</span>+
+1280x720       <span style="color: #000000;">59.9</span>
+1152x768       <span style="color: #000000;">59.8</span>
+1024x768       <span style="color: #000000;">59.9</span>
+800x600        <span style="color: #000000;">59.9</span>
+848x480        <span style="color: #000000;">59.7</span>
+720x480        <span style="color: #000000;">59.7</span>
+640x480        <span style="color: #000000;">59.4</span>
+DisplayPort-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+HDMI-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
+VGA-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span></pre>
 
-<p>And there you go, as simple as in PHP.</p>
+<p>This means that I have 4 outputs. The LVDS is my laptop output. Then, plug your screen and run the xrandr command again.
+You'll see another output connected. This is the one you should use in the script.</p>
 
-<p>Then, using twig, you can do this:</p>
+<p>Bonus:</p>
 
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
+<p>If you are lucky enough that your computer send an acpi signal or something to detect that a screen is plugged, you can do it automatically.</p>
 
-<p>Or in my case I needed this :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>To be able to use the index of my parent loop :)</p>
-
-<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>Isn't it beautiful ? But it gets even better!</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
+<p>Unfortunatly it's not the case with my current laptop so I don't know more ^^. Maybe someone can send me an email with the procedure :).</p>
 ]]></content>
     </entry>
         <entry>
@@ -1126,61 +1205,6 @@ This is what I put in my conf file:</p>
 <p>I may have miss something in my nginx that make it doesn't work but if than can help someone other than me :).</p>
 
 <p>PS: Thanks to my friend <a href="http://blog.teknicity.net/">Rustx</a> to advising me not to use the IP address but only *:80.</p>
-]]></content>
-    </entry>
-        <entry>
-        <title>Switching quickly from 1 screen to 2</title>
-                <updated>2013-01-28T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/01/28/switching-quickly-from-1-screen-to-2.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>As I open to switch often between 1 and 2 screen (I use a laptop), I made a very little bash script based on xrandr to help me switch faster.</p>
-
-<pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">#!/bin/bash</span>
-&nbsp;
-<span style="color: #007800;">NB</span>=<span style="color: #000000; font-weight: bold;">`</span>xrandr<span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">grep</span> <span style="color: #ff0000;">&quot; connected&quot;</span><span style="color: #000000; font-weight: bold;">|</span><span style="color: #c20cb9; font-weight: bold;">wc</span> -l<span style="color: #000000; font-weight: bold;">`</span>
-&nbsp;
-<span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;<span style="color: #007800;">$NB</span>&quot;</span> <span style="color: #660033;">-eq</span> <span style="color: #000000;">2</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
-  xrandr <span style="color: #660033;">--output</span> VGA-<span style="color: #000000;">0</span> <span style="color: #660033;">--auto</span> <span style="color: #660033;">--left-of</span> LVDS
-  <span style="color: #000000; font-weight: bold;">if</span> <span style="color: #7a0874; font-weight: bold;">&#91;</span> <span style="color: #ff0000;">&quot;$1&quot;</span> = <span style="color: #ff0000;">&quot;off&quot;</span> <span style="color: #7a0874; font-weight: bold;">&#93;</span>; <span style="color: #000000; font-weight: bold;">then</span>
-    xrandr <span style="color: #660033;">--output</span> LVDS <span style="color: #660033;">--off</span>
-  <span style="color: #000000; font-weight: bold;">fi</span>
-<span style="color: #000000; font-weight: bold;">else</span>
-  xrandr <span style="color: #660033;">--auto</span>
-<span style="color: #000000; font-weight: bold;">fi</span></pre>
-
-<p>I named my script <code>dualscreen</code>.
-Now, I you just have to run <code>dualscreen</code> in a term (or in a launcher like dmenu or your kde/gnome launcher). Then the script will the detect if 1 or 2 screen are plugged and do what it need to do.</p>
-
-<p>If you want to plug a second screen and switch off the screen of the laptop, you can run <code>dualscreen off</code> and there you go !</p>
-
-<p>Of course you need to adapt the output name depending on your hardware. Just run <code>randr</code> in a terminal.
-For example, here is what I have running <code>xrandr</code>:</p>
-
-<pre class="bash" style="font-family:monospace;">Screen <span style="color: #000000;">0</span>: minimum <span style="color: #000000;">320</span> x <span style="color: #000000;">200</span>, current <span style="color: #000000;">1366</span> x <span style="color: #000000;">768</span>, maximum <span style="color: #000000;">16384</span> x <span style="color: #000000;">16384</span>
-LVDS connected 1366x768+<span style="color: #000000;">0</span>+<span style="color: #000000;">0</span> <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span> 0mm x 0mm
-1366x768       <span style="color: #000000;">60.2</span><span style="color: #000000; font-weight: bold;">*</span>+
-1280x720       <span style="color: #000000;">59.9</span>
-1152x768       <span style="color: #000000;">59.8</span>
-1024x768       <span style="color: #000000;">59.9</span>
-800x600        <span style="color: #000000;">59.9</span>
-848x480        <span style="color: #000000;">59.7</span>
-720x480        <span style="color: #000000;">59.7</span>
-640x480        <span style="color: #000000;">59.4</span>
-DisplayPort-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
-HDMI-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span>
-VGA-<span style="color: #000000;">0</span> disconnected <span style="color: #7a0874; font-weight: bold;">&#40;</span>normal left inverted right x axis y axis<span style="color: #7a0874; font-weight: bold;">&#41;</span></pre>
-
-<p>This means that I have 4 outputs. The LVDS is my laptop output. Then, plug your screen and run the xrandr command again.
-You'll see another output connected. This is the one you should use in the script.</p>
-
-<p>Bonus:</p>
-
-<p>If you are lucky enough that your computer send an acpi signal or something to detect that a screen is plugged, you can do it automatically.</p>
-
-<p>Unfortunatly it's not the case with my current laptop so I don't know more ^^. Maybe someone can send me an email with the procedure :).</p>
 ]]></content>
     </entry>
         <entry>
