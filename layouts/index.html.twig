@@ -1,4 +1,4 @@
-{% extends 'vendor/carew/theme-bootstrap/layouts/index.html.twig'%}
+{% extends '/layouts/default.html.twig'%}
 
 {% block header %}
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -56,6 +56,7 @@
 {% block content_title '' %}
 
 {% block content_main %}
+  <div class="span9 article-content well">
     {% if posts %}
         <dl class="dl-horizontal">
             {% for post in posts %}
@@ -71,6 +72,22 @@
             {% endfor %}
         </dl>
     {% endif %}
+  </div>
+
+  <div class="span2 pull-right well">
+    <ul class="nav nav-list">
+      <li class="nav-header">Friends blog</li>
+      {% for blog in blogRoll %}
+        <li><a href="{{ blog.url }}">{{ blog.name }}</a>
+      {% endfor %}
+    </ul>
+    <hr />
+    <ul class="nav nav-li>">
+      <li class="nav-header">Last tweets</li>
+      <li>test</li>
+    </ul>
+  </div>
+
 {% endblock %}
 
 

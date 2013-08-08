@@ -1,55 +1,95 @@
 {% extends "index.html.twig" %}
 
 {% block content_container %}
-    <div class="row">
-        <div class="span10 offset1 content">
-            {% block content_title %}
-                {% if document.title is defined and document.title %}
-                    <div class="page-header">
-                        <h1>{{ document.title }}
-                            {%- if document.metadatas.subtitle is defined %}
-                                <small>{{ document.metadatas.subtitle }}</small>
-                            {% endif -%}
-                        </h1>
-                    </div>
-                {% endif %}
-            {% endblock %}
+  <div class="row">
+    <div class="span8 content">
+      {% block content_title %}
+        {% if document.title is defined and document.title %}
+          <div class="page-header">
+            <h1>{{ document.title }}
+              {% if document.metadatas.subtitle is defined %}
+                <small>{{ document.metadatas.subtitle }}</small>
+              {% endif -%}
+            </h1>
+          </div>
+        {% endif %}
+      {% endblock %}
 
-            {% block content_main %}
-                <div class="pull-left">
-                    {% if document.metadatas.author is not null %}
-                        By <i class="icon-user"></i>{{ document.metadatas.author }} -
-                    {% endif %}
-                    <i class="icon-calendar"></i>{{ document.metadatas.date|date('Y F d') }}
-                </div>
-                {% if tags and document.metadatas.tags|length > 0 %}
-                    <div class="pull-right">
-                        <ul class="tag_box inline">
-                          {% for tag in document.metadatas.tags %}
-                            <li>
-                                <i class="icon-tag"></i>
-                                <a href="{{ relativeRoot }}/tags/{{ tag }}.html">
-                                    {{ tag }}
-                                </a>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="clearfix"></div>
-                {% endif %}
-                <hr />
-
-                {{ document.body|default('')|raw }}
-
-            {% endblock %}
+      {% block content_main %}
+        <div class="pull-left">
+          {% if document.metadatas.author is not null %}
+            By <i class="icon-user"></i>{{ document.metadatas.author }} -
+          {% endif %}
+          <i class="icon-calendar"></i>{{ document.metadatas.date|date('Y F d') }}
         </div>
-      </div>
-      <br /><br />
-      <div class="row">
-        <div  class="content span10 offset1" id="jocs" ng-app="jocsApp">
-          <div class="container" ng-view></div>
+        {% if tags and document.metadatas.tags|length > 0 %}
+          <div class="pull-right">
+            <ul class="tag_box inline">
+              {% for tag in document.metadatas.tags %}
+                <li>
+                  <i class="icon-tag"></i>
+                  <a href="{{ relativeRoot }}/tags/{{ tag }}.html">
+                    {{ tag }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="clearfix"></div>
+        {% endif %}
+
+        <hr />
+
+        <div class="body">
+          {{ document.body|default('')|raw }}
         </div>
-      </div>
+      {% endblock %}
+
+      {% if document.metadatas.fastNav is not null %}
+        <div class="fastNav">
+          {% if document.metadatas.fastNav.prev.link %}
+            <div class="prev pull-left">
+              <a href="{{ document.metadatas.fastNav.prev.link }}">
+                ← {{ document.metadatas.fastNav.prev.title }}
+              </a>
+            </div>
+          {% endif %}
+          {% if document.metadatas.fastNav.next.link %}
+            <div class="next pull-right">
+              <a href="{{ document.metadatas.fastNav.next.link }}">
+                {{ document.metadatas.fastNav.next.title }} →
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="span3 pull-right well">
+      <ul class="nav nav-list">
+        <li class="nav-header">Friends blog</li>
+        {% for blog in blogRoll %}
+          <li><a href="{{ blog.url }}">{{ blog.name }}</a>
+        {% endfor %}
+      </ul>
+      <ul class="nav nav-list">
+        <li class="nav-header">My last tweet<li>
+        <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/bacardi555"  data-widget-id="364506065519386624">Tweets de @bacardi555</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </ul>
+    </div>
+
+  </div>
+
+  <br /><br />
+
+  <div class="row">
+    <div class="content " id="jocs" ng-app="jocsApp">
+      <div class="container" ng-view></div>
+    </div>
+  </div>
+
 {% endblock %}
 
 {% block footer %}

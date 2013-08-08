@@ -69,39 +69,44 @@
     </div>
 
     
-          <div class="container">
+          <div class="content">
+      <div class="container">
 
         
-            <div class="row">
-        <div class="span10 offset1 content">
-                                                <div class="page-header">
-                        <h1>Installing PHP with Nxing on Debian</h1>
-                    </div>
-                            
-                            <div class="pull-left">
-                                            By <i class="icon-user"></i>bacardi55 -
-                                        <i class="icon-calendar"></i>2013 May 05
-                </div>
-                                    <div class="pull-right">
-                        <ul class="tag_box inline">
-                                                      <li>
-                                <i class="icon-tag"></i>
-                                <a href="../../../../tags/nginx.html">
-                                    nginx
-                                </a>
-                            </li>
-                                                      <li>
-                                <i class="icon-tag"></i>
-                                <a href="../../../../tags/php.html">
-                                    php
-                                </a>
-                            </li>
-                                                  </ul>
-                    </div>
-                    <div class="clearfix"></div>
-                                <hr />
+          <div class="row">
+    <div class="span8 content">
+                        <div class="page-header">
+            <h1>Installing PHP with Nxing on Debian
+              </h1>
+          </div>
+              
+              <div class="pull-left">
+                      By <i class="icon-user"></i>bacardi55 -
+                    <i class="icon-calendar"></i>2013 May 05
+        </div>
+                  <div class="pull-right">
+            <ul class="tag_box inline">
+                              <li>
+                  <i class="icon-tag"></i>
+                  <a href="../../../../tags/nginx.html">
+                    nginx
+                  </a>
+                </li>
+                              <li>
+                  <i class="icon-tag"></i>
+                  <a href="../../../../tags/php.html">
+                    php
+                  </a>
+                </li>
+                          </ul>
+          </div>
 
-                <p>Tonight, I wanted to release the code of <a href="/2013/04/22/why-i-started-working-on-a-opensource-disqus.html">Jocs</a>, my open source like <a href="http://disqus.com">disqus</a>. To work, Jocs needs to be linked to a backend with some REST api. The default backend I created (Pocs) needs php 5.4 to work. I didn't realize at first as my local VM runs php 5.4.</p>
+          <div class="clearfix"></div>
+        
+        <hr />
+
+        <div class="body">
+          <p>Tonight, I wanted to release the code of <a href="/2013/04/22/why-i-started-working-on-a-opensource-disqus.html">Jocs</a>, my open source like <a href="http://disqus.com">disqus</a>. To work, Jocs needs to be linked to a backend with some REST api. The default backend I created (Pocs) needs php 5.4 to work. I didn't realize at first as my local VM runs php 5.4.</p>
 
 <p>I use the <a href="http://php.net/manual/fr/class.jsonserializable.php">JsonSerializable</a> interface that let me handle easily my entity. It's very handy and I didn't realize that it was created in php 5.4.</p>
 
@@ -232,15 +237,45 @@ fastcgi_param SCRIPT_FILENAME <span style="color: #007800;">$document_root</span
 
 <p>Then, restart nginx <code>/etc/init.d/nginx restart</code> and it should work :).</p>
 
-
-                    </div>
-      </div>
-      <br /><br />
-      <div class="row">
-        <div  class="content span10 offset1" id="jocs" ng-app="jocsApp">
-          <div class="container" ng-view></div>
         </div>
-      </div>
+      
+              <div class="fastNav">
+                      <div class="prev pull-left">
+              <a href="/2013/04/30/error-page-with-carew-and-nginx.html">
+                ← Error page with carew and nginx
+              </a>
+            </div>
+                                <div class="next pull-right">
+              <a href="/2013/05/06/jocs-0-1-beta-is-out.html">
+                Jocs 0.1-beta is out :) →
+              </a>
+            </div>
+                  </div>
+          </div>
+
+    <div class="span3 pull-right well">
+      <ul class="nav nav-list">
+        <li class="nav-header">Friends blog</li>
+                  <li><a href="http://blog.tecknicity.net">rustx</a>
+                  <li><a href="http://blog.charlesjudith.com">chuck</a>
+              </ul>
+      <ul class="nav nav-list">
+        <li class="nav-header">My last tweet<li>
+        <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/bacardi555"  data-widget-id="364506065519386624">Tweets de @bacardi555</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </ul>
+    </div>
+
+  </div>
+
+  <br /><br />
+
+  <div class="row">
+    <div class="content " id="jocs" ng-app="jocsApp">
+      <div class="container" ng-view></div>
+    </div>
+  </div>
+
 
             <footer>
         <p>
@@ -257,6 +292,7 @@ fastcgi_param SCRIPT_FILENAME <span style="color: #007800;">$document_root</span
             </small>
         </p>
     </footer>
+      </div>
       </div>
     
         

@@ -8,3 +8,9 @@ engine:
     themes: %dir%/vendor/carew/theme-bootstrap
     extensions:
         - Carew\Plugin\Highlight\HighlightExtension
+        - Carew\Plugin\FastNav\FastNavExtension
+        - Carew\Plugin\BlogRoll\BlogRollExtension
+
+blogRoll:
+  rustx: http://blog.tecknicity.net
+  chuck: http://blog.charlesjudith.com
