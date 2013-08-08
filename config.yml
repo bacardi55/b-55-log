@@ -12,5 +12,5 @@ engine:
         - Carew\Plugin\BlogRoll\BlogRollExtension
 
 blogRoll:
-  rustx: http://blog.tecknicity.net
+  rustx: http://blog.teknicity.net
   chuck: http://blog.charlesjudith.com
