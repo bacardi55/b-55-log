@@ -2,7 +2,7 @@
 layout: post
 title:  No, this blog is not dead yet
 author: bacardi55
-tag:    [news]
+tags:   [news]
 ---
 
 ## I'm not starting a new blog!
