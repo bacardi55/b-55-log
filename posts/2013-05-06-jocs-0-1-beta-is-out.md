@@ -2,7 +2,7 @@
 layout: post
 title:  Jocs 0.1-beta is out :)
 author: bacardi55
-tags:   [jocs, pocs]
+tags:   [jocs, pocs, disqus]
 ---
 
 ## Jocs and Pocs are in 0.1-beta!

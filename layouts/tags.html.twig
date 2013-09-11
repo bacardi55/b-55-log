@@ -1,11 +1,17 @@
-{% extends "index.html.twig" %}
+{% extends "post.html.twig" %}
 
 {% block content_main %}
-  <ul>
-    {% for post in posts %}
-      <li>
-        <a href="{{ relativeRoot }}/{{ post.path }}">{{ post.title|title }}</a> ({{ post.metadatas.date|date('y M d') }})
-      </li>
-    {% endfor %}
-  </ul>
+  <div class="pull-left">
+      <ul>
+        {% for post in posts %}
+          <li>
+            <a href="{{ relativeRoot }}/{{ post.path }}">{{ post.title|title }}</a> ({{ post.metadatas.date|date('y M d') }})
+          </li>
+        {% endfor %}
+      </ul>
+
+  </div>
 {% endblock %}
+
+{% block footer '' %}
+

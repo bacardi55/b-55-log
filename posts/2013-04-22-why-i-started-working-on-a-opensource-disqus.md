@@ -2,7 +2,7 @@
 layout: post
 title:  Why I started working on a opensource disqus
 author: bacardi55
-tags:   [angularjs, jocs, disqus]
+tags:   [angularjs, jocs, pocs, php, disqus]
 ---
 
 ## Disqus ?
