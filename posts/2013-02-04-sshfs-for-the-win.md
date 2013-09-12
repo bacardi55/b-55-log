@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Sshfs For The Win!
-tags:   [gnu/linux, sshfs, unmount]
+tags:   [sshfs]
 author: bacardi55
 ---
 

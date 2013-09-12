@@ -57,35 +57,49 @@
 {% block content_title '' %}
 
 {% block content_main %}
-  <div class="span8 article-content well">
-    {% if posts %}
-        <dl class="dl-horizontal">
-            {% for post in posts %}
-                <dt>
-                    {{ post.metadatas.date|date('Y F d') }}
-                </dt>
-                <dd>
-                    <a href="{{ relativeRoot }}/{{ post.path }}">{{ post.title }}</a>
-                    {% if post.metadatas.author is not null %}
-                        | by {{ post.metadatas.author }}
-                    {% endif %}
-                </dd>
-            {% endfor %}
-        </dl>
-    {% endif %}
-  </div>
+  {% block content_main_left %}
+    <div class="span8 article-content well">
+      {% if posts %}
+          <dl class="dl-horizontal">
+              {% for post in posts %}
+                  <dt>
+                      {{ post.metadatas.date|date('Y F d') }}
+                  </dt>
+                  <dd>
+                      <a href="{{ relativeRoot }}/{{ post.path }}">{{ post.title }}</a>
+                      {% if post.metadatas.author is not null %}
+                          | by {{ post.metadatas.author }}
+                      {% endif %}
+                  </dd>
+              {% endfor %}
+          </dl>
+      {% endif %}
+    </div>
+  {% endblock %}
 
-  <div class="span3 pull-right well">
-    <ul class="nav nav-list">
-      <li class="nav-header">Friends blog</li>
-      {% for blog in blogRoll %}
-        <li><a href="{{ blog.url }}">{{ blog.name }}</a>
-      {% endfor %}
-      <li class="divider"></li>
-      <li class="nav-header">Last tweets</li>
-    </ul>
-    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/bacardi555"  data-widget-id="364506065519386624">My lasts tweets</a>
-  </div>
+  {% block content_main_right %}
+    <div class="span3 pull-right well">
+      <ul class="nav nav-list">
+        <li class="nav-header">Friends blog</li>
+        {% for blog in blogRoll %}
+          <li><a href="{{ blog.url }}">{{ blog.name }}</a></li>
+        {% endfor %}
+        <li class="divider"></li>
+        <li class="nav-header">Last tweets</li>
+      </ul>
+      <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/bacardi555"  data-widget-id="364506065519386624">My lasts tweets</a>
+
+      <ul class="nav nav-list">
+        <li class="divider"></li>
+        <li class="nav-header">Tags</li>
+        {% for label in tagList %}
+          <a class="pull-left" href="/{{ label.path }}">{{ label.name | e('html') }} ({{ label.nbPosts | e('html') }})</a>
+          &nbsp;&nbsp;&nbsp;
+        {% endfor %}
+        <li class="clearfix" />
+      </ul>
+    </div>
+  {% endblock %}
 
 {% endblock %}
 

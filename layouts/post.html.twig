@@ -16,78 +16,71 @@
       {% endblock %}
 
       {% block content_main %}
-        <div class="pull-left">
-          {% if document.metadatas.author is not null %}
-            By <i class="icon-user"></i>{{ document.metadatas.author }} -
-          {% endif %}
-          <i class="icon-calendar"></i>{{ document.metadatas.date|date('Y F d') }}
-        </div>
-        {% if tags and document.metadatas.tags|length > 0 %}
-          <div class="pull-right">
-            <ul class="tag_box inline">
-              {% for tag in document.metadatas.tags %}
-                <li>
-                  <i class="icon-tag"></i>
-                  <a href="{{ relativeRoot }}/tags/{{ tag }}.html">
-                    {{ tag }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
+        {% block content_main_left %}
+          <div class="pull-left">
+            {% if document.metadatas.author is not null %}
+              By <i class="icon-user"></i>{{ document.metadatas.author }} -
+            {% endif %}
+            <i class="icon-calendar"></i>{{ document.metadatas.date|date('Y F d') }}
           </div>
+          {% if tags and document.metadatas.tags|length > 0 %}
+            <div class="pull-right">
+              <ul class="tag_box inline">
+                {% for tag in document.metadatas.tags %}
+                  <li>
+                    <i class="icon-tag"></i>
+                    <a href="{{ relativeRoot }}/tags/{{ tag }}.html">
+                      {{ tag }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
 
-          <div class="clearfix"></div>
+            <div class="clearfix"></div>
+          {% endif %}
+
+          <hr />
+
+          <div class="body">
+            {{ document.body|default('')|raw }}
+          </div>
+        {% endblock %}
+
+        {% if document.metadatas.fastNav is not null %}
+          <div class="fastNav">
+            {% if document.metadatas.fastNav.prev.link %}
+              <div class="prev pull-left">
+                <a href="{{ document.metadatas.fastNav.prev.link }}">
+                  ← {{ document.metadatas.fastNav.prev.title }}
+                </a>
+              </div>
+            {% endif %}
+            {% if document.metadatas.fastNav.next.link %}
+              <div class="next pull-right">
+                <a href="{{ document.metadatas.fastNav.next.link }}">
+                  {{ document.metadatas.fastNav.next.title }} →
+                </a>
+              </div>
+            {% endif %}
+          </div>
         {% endif %}
-
-        <hr />
-
-        <div class="body">
-          {{ document.body|default('')|raw }}
-        </div>
-      {% endblock %}
-
-      {% if document.metadatas.fastNav is not null %}
-        <div class="fastNav">
-          {% if document.metadatas.fastNav.prev.link %}
-            <div class="prev pull-left">
-              <a href="{{ document.metadatas.fastNav.prev.link }}">
-                ← {{ document.metadatas.fastNav.prev.title }}
-              </a>
-            </div>
-          {% endif %}
-          {% if document.metadatas.fastNav.next.link %}
-            <div class="next pull-right">
-              <a href="{{ document.metadatas.fastNav.next.link }}">
-                {{ document.metadatas.fastNav.next.title }} →
-              </a>
-            </div>
-          {% endif %}
-        </div>
-      {% endif %}
-    </div>
-
-    <div class="span3 pull-right well">
-      <ul class="nav nav-list">
-        <li class="nav-header">Friends blog</li>
-        {% for blog in blogRoll %}
-          <li><a href="{{ blog.url }}">{{ blog.name }}</a>
-        {% endfor %}
-        <li class="divider"></li>
-        <li class="nav-header">Last tweets</li>
-      </ul>
-      <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/bacardi555"  data-widget-id="364506065519386624">My lasts tweets</a>
-    </div>
-
-  </div>
 
   <br /><br />
 
-  <div class="row">
-    <div class="content " id="jocs" ng-app="jocsApp">
-      <div class="container" ng-view></div>
+    <div class="content" id="jocs" ng-app="jocsApp">
+      <div class="" ng-view></div>
     </div>
-  </div>
 
+      </div>
+
+    {% endblock %}
+
+    {% block content_main_right %}
+      {{ parent() }}
+    {% endblock %}
+
+  </div>
 {% endblock %}
 
 {% block footer %}

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Make a RSS feed from a Solr research in drupal
-tags: [drupal, apachesolr, RSS feed, php]
+tags: [drupal, apachesolr, RSS, php]
 author: bacardi55
 ---
 

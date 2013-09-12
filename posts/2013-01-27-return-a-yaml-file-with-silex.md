@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Return a Yaml file with silex
-tags:   [silex, yaml, php]
+tags:   [silex, yaml, php, tips]
 author: bacardi55
 ---
 

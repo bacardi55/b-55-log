@@ -2,7 +2,7 @@
 layout: post
 title:  Error page with carew and nginx
 author: bacardi55
-tags:    [nginx, carew, error page]
+tags:   [nginx, carew]
 ---
 
 ##Error page with Nginx

@@ -2,7 +2,7 @@
 layout: post
 title:  Presenting Github Php dashBoard
 subtitle: Aka GPH
-tags:   [php, github, gpb, dashboard, about_me]
+tags:   [php, github, gpb]
 author: bacardi55
 ---
 

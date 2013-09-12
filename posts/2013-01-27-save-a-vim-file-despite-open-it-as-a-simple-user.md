@@ -2,7 +2,7 @@
 layout: post
 title:  Save a vim file despite open it as a simple user
 subtitle: With vim, nothing is impossible
-tags: [vim, sudo, save]
+tags: [vim, tips]
 author: bacardi55
 ---
 

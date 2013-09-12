@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Adding a default «vhost» to nginx (updated 2013-04-29)
-tags: [nginx, vhost, default]
+tags: [nginx, vhost]
 author: bacardi55
 ---
 

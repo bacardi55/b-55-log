@@ -2,7 +2,7 @@
 layout: post
 title:  Switching quickly from 1 screen to 2
 subtitle: with xrandr
-tags: [dualscreen, xrandr, script, bash]
+tags: [dualscreen, xrandr, tips, bash]
 author: bacardi55
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [about_me, blabla]
+tags: [news]
 layout: post
 title:  Why I love opensource
 subtitle: To create new project

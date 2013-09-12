@@ -2,7 +2,7 @@
 layout: post
 title:  Change the length of a field in Drupal
 author: bacardi55
-tags:   [drupal, php, field settings]
+tags:   [drupal, php]
 ---
 
 ## The problem

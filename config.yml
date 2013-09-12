@@ -10,6 +10,7 @@ engine:
         - Carew\Plugin\Highlight\HighlightExtension
         - Carew\Plugin\FastNav\FastNavExtension
         - Carew\Plugin\BlogRoll\BlogRollExtension
+        - Carew\Plugin\TagList\TagListExtension
 
 blogRoll:
   rustx: http://blog.teknicity.net

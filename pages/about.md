@@ -1,5 +1,5 @@
 ---
-title: About Me and this Blog
+title: About
 navigation: main
 layout: page
 ---
