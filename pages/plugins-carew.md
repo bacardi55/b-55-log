@@ -15,6 +15,7 @@ Homemade plugins:
 
 - [BlogRoll](/plugins-carew-blogroll.html): a simple list of links;
 - [FastNav](/plugins-carew-fastnav.html): add link to the next / previous blog post.
+- [TagList](/plugins-carew-taglist.html): Create a list of tags used in your blog post.
 
 That's it for now, I'll try to create new one soon :)
 

@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Tags: yaml</title>
+    <title>Tag List plugins for Carew</title>
 
     <meta name="description" content="">
     <meta name="author" content="bacardi55">
@@ -15,11 +15,11 @@
 
     
     
-          <link rel="stylesheet" href="../../css/bootstrap.min.css">
-      <link rel="stylesheet" href="../../css/bootstrap-responsive.min.css">
-      <link rel="stylesheet" href="../../css/main.css">
+          <link rel="stylesheet" href="./css/bootstrap.min.css">
+      <link rel="stylesheet" href="./css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="./css/main.css">
     
-    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+    <script src="./js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
   <body>
@@ -36,17 +36,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="../..">bacardi55&#039;s blog</a>
+                <a class="brand" href=".">bacardi55&#039;s blog</a>
                 <div class="nav-collapse collapse">
                                             <ul class="nav">
-                                                                                                                        <li><a href="../../about.html">About</a></li>
+                                                                                                                        <li><a href="./about.html">About</a></li>
                                                                                         <li><a href="http://projects.bacardi55.org">My projects</a></li>
                             <li><a href="/plugins-carew.html">Plugins carew</a></li>
                                                 </ul>
                     
                                             <ul class="nav pull-right">
                             <li>
-                              <a href="index.atom"><img src="../../images/rss.png" /></a>
+                              <a href="index.atom"><img src="./images/rss.png" /></a>
                             </li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
@@ -76,29 +76,56 @@
           <div class="row">
     <div class="span8 content">
                         <div class="page-header">
-            <h1>Tags: yaml
-              </h1>
+            <h1>Tag List plugins for Carew <small></small></h1>
           </div>
               
-                <div class="pull-left">
-      <ul>
-                  <li>
-            <a href="../../2013/01/27/return-a-yaml-file-with-silex.html">Return A Yaml File With Silex</a> (13 Jan 27)
-          </li>
-              </ul>
+          <h3>TagList plugin</h3>
 
-  </div>
+<h4>Summary</h4>
 
-        
-        <br /><br />
+<p>This is a simple <a href="http://carew.github.io">carew</a> plugin that allow you to create a list of all the tags you used on your carew website.</p>
 
-        <div class="content" id="jocs" ng-app="jocsApp">
-          <div class="" ng-view></div>
-        </div>
+<p>An example can be seen on the right side of my blog below the tweet feed :)</p>
+
+<h4>How to install it</h4>
+
+<p>A package is available on packagist in order to make it very simple for you to install.</p>
+
+<p>All you have to do is to edit your <code>composer.json</code> file to add this requirement:</p>
+
+<pre><code>"bacardi55/carew-plugin-taglist": "1.*dev"
+</code></pre>
+
+<p>Then, <code>php composer.php update</code> or <code>php composer.php install</code> depending on your case.</p>
+
+<h4>How to use it</h4>
+
+<p>Edit the carew config.yml file to enable the extension:</p>
+
+<pre><code>engine:
+    […]
+    extensions:
+        …
+        - Carew\Plugin\BlogRoll\TagListExtension
+        …
+</code></pre>
+
+<p>Then, in your <a href="http://twig.sensiolabs.org">twig</a> template file(s), you have access to a <code>tagList</code> variable which is an array of tag. Each entry of this array contains an array representing a tag. You have access to its name, its path and the number of post that reference that tag.</p>
+
+<p>Here is an example of how I use it on my own blog:</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/for.html"><span style="color: #0600FF;">for</span></a> <span style="color: #00aaff;">label</span> <span style="color: #008000;">in</span> <span style="color: #00aaff;">tagList</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>
+  &lt;a class=&quot;pull-left&quot; href=&quot;/<span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #00aaff;">label</span><span style="color: #00aaff;">.path</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span>&quot;&gt;<span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #00aaff;">label</span><span style="color: #00aaff;">.name</span> <span style="color: #D36900;">|</span> <span style="color: #00aaff;">e</span><span style="color: #D36900;">&#40;</span><span style="color: #ff0000;">'html'</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span> (<span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #00aaff;">label</span><span style="color: #00aaff;">.nbPosts</span> <span style="color: #D36900;">|</span> <span style="color: #00aaff;">e</span><span style="color: #D36900;">&#40;</span><span style="color: #ff0000;">'html'</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span>)&lt;/a&gt;
+<span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/endfor.html"><span style="color: #0600FF;">endfor</span></a> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<h4>Source code</h4>
+
+<p>You can find the code on github <a href="https://github.com/bacardi55/carew-plugin-tagList">here</a>.</p>
+
+<p>The package can be found <a href="https://packagist.org/packages/bacardi55/carew-plugin-tagList">here</a> on packagist.</p>
 
     </div>
-    
-              <div class="span3 pull-right well">
+                  <div class="span3 pull-right well">
       <ul class="nav nav-list">
         <li class="nav-header">Friends blog</li>
                   <li><a href="http://blog.teknicity.net">rustx</a></li>
@@ -171,8 +198,7 @@
       </ul>
     </div>
   
-    
-  </div>
+            </div>
 
             <footer>
         <p>
@@ -194,8 +220,8 @@
     
     
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-      <script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
-      <script src="../../js/vendor/bootstrap.min.js"></script>
+      <script>window.jQuery || document.write('<script src="./js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="./js/vendor/bootstrap.min.js"></script>
     
   <script type="text/javascript">
 
