@@ -19,3 +19,5 @@ Homemade plugins:
 
 That's it for now, I'll try to create new one soon :)
 
+*PS:* This plugin are working on the 2.x branch of carew and are no longer working with 1.x branch.
+

@@ -44,7 +44,7 @@ Then, in the same file, you just need to add the list of links like this:
 Last step, you need to put the following code in your twig file:
 
     twig
-    {% for blog in blogRoll %}
+    {% for blog in carew.blogRoll %}
       <li><a href="{{ blog.url }}">{{ blog.name }}</a>
     {% endfor %}
 

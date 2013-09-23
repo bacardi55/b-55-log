@@ -40,28 +40,28 @@ Edit the carew config.yml file to enable the extension:
 
 Then, in your twig blog post template file, you can use the following variables:
 
-- The previous post link: `document.metadatas.fastNav.prev.link`
-- The previous post title: `document.metadatas.fastNav.prev.title`
-- The next post link: `document.metadatas.fastNav.next.link`
-- The next post title: `document.metadatas.fastNav.next.title`
+- The previous post link: `carew.document.metadatas.fastNav.prev.link`
+- The previous post title: `carew.document.metadatas.fastNav.prev.title`
+- The next post link: `carew.document.metadatas.fastNav.next.link`
+- The next post title: `carew.document.metadatas.fastNav.next.title`
 
 
 Here is a full example of how this plugin is used on my blog:
 
     twig
-    {% if document.metadatas.fastNav is not null %}
+    {% if carew.document.metadatas.fastNav is not null %}
       <div class="fastNav">
-        {% if document.metadatas.fastNav.prev.link %}
+        {% if carew.document.metadatas.fastNav.prev.link %}
           <div class="prev pull-left">
-            <a href="{{ document.metadatas.fastNav.prev.link }}">
-              ← {{ document.metadatas.fastNav.prev.title }}
+            <a href="{{ carew.document.metadatas.fastNav.prev.link }}">
+              ← {{ carew.document.metadatas.fastNav.prev.title }}
             </a>
           </div>
         {% endif %}
-        {% if document.metadatas.fastNav.next.link %}
+        {% if carew.document.metadatas.fastNav.next.link %}
           <div class="next pull-right">
-            <a href="{{ document.metadatas.fastNav.next.link }}">
-              {{ document.metadatas.fastNav.next.title }} →
+            <a href="{{ carew.document.metadatas.fastNav.next.link }}">
+              {{ carew.document.metadatas.fastNav.next.title }} →
             </a>
           </div>
         {% endif %}

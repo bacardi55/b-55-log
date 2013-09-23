@@ -2,7 +2,7 @@
 
 {% block content_container %}
   <div class="row">
-    <div class="span10 offset1 content">
+    <div class="span8 content">
       {% block content_title %}
         {% if document.title is defined and document.title %}
           <div class="page-header">
@@ -13,8 +13,14 @@
         {% endif %}
       {% endblock %}
 
-      {% block content_main document.body|default('')|raw %}
+    {% block content_main %}
+      {% block content_main_left document.body|default('')|raw %}
+
     </div>
+      {% block content_main_right %}
+        {{ parent() }}
+      {% endblock %}
+    {% endblock %}
   </div>
 {% endblock %}
 

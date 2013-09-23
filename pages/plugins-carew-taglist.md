@@ -30,7 +30,7 @@ Edit the carew config.yml file to enable the extension:
         […]
         extensions:
             …
-            - Carew\Plugin\BlogRoll\TagListExtension
+            - Carew\Plugin\TagList\TagListExtension
             …
 
 
@@ -39,8 +39,8 @@ Then, in your [twig](http://twig.sensiolabs.org) template file(s), you have acce
 Here is an example of how I use it on my own blog:
 
     twig
-    {% for label in tagList %}
-      <a class="pull-left" href="/{{ label.path }}">{{ label.name | e('html') }} ({{ label.nbPosts | e('html') }})</a>
+    {% for label in carew.tagList %}
+      <a class="pull-left" href="{{ label.path }}">{{ label.name | e('html') }} ({{ label.nbPosts | e('html') }})</a>
     {% endfor %}
 
 #### Source code
