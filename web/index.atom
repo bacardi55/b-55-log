@@ -4,8 +4,68 @@
     <subtitle></subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2013-09-03T00:00:00+02:00</updated>
+            <updated>2014-02-27T00:00:00+01:00</updated>
             <entry>
+        <title>Use mailcatcher on a distant debian VM</title>
+                <updated>2014-02-27T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2014/02/27/mailcatcher-on-a-distant-vm.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, to revive this blog, a quick post about <a href="http://mailcatcher.me">mailcatcher</a> that I needed to install at work as the port 25 to fire mails is blocked. I was used to work with email in a "regular" way, meaning having sendmail installed and configured and actually sending emails.</p>
+
+<p>When you can't do that due to a firewall, <a href="http://mailcatcher.me">mailcatcher</a> is here to help :)</p>
+
+<p><a href="http://mailcatcher.me">Mailcatcher</a> is a very nice tool that, as the doc says, «Catches mail and serves it through a dream». In other worlds, it simply displays emails that your server try to send in a very nice UI.</p>
+
+<h2>Installation</h2>
+
+<p>The installation as it's written on the website didn't work on my laptop, so I had to install more stuff that what was asked.
+Thanks to <a href="https://github.com/samyranavela">samsam</a>, I made it work by running :</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">sudo</span> <span style="color: #c20cb9; font-weight: bold;">apt-get install</span> ruby rubygems ruby-dev sqlite3 libsqlite3-dev
+<span style="color: #c20cb9; font-weight: bold;">sudo</span> gem <span style="color: #c20cb9; font-weight: bold;">install</span> mailcatcher</pre>
+
+<h2>Configuration</h2>
+
+<p>After that, I put as the documentation said in my php.ini</p>
+
+<pre><code>sendmail_path = /usr/bin/env catchmail
+</code></pre>
+
+<p>But it didn't work. At the end, I found that</p>
+
+<pre><code>sendmail_path = "/usr/bin/env /usr/local/bin/catchmail"
+</code></pre>
+
+<p>solved the problem :)</p>
+
+<p>Then, a simple <code>mailcatcher</code> make it works… but localy only. If you use like me a VM to dev in order to not mess up your local OS, this won't work as the web interface only accept connection from 127.0.0.1 as default.
+The website doesn't help (at least I didn't find anything usefull for that), but a simple <code>mailcatcher --help</code> display the solution:</p>
+
+<pre class="bash" style="font-family:monospace;">mailcatcher <span style="color: #660033;">--help</span>
+Usage: mailcatcher <span style="color: #7a0874; font-weight: bold;">&#91;</span>options<span style="color: #7a0874; font-weight: bold;">&#93;</span>
+        <span style="color: #660033;">--ip</span> IP                      Set the <span style="color: #c20cb9; font-weight: bold;">ip</span> address of both servers
+        <span style="color: #660033;">--smtp-ip</span> IP                 Set the <span style="color: #c20cb9; font-weight: bold;">ip</span> address of the smtp server
+        <span style="color: #660033;">--smtp-port</span> PORT             Set the port of the smtp server
+        <span style="color: #660033;">--http-ip</span> IP                 Set the <span style="color: #c20cb9; font-weight: bold;">ip</span> address of the http server
+        <span style="color: #660033;">--http-port</span> PORT             Set the port address of the http server
+    -f, <span style="color: #660033;">--foreground</span>                 Run <span style="color: #000000; font-weight: bold;">in</span> the foreground
+    -v, <span style="color: #660033;">--verbose</span>                    Be <span style="color: #c20cb9; font-weight: bold;">more</span> verbose
+    -h, <span style="color: #660033;">--help</span>                       Display this <span style="color: #7a0874; font-weight: bold;">help</span> information</pre>
+
+<p>After reading this, a simple:</p>
+
+<pre class="bash" style="font-family:monospace;">mailcatcher <span style="color: #660033;">--http-ip</span> <span style="color: #000000; font-weight: bold;">&lt;</span>YourIpAddress<span style="color: #000000; font-weight: bold;">&gt;</span></pre>
+
+<p>will fix your issue :). Don't do --ip as the server still needs to listen the localhost for sent emails.</p>
+
+<p>Again, thanks to the <a href="http://mailcatcher.me">Mailcatcher</a> team as it's a great product!
+And hope that it will help some of you :).</p>
+]]></content>
+    </entry>
+        <entry>
         <title>No, this blog is not dead yet</title>
                 <updated>2013-09-03T00:00:00+02:00</updated>
         <author>
@@ -896,6 +956,41 @@ You just need to do</p>
 ]]></content>
     </entry>
         <entry>
+        <title>Why I love opensource</title>
+                <updated>2013-02-03T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
+
+<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
+
+<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
+
+<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
+This post isn't about presenting silex, it's just to thanks the opensource community.</p>
+
+<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
+
+<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
+I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
+
+<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
+
+<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
+Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
+
+<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
+
+<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
+This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
+
+<p><strong>Open source, live long and prosper!</strong></p>
+]]></content>
+    </entry>
+        <entry>
         <title>Presenting Github Php dashBoard</title>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
@@ -1000,38 +1095,47 @@ You just need to do</p>
 ]]></content>
     </entry>
         <entry>
-        <title>Why I love opensource</title>
-                <updated>2013-02-03T00:00:00+01:00</updated>
+        <title>Alternate css classes easily in twig</title>
+                <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
             <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
+        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
+The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
 
-<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
+<p>For example:</p>
 
-<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
+<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
 
-<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
-This post isn't about presenting silex, it's just to thanks the opensource community.</p>
+<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
 
-<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
+<p>To use the modulo function in twig, just use</p>
 
-<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
-I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
 
-<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
+<p>And there you go, as simple as in PHP.</p>
 
-<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
-Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
+<p>Then, using twig, you can do this:</p>
 
-<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
 
-<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
-This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
+<p>Or in my case I needed this :</p>
 
-<p><strong>Open source, live long and prosper!</strong></p>
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>To be able to use the index of my parent loop :)</p>
+
+<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>Isn't it beautiful ? But it gets even better!</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
 ]]></content>
     </entry>
         <entry>
@@ -1084,50 +1188,6 @@ This is actually the main reason why <a href="http://bacardi55.org" title="bacar
 <p><strong><em>Watch out</em></strong>: Don't forget the <code>return $twig;</code> line! I lost half an hour because of this so don't do as me ^^.</p>
 
 <p>As always, hope that will help someone (at least me when i'll have the same issue in another project ^^).</p>
-]]></content>
-    </entry>
-        <entry>
-        <title>Alternate css classes easily in twig</title>
-                <updated>2013-02-02T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
-The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
-
-<p>For example:</p>
-
-<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
-
-<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
-
-<p>To use the modulo function in twig, just use</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
-
-<p>And there you go, as simple as in PHP.</p>
-
-<p>Then, using twig, you can do this:</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
-
-<p>Or in my case I needed this :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>To be able to use the index of my parent loop :)</p>
-
-<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>Isn't it beautiful ? But it gets even better!</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
 ]]></content>
     </entry>
         <entry>
@@ -1246,6 +1306,37 @@ You'll see another output connected. This is the one you should use in the scrip
 ]]></content>
     </entry>
         <entry>
+        <title>Return a Yaml file with silex</title>
+                <updated>2013-01-27T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to return a Yaml file to my browser but I wanted to be forced to download it.</p>
+
+<p>It's not a file so I can not use the $app->stream helper. Instead I return a simple http response.</p>
+
+<p>As I didn't find right away my answer, I thought about putting it in a blog post.</p>
+
+<p>In your controller, add :</p>
+
+<p><code>use Symfony\Component\HttpFoundation\Response;</code></p>
+
+<p>Then, where you want to return your yaml file:</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> Response<span style="color: #009900;">&#40;</span>
+    <span style="color: #000088;">$yaml</span><span style="color: #339933;">,</span>
+    <span style="color: #cc66cc;">200</span><span style="color: #339933;">,</span>
+    <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'Content-Type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'text/x-yaml'</span><span style="color: #339933;">,</span>
+        <span style="color: #0000ff;">'Content-Disposition'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'attachment; filename=&quot;filename.yaml&quot;'</span>
+    <span style="color: #009900;">&#41;</span>
+<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
+
+<p>And there you go :)</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Save a vim file despite open it as a simple user</title>
                 <updated>2013-01-27T00:00:00+01:00</updated>
         <author>
@@ -1301,37 +1392,6 @@ I tried to used the class within the apachesorl module, but there required a to 
 <p>After that, I simply created a class that generate a RSS feed from a drupal request. I think this class is pretty generic and I'll try to put it on my github as an opensource lib.</p>
 
 <p>Hope that could help some developers that need to do a RSS feed from a drupal apache solr query :).</p>
-]]></content>
-    </entry>
-        <entry>
-        <title>Return a Yaml file with silex</title>
-                <updated>2013-01-27T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/01/27/return-a-yaml-file-with-silex.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to return a Yaml file to my browser but I wanted to be forced to download it.</p>
-
-<p>It's not a file so I can not use the $app->stream helper. Instead I return a simple http response.</p>
-
-<p>As I didn't find right away my answer, I thought about putting it in a blog post.</p>
-
-<p>In your controller, add :</p>
-
-<p><code>use Symfony\Component\HttpFoundation\Response;</code></p>
-
-<p>Then, where you want to return your yaml file:</p>
-
-<pre class="php" style="font-family:monospace;"><span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> Response<span style="color: #009900;">&#40;</span>
-    <span style="color: #000088;">$yaml</span><span style="color: #339933;">,</span>
-    <span style="color: #cc66cc;">200</span><span style="color: #339933;">,</span>
-    <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'Content-Type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'text/x-yaml'</span><span style="color: #339933;">,</span>
-        <span style="color: #0000ff;">'Content-Disposition'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'attachment; filename=&quot;filename.yaml&quot;'</span>
-    <span style="color: #009900;">&#41;</span>
-<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
-
-<p>And there you go :)</p>
 ]]></content>
     </entry>
         <entry>

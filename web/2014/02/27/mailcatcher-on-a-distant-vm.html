@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Why I started working on a opensource disqus</title>
+    <title>Use mailcatcher on a distant debian VM</title>
 
     <meta name="description" content="">
     <meta name="author" content="bacardi55">
@@ -76,34 +76,16 @@
           <div class="row">
     <div class="span8 content">
                         <div class="page-header">
-            <h1>Why I started working on a opensource disqus
+            <h1>Use mailcatcher on a distant debian VM
               </h1>
           </div>
               
                         <div class="pull-left">
                           By <i class="icon-user"></i>bacardi55 -
-                        <i class="icon-calendar"></i>2013 April 22
+                        <i class="icon-calendar"></i>2014 February 27
           </div>
                       <div class="pull-right">
               <ul class="tag_box inline">
-                                  <li>
-                    <i class="icon-tag"></i>
-                    <a href="../../../../tags/angularjs.html">
-                      angularjs
-                    </a>
-                  </li>
-                                  <li>
-                    <i class="icon-tag"></i>
-                    <a href="../../../../tags/jocs.html">
-                      jocs
-                    </a>
-                  </li>
-                                  <li>
-                    <i class="icon-tag"></i>
-                    <a href="../../../../tags/pocs.html">
-                      pocs
-                    </a>
-                  </li>
                                   <li>
                     <i class="icon-tag"></i>
                     <a href="../../../../tags/php.html">
@@ -112,8 +94,8 @@
                   </li>
                                   <li>
                     <i class="icon-tag"></i>
-                    <a href="../../../../tags/disqus.html">
-                      disqus
+                    <a href="../../../../tags/mailcatcher.html">
+                      mailcatcher
                     </a>
                   </li>
                               </ul>
@@ -124,128 +106,66 @@
           <hr />
 
           <div class="body">
-            <h2>Disqus ?</h2>
+            <p>Today, to revive this blog, a quick post about <a href="http://mailcatcher.me">mailcatcher</a> that I needed to install at work as the port 25 to fire mails is blocked. I was used to work with email in a "regular" way, meaning having sendmail installed and configured and actually sending emails.</p>
 
-<p>From the <a href="https://disqus.com" title="disqus">Disqus website</a>:</p>
+<p>When you can't do that due to a firewall, <a href="http://mailcatcher.me">mailcatcher</a> is here to help :)</p>
 
-<p><code>From small blogs to massive websites, Disqus is the easiest way to build active communities.
-It's free to use and works with virtually any type of website.</code></p>
+<p><a href="http://mailcatcher.me">Mailcatcher</a> is a very nice tool that, as the doc says, «Catches mail and serves it through a dream». In other worlds, it simply displays emails that your server try to send in a very nice UI.</p>
 
-<p>In short, it's a simple comment system. I heard you saying «that's it?». And the anwser is yes.</p>
+<h2>Installation</h2>
 
-<p>Advantages:</p>
+<p>The installation as it's written on the website didn't work on my laptop, so I had to install more stuff that what was asked.
+Thanks to <a href="https://github.com/samyranavela">samsam</a>, I made it work by running :</p>
 
-<ul>
-<li>The comment system is not managed by yourself;</li>
-<li>You don't have to worry about spam;</li>
-<li>You just includ some Javascript code on your page and your good to go;</li>
-<li>Include a social aspect in comments.</li>
-</ul>
+<pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">sudo</span> <span style="color: #c20cb9; font-weight: bold;">apt-get install</span> ruby rubygems ruby-dev sqlite3 libsqlite3-dev
+<span style="color: #c20cb9; font-weight: bold;">sudo</span> gem <span style="color: #c20cb9; font-weight: bold;">install</span> mailcatcher</pre>
 
-<p>Drawbacks:</p>
+<h2>Configuration</h2>
 
-<ul>
-<li>The major one for me: You don't own your data. If you do a basic comments system in php, ruby or whatever, you host the data of your users. If you use Disqus, Disqus own the content. For me this reason is more than enough to not use disqus. On disqus' website, they say that the data belongs to them.</li>
-<li>You don't have access to the source code of disqus. Therefore, you don't know what it does.</li>
-<li>You can't adapt it to your needs.</li>
-</ul>
+<p>After that, I put as the documentation said in my php.ini</p>
 
-<h2>Ok, so no comments on your website?</h2>
+<pre><code>sendmail_path = /usr/bin/env catchmail
+</code></pre>
 
-<p>Exactly. At this moment, there is no comment section on this blog. As a matter of fact, it doesn't bother me much. I might have 10 readers tops :D so I don't really care.</p>
+<p>But it didn't work. At the end, I found that</p>
 
-<p>I'm following a lot of developers blog and see a lot of them switching to heavy CMS or blog plateform to go this kind of static websites. And most of them are using disqus… There also people to use disqus on non static website. I really don't know why, but I feel like the «cloud» is the good excuse to not really care where our data are.</p>
+<pre><code>sendmail_path = "/usr/bin/env /usr/local/bin/catchmail"
+</code></pre>
 
-<h2>So?</h2>
+<p>solved the problem :)</p>
 
-<p>So I started hacking a couple of weeks ago a new project to put it on this blog. I don't really need a comment system but maybe people will see it on maybe try it instead of disqus. The project is in a very early stage and will be release as a 0.1-alpha soon.</p>
+<p>Then, a simple <code>mailcatcher</code> make it works… but localy only. If you use like me a VM to dev in order to not mess up your local OS, this won't work as the web interface only accept connection from 127.0.0.1 as default.
+The website doesn't help (at least I didn't find anything usefull for that), but a simple <code>mailcatcher --help</code> display the solution:</p>
 
-<p>Before starting, I had these pre-requisite:</p>
+<pre class="bash" style="font-family:monospace;">mailcatcher <span style="color: #660033;">--help</span>
+Usage: mailcatcher <span style="color: #7a0874; font-weight: bold;">&#91;</span>options<span style="color: #7a0874; font-weight: bold;">&#93;</span>
+        <span style="color: #660033;">--ip</span> IP                      Set the <span style="color: #c20cb9; font-weight: bold;">ip</span> address of both servers
+        <span style="color: #660033;">--smtp-ip</span> IP                 Set the <span style="color: #c20cb9; font-weight: bold;">ip</span> address of the smtp server
+        <span style="color: #660033;">--smtp-port</span> PORT             Set the port of the smtp server
+        <span style="color: #660033;">--http-ip</span> IP                 Set the <span style="color: #c20cb9; font-weight: bold;">ip</span> address of the http server
+        <span style="color: #660033;">--http-port</span> PORT             Set the port address of the http server
+    -f, <span style="color: #660033;">--foreground</span>                 Run <span style="color: #000000; font-weight: bold;">in</span> the foreground
+    -v, <span style="color: #660033;">--verbose</span>                    Be <span style="color: #c20cb9; font-weight: bold;">more</span> verbose
+    -h, <span style="color: #660033;">--help</span>                       Display this <span style="color: #7a0874; font-weight: bold;">help</span> information</pre>
 
-<ul>
-<li>Separate completly the frontend and the backend;</li>
-<li>Learn how to use angularjs for the frontend;</li>
-</ul>
+<p>After reading this, a simple:</p>
 
-<p>The first one would let user write other backends in the language they want. I'm well aware that php is not loved in the opensource community so that way, user will be able to have their own backend with their own features in the language they like.</p>
+<pre class="bash" style="font-family:monospace;">mailcatcher <span style="color: #660033;">--http-ip</span> <span style="color: #000000; font-weight: bold;">&lt;</span>YourIpAddress<span style="color: #000000; font-weight: bold;">&gt;</span></pre>
 
-<p>The second one was more of a selfish choice as I wanted to learn how to writte angularjs app.</p>
+<p>will fix your issue :). Don't do --ip as the server still needs to listen the localhost for sent emails.</p>
 
-<p>The project is separated in 2 different projects:</p>
-
-<ul>
-<li>Jocs (Javascript Opensource Comments System): (say it like «jokes» :))A full javascript frontend writting with <a href="http://angularjs.org/" title="angularjs">angularjs</a>, the Superheroic JavaScript MVW Framework :). This frontend has to be set up in your web page when you want to add a comment system.</li>
-<li>Pocs: This is a backend written in php with <a href="http://silex.sensio.org">silex</a>. This is a very basic backend that handle the web service + a simple admin page to add frontend.</li>
-</ul>
-
-<h2>Where am I?</h2>
-
-<h3>Jocs' on me</h3>
-
-<p>For now, I'm in the early stage. The app is currently working on my local but for now, it's not as user friendly as disqus to set it up on your website.
-For example, to make it work with my blog, I had to change the path to the angularjs views. There is also no response to comment yet but that will be soon.</p>
-
-<p>I have a huge todolist and I'll try to put it on the github repo at the same time as the source code (probably at the end of the week).
-This won't be perfect but it would be a version that does the minimum to work :).</p>
-
-<p>What it does for now:</p>
-
-<ul>
-<li>Display the comments after the page is loaded.</li>
-<li>Add a comment.</li>
-<li>Display gravatar if available.</li>
-</ul>
-
-<p>Soon:</p>
-
-<ul>
-<li>Response to comment (hierarchy)</li>
-<li>Antispam</li>
-<li>…</li>
-</ul>
-
-<p>You can see a capture here:
-<a href="../../../../images/jocs/alpha.png">here</a></p>
-
-<h3>Pocs</h3>
-
-<p>For the backoffice, it's also the early stage. I'm developping both frontend and backend at the same time so it takes time :).
-What it does for now:</p>
-
-<ul>
-<li>Install script to create the first user.</li>
-<li>Add/Remove frontend (link the frontend to the backend with an API key and a fixed base URL).</li>
-</ul>
-
-<p>Soon:</p>
-
-<ul>
-<li>See comments per frontend / url and remove the unwanted ones.</li>
-<li>…</li>
-</ul>
-
-<p>I think the code will be on github at this end of this week so people might be able to look at it.
-It will be <a href="http://github.com/bacardi55/jocs" title="jocs">here</a> and <a href="http://github.com/bacardi55/pocs" title="pocs">here</a>.</p>
-
-<h2>Conclusion</h2>
-
-<p>I'll install it soon to try to test it here. I'll continue update this blog with the news of this project.
-Hope that project will inspire developers to switch from disqus for jocs or their own comment system :).</p>
+<p>Again, thanks to the <a href="http://mailcatcher.me">Mailcatcher</a> team as it's a great product!
+And hope that it will help some of you :).</p>
 
           </div>
         
                   <div class="fastNav">
                           <div class="prev pull-left">
-                <a href="/2013/03/07/open-your-attachment-directly-in-mutt.html">
-                  ← Open html email and email attachment in mutt
+                <a href="/2013/09/03/no-this-blog-is-not-dead-yet.html">
+                  ← No, this blog is not dead yet
                 </a>
               </div>
-                                      <div class="next pull-right">
-                <a href="/2013/04/30/error-page-with-carew-and-nginx.html">
-                  Error page with carew and nginx →
-                </a>
-              </div>
-                      </div>
+                                  </div>
         
         <br /><br />
 
