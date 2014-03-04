@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Tags: bash</title>
+    <title>Render Symfony Form Widget with dynamic name in twig</title>
 
     <meta name="description" content="">
     <meta name="author" content="bacardi55">
@@ -15,11 +15,11 @@
 
     
     
-          <link rel="stylesheet" href="../../css/bootstrap.min.css">
-      <link rel="stylesheet" href="../../css/bootstrap-responsive.min.css">
-      <link rel="stylesheet" href="../../css/main.css">
+          <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="../../../../css/main.css">
     
-    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
   <body>
@@ -36,17 +36,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="../..">bacardi55&#039;s blog</a>
+                <a class="brand" href="../../../..">bacardi55&#039;s blog</a>
                 <div class="nav-collapse collapse">
                                             <ul class="nav">
-                                                                                                                        <li><a href="../../about.html">About</a></li>
+                                                                                                                        <li><a href="../../../../about.html">About</a></li>
                                                                                         <li><a href="http://projects.bacardi55.org">My projects</a></li>
                             <li><a href="/plugins-carew.html">Plugins carew</a></li>
                                                 </ul>
                     
                                             <ul class="nav pull-right">
                             <li>
-                              <a href="index.atom"><img src="../../images/rss.png" /></a>
+                              <a href="index.atom"><img src="../../../../images/rss.png" /></a>
                             </li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
@@ -76,19 +76,86 @@
           <div class="row">
     <div class="span8 content">
                         <div class="page-header">
-            <h1>Tags: bash
+            <h1>Render Symfony Form Widget with dynamic name in twig
               </h1>
           </div>
               
-                <div class="pull-left">
-      <ul>
-                  <li>
-            <a href="../../2013/01/28/switching-quickly-from-1-screen-to-2.html">Switching Quickly From 1 Screen To 2</a> (13 Jan 28)
-          </li>
-              </ul>
+                        <div class="pull-left">
+                          By <i class="icon-user"></i>bacardi55 -
+                        <i class="icon-calendar"></i>2014 March 04
+          </div>
+                      <div class="pull-right">
+              <ul class="tag_box inline">
+                                  <li>
+                    <i class="icon-tag"></i>
+                    <a href="../../../../tags/sfForm.html">
+                      sfForm
+                    </a>
+                  </li>
+                                  <li>
+                    <i class="icon-tag"></i>
+                    <a href="../../../../tags/twig.html">
+                      twig
+                    </a>
+                  </li>
+                                  <li>
+                    <i class="icon-tag"></i>
+                    <a href="../../../../tags/php.html">
+                      php
+                    </a>
+                  </li>
+                              </ul>
+            </div>
 
-  </div>
+            <div class="clearfix"></div>
+          
+          <hr />
 
+          <div class="body">
+            <h2>Introduction</h2>
+
+<p>Today, I restarted working on <a href="http://github.com/bacardi55/yarg">yarg</a> (a project i'll talk about soon) which is a <a href="http://symfony.com">Symfony</a> project. I had a simple need to create a draggable list of items with an Ajax call to save the new order.</p>
+
+<p>In a "basic" project, I would have written my <code>&lt;form&gt;</code> and <code>&lt;input&gt;</code> tags in the template by myself and that would be enough. As I'm using <a href="http://symfony.com">Symfony</a>, I wanted to build it via the sfForm component and handle it as a basic form and display it in twig using <code>form_wiget()</code>.</p>
+
+<p>But to do that I needed to be able to call <code>form_widget(myForm.myName&lt;ID&gt;</code> with <ID> being a dynamic number.</p>
+
+<h2>My working solution</h2>
+
+<p>I don't know it's the right way but at least it work for me :). So use the comments or fork this blog post on github if you have a better solution :).
+In any case it might help some other people that want to make this work^^.</p>
+
+<p>An example of a form with dynamic name:</p>
+
+<pre class="php" style="font-family:monospace;"><span style="color: #000088;">$orderInform</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$this</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">createFormBuilder</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #b1b100;">foreach</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$cv</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">getInformations</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$information</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000088;">$orderInform</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">add</span><span style="color: #009900;">&#40;</span>
+      <span style="color: #0000ff;">'information_'</span> <span style="color: #339933;">.</span> <span style="color: #000088;">$information</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">getId</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span>
+      <span style="color: #0000ff;">'hidden'</span><span style="color: #339933;">,</span>
+      <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span>
+        <span style="color: #0000ff;">'data'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'information['</span> <span style="color: #339933;">.</span> <span style="color: #000088;">$information</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">getId</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">.</span> <span style="color: #0000ff;">']'</span><span style="color: #339933;">,</span>
+      <span style="color: #009900;">&#41;</span>
+    <span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span></pre>
+
+<p>So in that case, I want to generate form_wiget with name like <code>orderInform.information_XX</code> with XX being the id of the information.</p>
+
+<p>To generate this in twig, I found this solution that work:</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/set.html"><span style="color: #0600FF;">set</span></a> <span style="color: #00aaff;">infoId</span> <span style="color: #D36900;">=</span> <span style="color: #ff0000;">'information_'</span> <span style="color: #D36900;">~</span> <span style="color: #00aaff;">cv_info</span><span style="color: #00aaff;">.id</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>
+<span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #00aaff;">form_widget</span><span style="color: #D36900;">&#40;</span><a href="http://twig.sensiolabs.org/doc/functions/attribute.html"><span style="color: #0600FF;">attribute</span></a><span style="color: #D36900;">&#40;</span>orderInform, <span style="color: #00aaff;">infoId</span><span style="color: #D36900;">&#41;</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>Hope that helps people :)</p>
+
+          </div>
+        
+                  <div class="fastNav">
+                          <div class="prev pull-left">
+                <a href="/2014/02/27/mailcatcher-on-a-distant-vm.html">
+                  ← Use mailcatcher on a distant debian VM
+                </a>
+              </div>
+                                  </div>
         
         <br /><br />
 
@@ -196,10 +263,20 @@
       </div>
       </div>
     
-    
+        
+
+    <script src="/jocs/components/angular/angular.js"></script>
+    <script src="/jocs/components/angular-resource/angular-resource.js"></script>
+    <script src="/jocs/components/angular-cookies/angular-cookies.js"></script>
+    <script src="/jocs/components/angular-sanitize/angular-sanitize.js"></script>
+
+    <!-- build:js scripts/scripts.js -->
+    <script src="/jocs/scripts/c4fe908e.scripts.js"></script>
+    <!-- endbuild -->
+
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-      <script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
-      <script src="../../js/vendor/bootstrap.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="../../../../js/vendor/bootstrap.min.js"></script>
     
   <script type="text/javascript">
 
