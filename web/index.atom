@@ -4,8 +4,69 @@
     <subtitle></subtitle>
     <link href="/index.atom" rel="self" />
     <link href="/" />
-            <updated>2014-03-04T00:00:00+01:00</updated>
+            <updated>2014-03-24T00:00:00+01:00</updated>
             <entry>
+        <title>Debugging php with Xdebug on a distant VM</title>
+                <updated>2014-03-24T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2014/03/24/use-xdebug-on-a-remote-host.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<h2>Introduction</h2>
+
+<p>Here is a quick note on how to set up your vim and server configuration to use xdebug on a remote VM.</p>
+
+<p>If like me, you like to develop by mounting a vm on your local, a specific configuration needs to be done to make it works. This blog post explains how.</p>
+
+<h2>Installation</h2>
+
+<p>First install the needed package. If your vm runs debian, you just need to do:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">apt-get install</span> php5-xdebug
+pecl <span style="color: #c20cb9; font-weight: bold;">install</span> xdebug</pre>
+
+<p>Then, you need to install the <code>vdebug</code> vim pluggin on your local. The plugin can be found here: <a href="https://github.com/joonty/vdebug">vdebug</a>.</p>
+
+<p>If you use <a href="https://github.com/gmarik/Vundle.vim">vundle</a> like I do, just add this line in your <code>.vimrc</code>:</p>
+
+<pre class="bash" style="font-family:monospace;">Bundle <span style="color: #ff0000;">'joonty/vdebug.git'</span></pre>
+
+<p>And then a simple <code>:BundleInstall</code> will do the work :).</p>
+
+<h2>Configuration</h2>
+
+<p>Then, you need to configure <a href="http://xdebug.org">xdebug</a> on your distant VM:</p>
+
+<p>Create the configuration file:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">vim</span> <span style="color: #000000; font-weight: bold;">/</span>etc<span style="color: #000000; font-weight: bold;">/</span>php5<span style="color: #000000; font-weight: bold;">/</span>conf.d<span style="color: #000000; font-weight: bold;">/</span><span style="color: #000000;">20</span>-xdebug.ini</pre>
+
+<p>Then, add this:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #007800;">zend_extension</span>=<span style="color: #000000; font-weight: bold;">/</span>usr<span style="color: #000000; font-weight: bold;">/</span>lib<span style="color: #000000; font-weight: bold;">/</span>php5<span style="color: #000000; font-weight: bold;">/</span><span style="color: #000000;">20100525</span><span style="color: #000000; font-weight: bold;">/</span>xdebug.so
+xdebug.remote_enable=on
+xdebug.remote_handler=dbgp
+xdebug.remote_host=<span style="color: #000000; font-weight: bold;">&lt;</span>Local IP<span style="color: #000000; font-weight: bold;">&gt;</span>
+xdebug.remote_port=<span style="color: #000000;">9000</span>
+xdebug.remote_autostart=<span style="color: #000000;">1</span></pre>
+
+<p><strong>Be carefull</strong>: <code>&lt;Local IP&gt;</code> needs to be an IP address on the same network that the distant VM.</p>
+
+<p>Finalize the installation by configuring your local vim:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #7a0874; font-weight: bold;">let</span> g:current_dir = <span style="color: #ff0000;">&quot;/path/to/local/source/&quot;</span>
+<span style="color: #7a0874; font-weight: bold;">let</span> g:vdebug_options = <span style="color: #7a0874; font-weight: bold;">&#123;</span><span style="color: #7a0874; font-weight: bold;">&#125;</span>
+<span style="color: #7a0874; font-weight: bold;">let</span> g:vdebug_options<span style="color: #7a0874; font-weight: bold;">&#91;</span><span style="color: #ff0000;">'path_maps'</span><span style="color: #7a0874; font-weight: bold;">&#93;</span> = <span style="color: #7a0874; font-weight: bold;">&#123;</span><span style="color: #ff0000;">'/path/to/distant/source/'</span>: g:current_dir<span style="color: #7a0874; font-weight: bold;">&#125;</span>
+<span style="color: #7a0874; font-weight: bold;">let</span> g:vdebug_options<span style="color: #7a0874; font-weight: bold;">&#91;</span><span style="color: #ff0000;">'server'</span><span style="color: #7a0874; font-weight: bold;">&#93;</span> = <span style="color: #ff0000;">&quot;xxx.xxx.xxx.xxx&quot;</span> <span style="color: #666666; font-style: italic;"># VM IP address</span>
+<span style="color: #7a0874; font-weight: bold;">let</span> g:vdebug_options<span style="color: #7a0874; font-weight: bold;">&#91;</span><span style="color: #ff0000;">'port'</span><span style="color: #7a0874; font-weight: bold;">&#93;</span> = <span style="color: #000000;">9000</span></pre>
+
+<p>The VM ip address should be accessible from your local host.</p>
+
+<p>There you go, you can see <a href="https://github.com/gmarik/Vundle.vim">here</a> how to use it :)</p>
+]]></content>
+    </entry>
+        <entry>
         <title>Render Symfony Form Widget with dynamic name in twig</title>
                 <updated>2014-03-04T00:00:00+01:00</updated>
         <author>
@@ -1000,6 +1061,41 @@ You just need to do</p>
 ]]></content>
     </entry>
         <entry>
+        <title>Why I love opensource</title>
+                <updated>2013-02-03T00:00:00+01:00</updated>
+        <author>
+            <name>bacardi55</name>
+            <email>admin@bacardi55.org</email>
+        </author>
+        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
+
+<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
+
+<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
+
+<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
+This post isn't about presenting silex, it's just to thanks the opensource community.</p>
+
+<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
+
+<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
+I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
+
+<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
+
+<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
+Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
+
+<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
+
+<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
+This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
+
+<p><strong>Open source, live long and prosper!</strong></p>
+]]></content>
+    </entry>
+        <entry>
         <title>Presenting Github Php dashBoard</title>
                 <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
@@ -1104,38 +1200,47 @@ You just need to do</p>
 ]]></content>
     </entry>
         <entry>
-        <title>Why I love opensource</title>
-                <updated>2013-02-03T00:00:00+01:00</updated>
+        <title>Alternate css classes easily in twig</title>
+                <updated>2013-02-02T00:00:00+01:00</updated>
         <author>
             <name>bacardi55</name>
             <email>admin@bacardi55.org</email>
         </author>
-        <link rel="alternate" type="text/html" href="/2013/02/03/why-i-love-opensource.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>This is a quick blog post to say that I love opensource. Everyone who knows me know that I love opensource. I'm using gnu/linux on my laptop and I use linux at work too.</p>
+        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
+        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
+The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
 
-<p>But recently, I've been coding a lot more than before. I don't know why, but my coding motivation has increased a lot.</p>
+<p>For example:</p>
 
-<p>I started new projects mainly to try new stuff. I starting feeling that there were too much new stuff that made my geek-sense feel interesting so I starting coding again.</p>
+<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
 
-<p>I've always love  <a href="http://symfony.com" title="symfony">symfony</a> but recently I discover <a href="http://silex.sension.org" title="silex">Silex</a> and I really like it.
-This post isn't about presenting silex, it's just to thanks the opensource community.</p>
+<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
 
-<p>For those who follow my <a href="/2013/02/03/presenting-github-php-dashboard-gpb.html">blog</a>, you know that I started a small project last week : <a href="http://projects.bacardi55.org/gpb/#summary-GPB" title="Github Php dashBoard">Github Php dashBoard (GPB)</a>).</p>
+<p>To use the modulo function in twig, just use</p>
 
-<p>When I started this project, the idea was simple. Get the information about my project from github and display it nicely.
-I automatically thought about using <a href="http://silex.sension.org" title="silex">Silex</a> for the PHP framework. <a href="http://twig.sensio.org" title="twig">Twig</a> and <a href="http://twitter.github.com/bootstrap/" title="Twitter Bootstrap">Twitter bootstrap</a> for the view part.</p>
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
 
-<p>Then I started to look at the <a href="https://api.github.com">github api</a>. And then, in the I found the <a href="https://github.com/KnpLabs/php-github-api/" title="php github api">php github api</a>.</p>
+<p>And there you go, as simple as in PHP.</p>
 
-<p>Thanks to all those opensource code, I could do this project in a couple of coding night. When I start being a developer, I always liked to do all by myself. It was fun and I liked doing everything.
-Of course, I don't do that at all, neither at work or at home. But the little effort that I had to do to create a really small project is awesome. All I have to do is focus on my PHP code and read the bootstrap documentation to create a really simple design with javascript component. All of that without writing anything but PHP and twig templates.</p>
+<p>Then, using twig, you can do this:</p>
 
-<p>So to all the contributors of those projects (and to all opensource contributors actually), <em>THANK YOU</em>.</p>
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
 
-<p>This is why all my code are opensource (I actually have to put a LISCENCE file in my repositories some day ^^).
-This is actually the main reason why <a href="http://bacardi55.org" title="bacardi55's blog">my blog</a> is a static blog, to be able to put it on a <a href="http://github.com/bacardi55/b-55-log" title="bacardi55's blog on github">git repository</a>.</p>
+<p>Or in my case I needed this :</p>
 
-<p><strong>Open source, live long and prosper!</strong></p>
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>To be able to use the index of my parent loop :)</p>
+
+<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>Isn't it beautiful ? But it gets even better!</p>
+
+<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
+
+<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
 ]]></content>
     </entry>
         <entry>
@@ -1188,50 +1293,6 @@ This is actually the main reason why <a href="http://bacardi55.org" title="bacar
 <p><strong><em>Watch out</em></strong>: Don't forget the <code>return $twig;</code> line! I lost half an hour because of this so don't do as me ^^.</p>
 
 <p>As always, hope that will help someone (at least me when i'll have the same issue in another project ^^).</p>
-]]></content>
-    </entry>
-        <entry>
-        <title>Alternate css classes easily in twig</title>
-                <updated>2013-02-02T00:00:00+01:00</updated>
-        <author>
-            <name>bacardi55</name>
-            <email>admin@bacardi55.org</email>
-        </author>
-        <link rel="alternate" type="text/html" href="/2013/02/02/alternate-css-classes-easily-in-twig.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Today, I wanted to style a little bit my project.
-The basic way in classic PHP project would be to use the iterator variable of your <code>for loop</code> with the use of <code>modulo</code>.</p>
-
-<p>For example:</p>
-
-<pre class="php" style="font-family:monospace;">&lt;div class=&quot;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$i</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #0000ff;">'odd'</span> <span style="color: #339933;">:</span> <span style="color: #0000ff;">'even'</span> <span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&quot;&gt;&lt;/div&gt;</pre>
-
-<p>In twig, when you use a loop, there are several variables that you can use like <code>loop.index</code>, <code>loop.first</code>, <code>loop.last</code>. I won't copy/paste the official documentation here, you can read it here <a href="http://twig.sensiolabs.org/doc/tags/for.html">twig loop documentation</a>.</p>
-
-<p>To use the modulo function in twig, just use</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <span style="color: #cc66cc;">10</span> % <span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></pre>
-
-<p>And there you go, as simple as in PHP.</p>
-
-<p>Then, using twig, you can do this:</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span>)}</pre>
-
-<p>Or in my case I needed this :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #D36900;">.</span><a href="http://twig.sensiolabs.org/doc/functions/parent.html"><span style="color: #0600FF;">parent</span></a><span style="color: #00aaff;">.loop</span><span style="color: #00aaff;">.index</span> % <span style="color: #cc66cc;">2</span> <span style="color: #D36900;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>To be able to use the index of my parent loop :)</p>
-
-<p>On <a href="http://nerdpress.org/2012/02/14/modulo-in-twig/">this blog</a>, I found the following tips :</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span>%</span> <a href="http://twig.sensiolabs.org/doc/tags/if.html"><span style="color: #0600FF;">if</span></a> <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span> <a href="http://twig.sensiolabs.org/doc/tests/divisibleby.html"><span style="color: #804040;">divisibleby</span></a><span style="color: #D36900;">&#40;</span><span style="color: #cc66cc;">2</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;">%<span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>Isn't it beautiful ? But it gets even better!</p>
-
-<pre class="twig" style="font-family:monospace;"><span style="color: #008000;"><span style="color: #D36900;">&#123;</span><span style="color: #D36900;">&#123;</span></span> <a href="http://twig.sensiolabs.org/doc/functions/cycle.html"><span style="color: #0600FF;">cycle</span></a><span style="color: #D36900;">&#40;</span><span style="color: #D36900;">&#91;</span><span style="color: #ff0000;">'odd'</span>, <span style="color: #ff0000;">'even'</span><span style="color: #D36900;">&#93;</span>, <span style="color: #00aaff;">loop</span><span style="color: #00aaff;">.index</span><span style="color: #D36900;">&#41;</span> <span style="color: #008000;"><span style="color: #D36900;">&#125;</span><span style="color: #D36900;">&#125;</span></span></pre>
-
-<p>And there you go, thank you <a href="http://twig.sensio.org" title="twig">twig</a> !</p>
 ]]></content>
     </entry>
         <entry>

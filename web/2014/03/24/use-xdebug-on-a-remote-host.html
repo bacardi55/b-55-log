@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Tags: dualscreen</title>
+    <title>Debugging php with Xdebug on a distant VM</title>
 
     <meta name="description" content="">
     <meta name="author" content="bacardi55">
@@ -15,11 +15,11 @@
 
     
     
-          <link rel="stylesheet" href="../../css/bootstrap.min.css">
-      <link rel="stylesheet" href="../../css/bootstrap-responsive.min.css">
-      <link rel="stylesheet" href="../../css/main.css">
+          <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css">
+      <link rel="stylesheet" href="../../../../css/main.css">
     
-    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
   <body>
@@ -36,17 +36,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="../..">bacardi55&#039;s blog</a>
+                <a class="brand" href="../../../..">bacardi55&#039;s blog</a>
                 <div class="nav-collapse collapse">
                                             <ul class="nav">
-                                                                                                                        <li><a href="../../about.html">About</a></li>
+                                                                                                                        <li><a href="../../../../about.html">About</a></li>
                                                                                         <li><a href="http://projects.bacardi55.org">My projects</a></li>
                             <li><a href="/plugins-carew.html">Plugins carew</a></li>
                                                 </ul>
                     
                                             <ul class="nav pull-right">
                             <li>
-                              <a href="index.atom"><img src="../../images/rss.png" /></a>
+                              <a href="index.atom"><img src="../../../../images/rss.png" /></a>
                             </li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" title="Other OSS project" data-toggle="dropdown" href="#">
@@ -76,19 +76,103 @@
           <div class="row">
     <div class="span8 content">
                         <div class="page-header">
-            <h1>Tags: dualscreen
+            <h1>Debugging php with Xdebug on a distant VM
               </h1>
           </div>
               
-                <div class="pull-left">
-      <ul>
-                  <li>
-            <a href="../../2013/01/28/switching-quickly-from-1-screen-to-2.html">Switching Quickly From 1 Screen To 2</a> (13 Jan 28)
-          </li>
-              </ul>
+                        <div class="pull-left">
+                          By <i class="icon-user"></i>bacardi55 -
+                        <i class="icon-calendar"></i>2014 March 24
+          </div>
+                      <div class="pull-right">
+              <ul class="tag_box inline">
+                                  <li>
+                    <i class="icon-tag"></i>
+                    <a href="../../../../tags/php.html">
+                      php
+                    </a>
+                  </li>
+                                  <li>
+                    <i class="icon-tag"></i>
+                    <a href="../../../../tags/vim.html">
+                      vim
+                    </a>
+                  </li>
+                                  <li>
+                    <i class="icon-tag"></i>
+                    <a href="../../../../tags/xdebug.html">
+                      xdebug
+                    </a>
+                  </li>
+                              </ul>
+            </div>
 
-  </div>
+            <div class="clearfix"></div>
+          
+          <hr />
 
+          <div class="body">
+            <h2>Introduction</h2>
+
+<p>Here is a quick note on how to set up your vim and server configuration to use xdebug on a remote VM.</p>
+
+<p>If like me, you like to develop by mounting a vm on your local, a specific configuration needs to be done to make it works. This blog post explains how.</p>
+
+<h2>Installation</h2>
+
+<p>First install the needed package. If your vm runs debian, you just need to do:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">apt-get install</span> php5-xdebug
+pecl <span style="color: #c20cb9; font-weight: bold;">install</span> xdebug</pre>
+
+<p>Then, you need to install the <code>vdebug</code> vim pluggin on your local. The plugin can be found here: <a href="https://github.com/joonty/vdebug">vdebug</a>.</p>
+
+<p>If you use <a href="https://github.com/gmarik/Vundle.vim">vundle</a> like I do, just add this line in your <code>.vimrc</code>:</p>
+
+<pre class="bash" style="font-family:monospace;">Bundle <span style="color: #ff0000;">'joonty/vdebug.git'</span></pre>
+
+<p>And then a simple <code>:BundleInstall</code> will do the work :).</p>
+
+<h2>Configuration</h2>
+
+<p>Then, you need to configure <a href="http://xdebug.org">xdebug</a> on your distant VM:</p>
+
+<p>Create the configuration file:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">vim</span> <span style="color: #000000; font-weight: bold;">/</span>etc<span style="color: #000000; font-weight: bold;">/</span>php5<span style="color: #000000; font-weight: bold;">/</span>conf.d<span style="color: #000000; font-weight: bold;">/</span><span style="color: #000000;">20</span>-xdebug.ini</pre>
+
+<p>Then, add this:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #007800;">zend_extension</span>=<span style="color: #000000; font-weight: bold;">/</span>usr<span style="color: #000000; font-weight: bold;">/</span>lib<span style="color: #000000; font-weight: bold;">/</span>php5<span style="color: #000000; font-weight: bold;">/</span><span style="color: #000000;">20100525</span><span style="color: #000000; font-weight: bold;">/</span>xdebug.so
+xdebug.remote_enable=on
+xdebug.remote_handler=dbgp
+xdebug.remote_host=<span style="color: #000000; font-weight: bold;">&lt;</span>Local IP<span style="color: #000000; font-weight: bold;">&gt;</span>
+xdebug.remote_port=<span style="color: #000000;">9000</span>
+xdebug.remote_autostart=<span style="color: #000000;">1</span></pre>
+
+<p><strong>Be carefull</strong>: <code>&lt;Local IP&gt;</code> needs to be an IP address on the same network that the distant VM.</p>
+
+<p>Finalize the installation by configuring your local vim:</p>
+
+<pre class="bash" style="font-family:monospace;"><span style="color: #7a0874; font-weight: bold;">let</span> g:current_dir = <span style="color: #ff0000;">&quot;/path/to/local/source/&quot;</span>
+<span style="color: #7a0874; font-weight: bold;">let</span> g:vdebug_options = <span style="color: #7a0874; font-weight: bold;">&#123;</span><span style="color: #7a0874; font-weight: bold;">&#125;</span>
+<span style="color: #7a0874; font-weight: bold;">let</span> g:vdebug_options<span style="color: #7a0874; font-weight: bold;">&#91;</span><span style="color: #ff0000;">'path_maps'</span><span style="color: #7a0874; font-weight: bold;">&#93;</span> = <span style="color: #7a0874; font-weight: bold;">&#123;</span><span style="color: #ff0000;">'/path/to/distant/source/'</span>: g:current_dir<span style="color: #7a0874; font-weight: bold;">&#125;</span>
+<span style="color: #7a0874; font-weight: bold;">let</span> g:vdebug_options<span style="color: #7a0874; font-weight: bold;">&#91;</span><span style="color: #ff0000;">'server'</span><span style="color: #7a0874; font-weight: bold;">&#93;</span> = <span style="color: #ff0000;">&quot;xxx.xxx.xxx.xxx&quot;</span> <span style="color: #666666; font-style: italic;"># VM IP address</span>
+<span style="color: #7a0874; font-weight: bold;">let</span> g:vdebug_options<span style="color: #7a0874; font-weight: bold;">&#91;</span><span style="color: #ff0000;">'port'</span><span style="color: #7a0874; font-weight: bold;">&#93;</span> = <span style="color: #000000;">9000</span></pre>
+
+<p>The VM ip address should be accessible from your local host.</p>
+
+<p>There you go, you can see <a href="https://github.com/gmarik/Vundle.vim">here</a> how to use it :)</p>
+
+          </div>
+        
+                  <div class="fastNav">
+                          <div class="prev pull-left">
+                <a href="/2014/03/04/render-sfform-dynamic-widget-name.html">
+                  ← Render Symfony Form Widget with dynamic name in twig
+                </a>
+              </div>
+                                  </div>
         
         <br /><br />
 
@@ -198,10 +282,20 @@
       </div>
       </div>
     
-    
+        
+
+    <script src="/jocs/components/angular/angular.js"></script>
+    <script src="/jocs/components/angular-resource/angular-resource.js"></script>
+    <script src="/jocs/components/angular-cookies/angular-cookies.js"></script>
+    <script src="/jocs/components/angular-sanitize/angular-sanitize.js"></script>
+
+    <!-- build:js scripts/scripts.js -->
+    <script src="/jocs/scripts/c4fe908e.scripts.js"></script>
+    <!-- endbuild -->
+
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-      <script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
-      <script src="../../js/vendor/bootstrap.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+      <script src="../../../../js/vendor/bootstrap.min.js"></script>
     
   <script type="text/javascript">
 
